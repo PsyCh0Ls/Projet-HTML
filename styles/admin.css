@@ -1,0 +1,65 @@
+/* admin.css */
+
+.admin-section {
+  padding: 4rem 0;
+  background-color: #f5f5f5;
+}
+
+.admin-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.admin-container h1 {
+  font-family: 'Beaufort for LOL', sans-serif;
+  color: #2F3136;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-table th,
+.user-table td {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  text-align: left;
+}
+
+.user-table th {
+  background-color: #1E88E5;
+  color: white;
+  font-family: 'Beaufort for LOL', sans-serif;
+}
+
+.action-button {
+  background-color: #1E88E5;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.action-button:hover {
+  background-color: #1976D2;
+}
+
+.action-button.vip {
+  background-color: #FFD700;
+  color: #2F3136;
+}
+
+.action-button.ban {
+  background-color: #D32F2F;
+}
