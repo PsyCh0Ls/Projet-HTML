@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recherche de Voyages - RuneTrek Adventures</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/search.css">
+</head>
+<body>
+    <!-- Header du template de base -->
+    <header class="main-header">
+        <!-- Contenu du header tel que défini dans le template -->
+    </header>
+
+    <main class="search-page">
+        <div class="search-container">
+            <!-- Filtres de recherche -->
+            <aside class="search-filters">
+                <h2>Affinez votre recherche</h2>
+                <form class="filter-form">
+                    <!-- Destination -->
+                    <div class="filter-group">
+                        <h3>Destination</h3>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="region" value="piltover"> Piltover & Zaun</label>
+                            <label><input type="checkbox" name="region" value="demacia"> Demacia</label>
+                            <label><input type="checkbox" name="region" value="noxus"> Noxus</label>
+                            <label><input type="checkbox" name="region" value="ionia"> Ionia</label>
+                            <label><input type="checkbox" name="region" value="freljord"> Freljord</label>
+                            <label><input type="checkbox" name="region" value="shurima"> Shurima</label>
+                            <label><input type="checkbox" name="region" value="bilgewater"> Bilgewater</label>
+                        </div>
+                    </div>
+
+                    <!-- Période -->
+                    <div class="filter-group">
+                        <h3>Période</h3>
+                        <div class="date-inputs">
+                            <input type="date" name="start_date" placeholder="Date de départ">
+                            <input type="date" name="end_date" placeholder="Date de retour">
+                        </div>
+                    </div>
+
+                    <!-- Durée -->
+                    <div class="filter-group">
+                        <h3>Durée du voyage</h3>
+                        <div class="range-slider">
+                            <input type="range" min="1" max="30" value="7" class="slider" id="duration">
+                            <span class="range-value">7 jours</span>
+                        </div>
+                    </div>
+
+                    <!-- Budget -->
+                    <div class="filter-group">
+                        <h3>Budget (en pièces d'or)</h3>
+                        <div class="range-slider">
+                            <input type="range" min="100" max="10000" value="1000" class="slider" id="budget">
+                            <span class="range-value">1000 PO</span>
+                        </div>
+                    </div>
+
+                    <!-- Type d'expérience -->
+                    <div class="filter-group">
+                        <h3>Type d'expérience</h3>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="experience" value="culture"> Culture & Histoire</label>
+                            <label><input type="checkbox" name="experience" value="adventure"> Aventure & Action</label>
+                            <label><input type="checkbox" name="experience" value="magic"> Magie & Mysticisme</label>
+                            <label><input type="checkbox" name="experience" value="luxury"> Luxe & Détente</label>
+                        </div>
+                    </div>
+
+                    <!-- Options -->
+                    <div class="filter-group">
+                        <h3>Options</h3>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="options" value="guide"> Guide personnel</label>
+                            <label><input type="checkbox" name="options" value="transport"> Transport magique</label>
+                            <label><input type="checkbox" name="options" value="protection"> Protection renforcée</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="apply-filters">Appliquer les filtres</button>
+                </form>
+            </aside>
+
+            <!-- Résultats de recherche -->
+            <section class="search-results">
+                <div class="results-header">
+                    <h2>Voyages disponibles</h2>
+                    <div class="sort-options">
+                        <select name="sort" id="sort">
+                            <option value="popularity">Les plus populaires</option>
+                            <option value="price-asc">Prix croissant</option>
+                            <option value="price-desc">Prix décroissant</option>
+                            <option value="duration">Durée</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Cartes de voyage -->
+                <div class="trip-cards">
+                    <!-- Exemple de carte de voyage -->
+                    <article class="trip-card">
+                        <div class="trip-image piltover-bg"></div>
+                        <div class="trip-content">
+                            <h3>Merveilles de Piltover</h3>
+                            <p class="trip-description">Découvrez les innovations hextech et les mystères des rues de Zaun.</p>
+                            <div class="trip-details">
+                                <span class="duration"><i class="icon-clock"></i> 7 jours</span>
+                                <span class="difficulty"><i class="icon-challenge"></i> Modéré</span>
+                                <span class="group-size"><i class="icon-group"></i> Max 12 personnes</span>
+                            </div>
+                            <div class="trip-footer">
+                                <div class="price">À partir de 2500 PO</div>
+                                <a href="#" class="view-details">Voir les détails</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Autre exemple de carte -->
+                    <article class="trip-card">
+                        <div class="trip-image demacia-bg"></div>
+                        <div class="trip-content">
+                            <h3>Cité de la Justice</h3>
+                            <p class="trip-description">Explorez la glorieuse Demacia et ses monuments majestueux.</p>
+                            <div class="trip-details">
+                                <span class="duration"><i class="icon-clock"></i> 5 jours</span>
+                                <span class="difficulty"><i class="icon-challenge"></i> Facile</span>
+                                <span class="group-size"><i class="icon-group"></i> Max 15 personnes</span>
+                            </div>
+                            <div class="trip-footer">
+                                <div class="price">À partir de 1800 PO</div>
+                                <a href="#" class="view-details">Voir les détails</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer du template de base -->
+    <footer class="main-footer">
+        <!-- Contenu du footer tel que défini dans le template -->
+    </footer>
+</body>
+</html>
