@@ -1,0 +1,74 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "login": "explorateur1",
+      "password": "$2y$10$examplehash1", // Mot de passe hashé (ex. "password1")
+      "role": "normal",
+      "name": "Jean Dupont",
+      "nickname": "Explorateur",
+      "birth_date": "1990-05-15",
+      "address": "12 Rue de Piltover",
+      "registration_date": "2025-01-01",
+      "last_login": "2025-04-20",
+      "trips_viewed": [1, 2],
+      "trips_purchased": [1]
+    },
+    {
+      "id": 2,
+      "login": "voyageur2",
+      "password": "$2y$10$examplehash2", // Mot de passe hashé (ex. "password2")
+      "role": "normal",
+      "name": "Marie Lefèvre",
+      "nickname": "Aventurière",
+      "birth_date": "1985-08-22",
+      "address": "5 Place de Demacia",
+      "registration_date": "2025-02-01",
+      "last_login": "2025-04-19",
+      "trips_viewed": [3, 4],
+      "trips_purchased": []
+    },
+    {
+      "id": 3,
+      "login": "rune3",
+      "password": "$2y$10$examplehash3", // Mot de passe hashé (ex. "password3")
+      "role": "normal",
+      "name": "Lucas Martin",
+      "nickname": "Runnique",
+      "birth_date": "1995-03-10",
+      "address": "3 Jardin d'Ionia",
+      "registration_date": "2025-03-01",
+      "last_login": "2025-04-18",
+      "trips_viewed": [5],
+      "trips_purchased": []
+    },
+    {
+      "id": 4,
+      "login": "admin1",
+      "password": "$2y$10$examplehash4", // Mot de passe hashé (ex. "adminpass1")
+      "role": "admin",
+      "name": "Admin Piltover",
+      "nickname": "Hextech",
+      "birth_date": "1980-01-01",
+      "address": "1 Tour Hextech",
+      "registration_date": "2025-01-01",
+      "last_login": "2025-04-21",
+      "trips_viewed": [],
+      "trips_purchased": []
+    },
+    {
+      "id": 5,
+      "login": "admin2",
+      "password": "$2y$10$examplehash5", // Mot de passe hashé (ex. "adminpass2")
+      "role": "admin",
+      "name": "Admin Demacia",
+      "nickname": "Chevalier",
+      "birth_date": "1975-06-15",
+      "address": "2 Forteresse de Demacia",
+      "registration_date": "2025-01-01",
+      "last_login": "2025-04-21",
+      "trips_viewed": [],
+      "trips_purchased": []
+    }
+  ]
+}

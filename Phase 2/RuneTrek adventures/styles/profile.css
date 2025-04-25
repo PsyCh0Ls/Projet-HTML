@@ -1,0 +1,30 @@
+.profile-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #F8F9FA;
+    border: 1px solid #2F3136;
+    border-radius: 4px;
+}
+.profile-container h2 {
+    font-family: 'Beaufort for LOL', sans-serif;
+    color: #2F3136;
+    margin-bottom: 20px;
+}
+.profile-details {
+    margin-bottom: 20px;
+}
+.profile-details p {
+    margin: 10px 0;
+}
+.trip-list {
+    margin-top: 20px;
+}
+.trip-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+.trip-item h4 {
+    font-family: 'Beaufort for LOL', sans-serif;
+    color: #1E88E5;
+}

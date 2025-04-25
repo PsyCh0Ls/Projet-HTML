@@ -1,0 +1,52 @@
+.admin-container {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+}
+.admin-container h2 {
+    font-family: 'Beaufort for LOL', sans-serif;
+    color: #2F3136;
+    margin-bottom: 20px;
+}
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #F8F9FA;
+}
+.admin-table th,
+.admin-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+.admin-table th {
+    background-color: #1E88E5;
+    color: white;
+}
+.action-button {
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #FFD700;
+    color: #2F3136;
+}
+.action-button:hover {
+    background-color: #FFC107;
+}
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+.pagination a {
+    padding: 5px 10px;
+    margin: 0 5px;
+    text-decoration: none;
+    color: #1E88E5;
+}
+.pagination a.active {
+    background-color: #1E88E5;
+    color: white;
+    border-radius: 4px;
+}
