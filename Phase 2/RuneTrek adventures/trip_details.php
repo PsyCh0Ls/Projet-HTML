@@ -1,27 +1,19 @@
 <?php
 session_start();
+require_once 'includes/functions.php';
 
-// Check if user is logged in
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
+$data = read_json('data/trips.json');
+$trips = isset($data['trips']) && is_array($data['trips']) ? $data['trips'] : [];
+
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+    header('Location: search.php');
+    exit;
 }
 
-// Function to read JSON data
-function readJson($file) {
-    if (file_exists($file)) {
-        $data = file_get_contents($file);
-        return json_decode($data, true) ?: [];
-    }
-    return [];
-}
-
-// Load trip data
-$trips = readJson('data/trips.json');
-$trip_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$trip_id = (int)$_GET['id'];
 $trip = null;
 
-// Find the trip by ID
+// Recherche du voyage correspondant à l'ID
 foreach ($trips as $t) {
     if ($t['id'] == $trip_id) {
         $trip = $t;
@@ -29,65 +21,59 @@ foreach ($trips as $t) {
     }
 }
 
-// If trip not found, redirect to index
 if (!$trip) {
-    header("Location: index.php");
-    exit();
+    header('Location: search.php');
+    exit;
 }
+
+// Préparer les variables pour la closure
+$region = isset($_GET['region']) ? $_GET['region'] : $trip['region']; // Utiliser la région du voyage si $_GET['region'] n'est pas défini
+$trip_id_for_filter = $trip_id;
+
+// Filtrer les voyages liés (même région, ID différent)
+$related_trips = array_filter($trips, function($t) use ($region, $trip_id_for_filter) {
+    return strtolower($t['region']) == strtolower($region) && $t['id'] != $trip_id_for_filter;
+});
 ?>
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RuneTrek Adventures - Détails du Voyage</title>
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <?php include 'includes/header.php'; ?>
-
+<?php include 'includes/header.php'; ?>
+<div class="trip-details-page">
     <main>
-        <h1>Détails du Voyage : <?php echo htmlspecialchars($trip['title']); ?></h1>
-        <p><strong>Dates :</strong> <?php echo htmlspecialchars($trip['start_date'] . " au " . $trip['end_date']); ?></p>
-        <p><strong>Durée :</strong> <?php echo htmlspecialchars($trip['duration']); ?> jours</p>
-        <p><strong>Prix de base :</strong> $<?php echo htmlspecialchars($trip['price']); ?></p>
-
-        <form action="trip_summary.php" method="POST">
-            <input type="hidden" name="trip_id" value="<?php echo $trip_id; ?>">
-            <h2>Personnaliser les Étapes</h2>
-            <?php foreach ($trip['stages'] as $index => $stage): ?>
-                <div class="stage">
-                    <h3><?php echo htmlspecialchars($stage['title']); ?></h3>
-                    <p><strong>Dates :</strong> <?php echo htmlspecialchars($stage['arrival'] . " au " . $stage['departure']); ?></p>
-                    
-                    <!-- Accommodation Option -->
-                    <label for="accommodation_<?php echo $index; ?>">Hébergement :</label>
-                    <select name="options[<?php echo $index; ?>][accommodation]" id="accommodation_<?php echo $index; ?>">
-                        <option value="hostel">Auberge ($100)</option>
-                        <option value="hotel">Hôtel ($200)</option>
-                        <option value="cabin">Cabane ($150)</option>
-                    </select>
-
-                    <!-- Activity Option -->
-                    <label for="activity_<?php echo $index; ?>">Activité :</label>
-                    <select name="options[<?php echo $index; ?>][activity]" id="activity_<?php echo $index; ?>">
-                        <option value="hiking">Randonnée ($50)</option>
-                        <option value="sightseeing">Visite touristique ($30)</option>
-                        <option value="skiing">Ski ($80)</option>
-                    </select>
-
-                    <!-- Number of Participants -->
-                    <label for="participants_<?php echo $index; ?>">Nombre de participants :</label>
-                    <input type="number" name="options[<?php echo $index; ?>][participants]" id="participants_<?php echo $index; ?>" value="1" min="1" max="10">
+        <section class="trip-details">
+            <h1><?php echo htmlspecialchars($trip['title']); ?></h1>
+            <div class="trip-image <?php echo strtolower($trip['region']); ?>-bg"></div>
+            <div class="trip-content">
+                <p><?php echo htmlspecialchars($trip['description']); ?></p>
+                <div class="trip-info">
+                    <p><strong>Région:</strong> <?php echo htmlspecialchars($trip['region']); ?></p>
+                    <p><strong>Date de départ:</strong> <?php echo htmlspecialchars($trip['start_date']); ?></p>
+                    <p><strong>Durée:</strong> <?php echo htmlspecialchars($trip['duration']); ?> jours</p>
+                    <p><strong>Prix:</strong> <?php echo htmlspecialchars($trip['price']); ?> PO</p>
                 </div>
-            <?php endforeach; ?>
-            
-            <button type="submit">Voir le Récapitulatif</button>
-        </form>
+                <a href="booking.php?id=<?php echo $trip['id']; ?>" class="book-now">Réserver</a>
+            </div>
+        </section>
+        <section class="related-trips">
+            <h2>Autres voyages dans cette région</h2>
+            <div class="trip-cards">
+                <?php if (empty($related_trips)): ?>
+                    <p>Aucun autre voyage disponible dans cette région.</p>
+                <?php else: ?>
+                    <?php foreach ($related_trips as $related_trip): ?>
+                        <div class="trip-card">
+                            <div class="trip-image <?php echo strtolower($related_trip['region']); ?>-bg"></div>
+                            <div class="trip-content">
+                                <h3><?php echo htmlspecialchars($related_trip['title']); ?></h3>
+                                <p><?php echo htmlspecialchars($related_trip['description']); ?></p>
+                                <div class="trip-footer">
+                                    <span class="price"><?php echo htmlspecialchars($related_trip['price']); ?> PO</span>
+                                    <a href="trip_details.php?id=<?php echo $related_trip['id']; ?>®ion=<?php echo urlencode($related_trip['region']); ?>" class="view-details">Détails</a>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+        </section>
     </main>
-
-    <?php include 'includes/footer.php'; ?>
-</body>
-</html>
+</div>
+<?php include 'includes/footer.php'; ?>
