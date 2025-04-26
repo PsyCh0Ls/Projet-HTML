@@ -1,32 +1,49 @@
 <?php
 session_start();
-require_once 'includes/functions.php';
+require_once __DIR__ . '/includes/functions.php';
 
-$trips = read_json('data/trips.json')['trips'];
-$featured_trips = array_slice($trips, 0, 3); // 3 voyages phares
+// 1) Lecture du JSON
+$json = read_json(__DIR__ . '/data/trips.json');
+
+// DEBUG
+var_dump($json);
+exit;
+
+// 2) Vérification d'erreur de parsing
+if (json_last_error() !== JSON_ERROR_NONE) {
+    // Affiche l'erreur et stoppe proprement
+    die('<p>Erreur lors de la lecture des voyages : ' 
+        . htmlspecialchars(json_last_error_msg()) 
+        . '</p>');
+}
+
+// 3) Récupération sécurisée du tableau "trips"
+$trips = [];
+if (isset($json['trips']) && is_array($json['trips'])) {
+    $trips = $json['trips'];
+}
+
+// 4) Découpe pour ne prendre que les 3 premiers voyages
+$featured_trips = array_slice($trips, 0, 3);
+
+include __DIR__ . '/includes/header.php';
 ?>
-<?php include 'includes/header.php'; ?>
 <main>
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Explorez Runeterra avec RuneTrek</h1>
-            <p>Découvrez des aventures épiques dans les contrées de League of Legends.</p>
-            <a href="presentation.php" class="cta-button-large">Commencer l'aventure</a>
-        </div>
-    </section>
-    <section class="featured-destinations">
-        <h2>Destinations Phares</h2>
-        <div class="destination-grid">
-            <?php foreach ($featured_trips as $trip): ?>
-                <div class="destination-card <?php echo strtolower($trip['region']); ?>">
-                    <div class="card-content">
-                        <h3><?php echo htmlspecialchars($trip['title']); ?></h3>
-                        <p><?php echo htmlspecialchars($trip['description']); ?></p>
-                        <a href="trip_details.php?id=<?php echo $trip['id']; ?>" class="destination-link">Découvrir</a>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    </section>
+  <h1>Voyages à la une</h1>
+  <div class="trips-grid">
+    <?php if (empty($featured_trips)): ?>
+      <p>Aucun voyage disponible pour le moment.</p>
+    <?php else: ?>
+      <?php foreach ($featured_trips as $trip): ?>
+        <article class="trip-card">
+          <h2><?= htmlspecialchars($trip['title']) ?></h2>
+          <p>Durée : <?= intval($trip['duration_days']) ?> jours</p>
+          <p>Prix : <?= number_format($trip['total_price'], 2, ',', ' ') ?> €</p>
+          <a href="trip_details.php?id=<?= urlencode($trip['id']) ?>">Voir le détail</a>
+        </article>
+      <?php endforeach; ?>
+    <?php endif; ?>
+  </div>
 </main>
-<?php include 'includes/footer.php'; ?>
+<?php include __DIR__ . '/includes/footer.php'; ?>
+
