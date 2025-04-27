@@ -1,494 +1,1121 @@
 {
-  "trips": [
-    {
-      "id": 1,
-      "title": "Merveilles de Piltover",
-      "description": "Découvrez les innovations hextech et les mystères de Zaun.",
-      "start_date": "2025-06-01",
-      "end_date": "2025-06-07",
-      "duration_days": 7,
-      "region": "piltover",
-      "stages": [
-        {
-          "id": 1,
-          "title": "Tour des usines hextech",
-          "arrival_date": "2025-06-01",
-          "departure_date": "2025-06-02",
-          "location": "Piltover",
-          "options": [
-            {
-              "id": 1,
-              "name": "Visite guidée",
-              "value": "Standard",
-              "price_per_person": 200,
-              "participants": 12
-            },
-            {
-              "id": 2,
-              "name": "Transport",
-              "value": "Véhicule hextech",
-              "price_per_person": 100,
-              "participants": 12
-            }
-          ]
-        },
-        {
-          "id": 2,
-          "title": "Exploration de Zaun",
-          "arrival_date": "2025-06-03",
-          "departure_date": "2025-06-04",
-          "location": "Zaun",
-          "options": [
-            {
-              "id": 3,
-              "name": "Guide local",
-              "value": "Expert",
-              "price_per_person": 150,
-              "participants": 10
-            }
-          ]
-        }
-      ],
-      "total_price": 2500,
-      "status": "available"
-    },
-    {
-      "id": 2,
-      "title": "Cité de la Justice",
-      "description": "Explorez la glorieuse Demacia et ses monuments majestueux.",
-      "start_date": "2025-07-01",
-      "end_date": "2025-07-05",
-      "duration_days": 5,
-      "region": "demacia",
-      "stages": [
-        {
-          "id": 3,
-          "title": "Visite de la capitale",
-          "arrival_date": "2025-07-01",
-          "departure_date": "2025-07-03",
-          "location": "Demacia",
-          "options": [
-            {
-              "id": 4,
-              "name": "Cérémonie royale",
-              "value": "Spectateur",
-              "price_per_person": 300,
-              "participants": 15
-            }
-          ]
-        }
-      ],
-      "total_price": 1800,
-      "status": "available"
-    },
-    {
-      "id": 3,
-      "title": "Harmonie d'Ionia",
-      "description": "Immergez-vous dans la magie et l'harmonie naturelle d'Ionia.",
-      "start_date": "2025-08-01",
-      "end_date": "2025-08-10",
-      "duration_days": 10,
-      "region": "ionia",
-      "stages": [
-        {
-          "id": 4,
-          "title": "Jardins spirituels",
-          "arrival_date": "2025-08-01",
-          "departure_date": "2025-08-05",
-          "location": "Ionia",
-          "options": [
-            {
-              "id": 5,
-              "name": "Méditation guidée",
-              "value": "Initiation",
-              "price_per_person": 250,
-              "participants": 8
-            }
-          ]
-        }
-      ],
-      "total_price": 3200,
-      "status": "available"
-    },
-    {
-      "id": 4,
-      "title": "Conquête de Noxus",
-      "description": "Plongez dans la force brute et l'histoire martiale de Noxus.",
-      "start_date": "2025-09-01",
-      "end_date": "2025-09-06",
-      "duration_days": 6,
-      "region": "noxus",
-      "stages": [
-        {
-          "id": 5,
-          "title": "Arène de combat",
-          "arrival_date": "2025-09-01",
-          "departure_date": "2025-09-03",
-          "location": "Noxus",
-          "options": [
-            {
-              "id": 6,
-              "name": "Entraînement guerrier",
-              "value": "Base",
-              "price_per_person": 200,
-              "participants": 10
-            }
-          ]
-        }
-      ],
-      "total_price": 2200,
-      "status": "available"
-    },
-    {
-      "id": 5,
-      "title": "Glaces du Freljord",
-      "description": "Affrontez le froid pour découvrir les terres sauvages du Freljord.",
-      "start_date": "2025-10-01",
-      "end_date": "2025-10-08",
-      "duration_days": 8,
-      "region": "freljord",
-      "stages": [
-        {
-          "id": 6,
-          "title": "Forteresse de glace",
-          "arrival_date": "2025-10-01",
-          "departure_date": "2025-10-04",
-          "location": "Freljord",
-          "options": [
-            {
-              "id": 7,
-              "name": "Chasse traditionnelle",
-              "value": "Guidée",
-              "price_per_person": 300,
-              "participants": 6
-            }
-          ]
-        }
-      ],
-      "total_price": 2800,
-      "status": "available"
-    },
-    {
-      "id": 6,
-      "title": "Sables de Shurima",
-      "description": "Explorez les ruines anciennes et les mystères du désert de Shurima.",
-      "start_date": "2025-11-01",
-      "end_date": "2025-11-09",
-      "duration_days": 9,
-      "region": "shurima",
-      "stages": [
-        {
-          "id": 7,
-          "title": "Temple du soleil",
-          "arrival_date": "2025-11-01",
-          "departure_date": "2025-11-05",
-          "location": "Shurima",
-          "options": [
-            {
-              "id": 8,
-              "name": "Exploration archéologique",
-              "value": "Standard",
-              "price_per_person": 250,
-              "participants": 10
-            }
-          ]
-        }
-      ],
-      "total_price": 3000,
-      "status": "available"
-    },
-    {
-      "id": 7,
-      "title": "Aventures à Bilgewater",
-      "description": "Naviguez dans les ports tumultueux et les marchés de Bilgewater.",
-      "start_date": "2025-12-01",
-      "end_date": "2025-12-06",
-      "duration_days": 6,
-      "region": "bilgewater",
-      "stages": [
-        {
-          "id": 8,
-          "title": "Marché des contrebandiers",
-          "arrival_date": "2025-12-01",
-          "departure_date": "2025-12-03",
-          "location": "Bilgewater",
-          "options": [
-            {
-              "id": 9,
-              "name": "Navigation pirate",
-              "value": "Initiation",
-              "price_per_person": 200,
-              "participants": 12
-            }
-          ]
-        }
-      ],
-      "total_price": 2100,
-      "status": "available"
-    },
-    {
-      "id": 8,
-      "title": "Technologies de Piltover",
-      "description": "Approfondissez votre connaissance des machines hextech.",
-      "start_date": "2025-06-15",
-      "end_date": "2025-06-20",
-      "duration_days": 6,
-      "region": "piltover",
-      "stages": [
-        {
-          "id": 9,
-          "title": "Atelier hextech",
-          "arrival_date": "2025-06-15",
-          "departure_date": "2025-06-17",
-          "location": "Piltover",
-          "options": [
-            {
-              "id": 10,
-              "name": "Cours de mécanique",
-              "value": "Avancé",
-              "price_per_person": 250,
-              "participants": 8
-            }
-          ]
-        }
-      ],
-      "total_price": 2300,
-      "status": "available"
-    },
-    {
-      "id": 9,
-      "title": "Honneur de Demacia",
-      "description": "Participez aux traditions chevaleresques de Demacia.",
-      "start_date": "2025-07-15",
-      "end_date": "2025-07-19",
-      "duration_days": 5,
-      "region": "demacia",
-      "stages": [
-        {
-          "id": 10,
-          "title": "Tournoi d'honneur",
-          "arrival_date": "2025-07-15",
-          "departure_date": "2025-07-17",
-          "location": "Demacia",
-          "options": [
-            {
-              "id": 11,
-              "name": "Entraînement à l'épée",
-              "value": "Débutant",
-              "price_per_person": 200,
-              "participants": 10
-            }
-          ]
-        }
-      ],
-      "total_price": 1900,
-      "status": "available"
-    },
-    {
-      "id": 10,
-      "title": "Mystères d'Ionia",
-      "description": "Découvrez les secrets spirituels cachés d'Ionia.",
-      "start_date": "2025-08-15",
-      "end_date": "2025-08-22",
-      "duration_days": 8,
-      "region": "ionia",
-      "stages": [
-        {
-          "id": 11,
-          "title": "Temple oublié",
-          "arrival_date": "2025-08-15",
-          "departure_date": "2025-08-18",
-          "location": "Ionia",
-          "options": [
-            {
-              "id": 12,
-              "name": "Rituel spirituel",
-              "value": "Avancé",
-              "price_per_person": 300,
-              "participants": 6
-            }
-          ]
-        }
-      ],
-      "total_price": 2700,
-      "status": "available"
-    },
-    {
-      "id": 11,
-      "title": "Force de Noxus",
-      "description": "Vivez l'intensité des champs de bataille de Noxus.",
-      "start_date": "2025-09-15",
-      "end_date": "2025-09-20",
-      "duration_days": 6,
-      "region": "noxus",
-      "stages": [
-        {
-          "id": 12,
-          "title": "Forteresse noxienne",
-          "arrival_date": "2025-09-15",
-          "departure_date": "2025-09-17",
-          "location": "Noxus",
-          "options": [
-            {
-              "id": 13,
-              "name": "Stratégie militaire",
-              "value": "Cours",
-              "price_per_person": 250,
-              "participants": 8
-            }
-          ]
-        }
-      ],
-      "total_price": 2400,
-      "status": "available"
-    },
-    {
-      "id": 12,
-      "title": "Survie dans le Freljord",
-      "description": "Apprenez à survivre dans les terres gelées du Freljord.",
-      "start_date": "2025-10-15",
-      "end_date": "2025-10-22",
-      "duration_days": 8,
-      "region": "freljord",
-      "stages": [
-        {
-          "id": 13,
-          "title": "Campement tribal",
-          "arrival_date": "2025-10-15",
-          "departure_date": "2025-10-18",
-          "location": "Freljord",
-          "options": [
-            {
-              "id": 14,
-              "name": "Survie en milieu hostile",
-              "value": "Initiation",
-              "price_per_person": 300,
-              "participants": 6
-            }
-          ]
-        }
-      ],
-      "total_price": 2900,
-      "status": "available"
-    },
-    {
-      "id": 13,
-      "title": "Trésors de Shurima",
-      "description": "Parcourez le désert à la recherche de reliques perdues.",
-      "start_date": "2025-11-15",
-      "end_date": "2025-11-22",
-      "duration_days": 8,
-      "region": "shurima",
-      "stages": [
-        {
-          "id": 14,
-          "title": "Oasis cachée",
-          "arrival_date": "2025-11-15",
-          "departure_date": "2025-11-18",
-          "location": "Shurima",
-          "options": [
-            {
-              "id": 15,
-              "name": "Chasse au trésor",
-              "value": "Guidée",
-              "price_per_person": 300,
-              "participants": 8
-            }
-          ]
-        }
-      ],
-      "total_price": 3100,
-      "status": "available"
-    },
-    {
-      "id": 14,
-      "title": "Pirates de Bilgewater",
-      "description": "Vivez une aventure maritime avec les pirates de Bilgewater.",
-      "start_date": "2025-12-15",
-      "end_date": "2025-12-20",
-      "duration_days": 6,
-      "region": "bilgewater",
-      "stages": [
-        {
-          "id": 15,
-          "title": "Île des ombres",
-          "arrival_date": "2025-12-15",
-          "departure_date": "2025-12-17",
-          "location": "Bilgewater",
-          "options": [
-            {
-              "id": 16,
-              "name": "Combat naval",
-              "value": "Simulation",
-              "price_per_person": 250,
-              "participants": 10
-            }
-          ]
-        }
-      ],
-      "total_price": 2200,
-      "status": "available"
-    },
-    {
-      "id": 15,
-      "title": "Légendes de Runeterra",
-      "description": "Un périple à travers plusieurs régions de Runeterra.",
-      "start_date": "2025-06-01",
-      "end_date": "2025-06-14",
-      "duration_days": 14,
-      "region": "multiple",
-      "stages": [
-        {
-          "id": 16,
-          "title": "Piltover",
-          "arrival_date": "2025-06-01",
-          "departure_date": "2025-06-03",
-          "location": "Piltover",
-          "options": [
-            {
-              "id": 17,
-              "name": "Visite hextech",
-              "value": "Standard",
-              "price_per_person": 200,
-              "participants": 10
-            }
-          ]
-        },
-        {
-          "id": 17,
-          "title": "Ionia",
-          "arrival_date": "2025-06-04",
-          "departure_date": "2025-06-06",
-          "location": "Ionia",
-          "options": [
-            {
-              "id": 18,
-              "name": "Méditation",
-              "value": "Guidée",
-              "price_per_person": 250,
-              "participants": 10
-            }
-          ]
-        },
-        {
-          "id": 18,
-          "title": "Demacia",
-          "arrival_date": "2025-06-07",
-          "departure_date": "2025-06-09",
-          "location": "Demacia",
-          "options": [
-            {
-              "id": 19,
-              "name": "Tournoi",
-              "value": "Spectateur",
-              "price_per_person": 300,
-              "participants": 10
-            }
-          ]
-        }
-      ],
-      "total_price": 4500,
-      "status": "available"
-    }
-  ]
-}
+    "trips": [
+      {
+        "id": 1,
+        "title": "Exploration de Piltover",
+        "region": "Piltover",
+        "description": "Découvrez les merveilles technologiques de Piltover.",
+        "price": 500,
+        "duration": 5,
+        "start_date": "2025-05-01",
+        "stages": [
+          {
+            "id": 1,
+            "title": "Découverte de Piltover",
+            "start_date": "2025-05-01",
+            "duration": 2,
+            "position": "Piltover",
+            "image": "images/piltover-stage1.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Standard", "price": 100, "default": true},
+                  {"value": "Luxe", "price": 200}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Visite des usines Hextech", "price": 100, "default": true},
+                  {"value": "Dîner avec un inventeur", "price": 150}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Excursion à Zaun",
+            "start_date": "2025-05-03",
+            "duration": 3,
+            "position": "Zaun",
+            "image": "images/zaun-stage2.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Basique", "price": 50, "default": true},
+                  {"value": "Confort", "price": 100}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Visite des laboratoires Chemtech", "price": 90, "default": true},
+                  {"value": "Exploration des égouts", "price": 110}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Découverte de Demacia",
+        "region": "Demacia",
+        "description": "Plongez dans l'honneur et la gloire de Demacia.",
+        "price": 600,
+        "duration": 7,
+        "start_date": "2025-06-01",
+        "stages": [
+          {
+            "id": 1,
+            "title": "Visite de la capitale",
+            "start_date": "2025-06-01",
+            "duration": 3,
+            "position": "Capitale de Demacia",
+            "image": "images/demacia-stage1.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Standard", "price": 120, "default": true},
+                  {"value": "Royal", "price": 250}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Tournoi d'honneur", "price": 80, "default": true},
+                  {"value": "Audience avec la cour", "price": 150}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Exploration des plaines",
+            "start_date": "2025-06-04",
+            "duration": 2,
+            "position": "Plaines de Demacia",
+            "image": "images/demacia-stage2.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Campement", "price": 60, "default": true},
+                  {"value": "Auberge", "price": 100}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Randonnée", "price": 50, "default": true},
+                  {"value": "Chasse guidée", "price": 90}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          },
+          {
+            "id": 3,
+            "title": "Visite des forts",
+            "start_date": "2025-06-06",
+            "duration": 2,
+            "position": "Forts de Demacia",
+            "image": "images/demacia-stage3.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Baraquement", "price": 70, "default": true},
+                  {"value": "Chambre fortifiée", "price": 130}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Entraînement militaire", "price": 100, "default": true},
+                  {"value": "Visite historique", "price": 80}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Aventure à Noxus",
+        "region": "Noxus",
+        "description": "Explorez la force brute et l'ambition de Noxus.",
+        "price": 550,
+        "duration": 6,
+        "start_date": "2025-07-01",
+        "stages": [
+          {
+            "id": 1,
+            "title": "Découverte de la capitale",
+            "start_date": "2025-07-01",
+            "duration": 3,
+            "position": "Capitale de Noxus",
+            "image": "images/noxus-stage1.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Standard", "price": 110, "default": true},
+                  {"value": "Élite", "price": 220}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Visite des arènes", "price": 90, "default": true},
+                  {"value": "Rencontre avec un général", "price": 140}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Exploration des territoires",
+            "start_date": "2025-07-04",
+            "duration": 3,
+            "position": "Territoires Noxiens",
+            "image": "images/noxus-stage2.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Campement", "price": 60, "default": true},
+                  {"value": "Forteresse", "price": 120}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Expédition militaire", "price": 100, "default": true},
+                  {"value": "Chasse au trésor", "price": 110}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Voyage à Ionia",
+        "region": "Ionia",
+        "description": "Immergez-vous dans la spiritualité et la beauté d'Ionia.",
+        "price": 700,
+        "duration": 8,
+        "start_date": "2025-08-01",
+        "stages": [
+          {
+            "id": 1,
+            "title": "Méditation dans les temples",
+            "start_date": "2025-08-01",
+            "duration": 3,
+            "position": "Temples Ionians",
+            "image": "images/ionia-stage1.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Monastère", "price": 80, "default": true},
+                  {"value": "Pavillon", "price": 150}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Méditation guidée", "price": 70, "default": true},
+                  {"value": "Cérémonie du thé", "price": 100}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Exploration des forêts",
+            "start_date": "2025-08-04",
+            "duration": 3,
+            "position": "Forêts Ioniennes",
+            "image": "images/ionia-stage2.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Cabane", "price": 60, "default": true},
+                  {"value": "Retraite", "price": 120}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Randonnée spirituelle", "price": 80, "default": true},
+                  {"value": "Rencontre avec un moine", "price": 110}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          },
+          {
+            "id": 3,
+            "title": "Visite des villages",
+            "start_date": "2025-08-07",
+            "duration": 2,
+            "position": "Villages Ionians",
+            "image": "images/ionia-stage3.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Maison traditionnelle", "price": 90, "default": true},
+                  {"value": "Auberge", "price": 130}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Atelier d'art", "price": 70, "default": true},
+                  {"value": "Festival local", "price": 100}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Expédition à Shurima",
+        "region": "Shurima",
+        "description": "Parcourez les dunes et découvrez les secrets de Shurima.",
+        "price": 650,
+        "duration": 6,
+        "start_date": "2025-09-01",
+        "stages": [
+          {
+            "id": 1,
+            "title": "Exploration des ruines",
+            "start_date": "2025-09-01",
+            "duration": 3,
+            "position": "Ruines de Shurima",
+            "image": "images/shurima-stage1.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Tente", "price": 50, "default": true},
+                  {"value": "Oasis", "price": 120}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Fouille archéologique", "price": 90, "default": true},
+                  {"value": "Visite guidée", "price": 110}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Traversée du désert",
+            "start_date": "2025-09-04",
+            "duration": 3,
+            "position": "Désert de Shurima",
+            "image": "images/shurima-stage2.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Campement", "price": 40, "default": true},
+                  {"value": "Caravansérail", "price": 100}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Randonnée à dos de chameau", "price": 80, "default": true},
+                  {"value": "Observation des étoiles", "price": 100}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Aventure à Targon",
+        "region": "Targon",
+        "description": "Gravissez les sommets sacrés de Targon.",
+        "price": 800,
+        "duration": 7,
+        "start_date": "2025-10-01",
+        "stages": [
+          {
+            "id": 1,
+            "title": "Ascension du Mont Targon",
+            "start_date": "2025-10-01",
+            "duration": 4,
+            "position": "Mont Targon",
+            "image": "images/targon-stage1.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Camp de base", "price": 70, "default": true},
+                  {"value": "Refuge", "price": 150}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Escalade guidée", "price": 100, "default": true},
+                  {"value": "Méditation céleste", "price": 120}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Visite des sanctuaires",
+            "start_date": "2025-10-05",
+            "duration": 3,
+            "position": "Sanctuaires de Targon",
+            "image": "images/targon-stage2.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Tente", "price": 60, "default": true},
+                  {"value": "Monastère", "price": 130}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Rituel sacré", "price": 90, "default": true},
+                  {"value": "Observation des constellations", "price": 110}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Exploration de Bilgewater",
+        "region": "Bilgewater",
+        "description": "Naviguez dans les ports infâmes de Bilgewater.",
+        "price": 450,
+        "duration": 4,
+        "start_date": "2025-11-01",
+        "stages": [
+          {
+            "id": 1,
+            "title": "Découverte du port",
+            "start_date": "2025-11-01",
+            "duration": 2,
+            "position": "Port de Bilgewater",
+            "image": "images/bilgewater-stage1.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Taverne", "price": 50, "default": true},
+                  {"value": "Cabine de capitaine", "price": 100}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Visite des quais", "price": 60, "default": true},
+                  {"value": "Combat de taverne", "price": 90}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Navigation en haute mer",
+            "start_date": "2025-11-03",
+            "duration": 2,
+            "position": "Haute mer",
+            "image": "images/bilgewater-stage2.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Pont", "price": 40, "default": true},
+                  {"value": "Cabine", "price": 80}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Pêche", "price": 70, "default": true},
+                  {"value": "Chasse au trésor", "price": 100}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "title": "Voyage aux Îles Obscures",
+        "region": "Îles Obscures",
+        "description": "Explorez les mystères des Îles Obscures.",
+        "price": 900,
+        "duration": 9,
+        "start_date": "2025-12-01",
+        "stages": [
+          {
+            "id": 1,
+            "title": "Exploration des ruines",
+            "start_date": "2025-12-01",
+            "duration": 3,
+            "position": "Ruines des Îles",
+            "image": "images/shadow-isles-stage1.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Campement", "price": 80, "default": true},
+                  {"value": "Château hanté", "price": 150}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Exploration nocturne", "price": 100, "default": true},
+                  {"value": "Rituel mystique", "price": 130}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Visite des marais",
+            "start_date": "2025-12-04",
+            "duration": 3,
+            "position": "Marais des Îles",
+            "image": "images/shadow-isles-stage2.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Tente", "price": 60, "default": true},
+                  {"value": "Abri fortifié", "price": 110}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Chasse aux spectres", "price": 90, "default": true},
+                  {"value": "Étude des artefacts", "price": 120}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          },
+          {
+            "id": 3,
+            "title": "Rencontre avec les esprits",
+            "start_date": "2025-12-07",
+            "duration": 3,
+            "position": "Terres maudites",
+            "image": "images/shadow-isles-stage3.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Camp protégé", "price": 70, "default": true},
+                  {"value": "Sanctuaire", "price": 140}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Communication spirituelle", "price": 110, "default": true},
+                  {"value": "Exorcisme", "price": 150}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "title": "Découverte de Freljord",
+        "region": "Freljord",
+        "description": "Affrontez les rigueurs du froid dans le Freljord.",
+        "price": 600,
+        "duration": 6,
+        "start_date": "2026-01-01",
+        "stages": [
+          {
+            "id": 1,
+            "title": "Visite des tribus",
+            "start_date": "2026-01-01",
+            "duration": 3,
+            "position": "Villages du Freljord",
+            "image": "images/freljord-stage1.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Hutte", "price": 60, "default": true},
+                  {"value": "Chalet", "price": 120}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Cérémonie tribale", "price": 80, "default": true},
+                  {"value": "Chasse avec les guerriers", "price": 100}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Exploration des glaciers",
+            "start_date": "2026-01-04",
+            "duration": 3,
+            "position": "Glaciers du Freljord",
+            "image": "images/freljord-stage2.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Igloo", "price": 50, "default": true},
+                  {"value": "Refuge", "price": 100}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Randonnée glaciaire", "price": 90, "default": true},
+                  {"value": "Pêche sur glace", "price": 110}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "title": "Aventure à Bandle",
+        "region": "Bandle",
+        "description": "Plongez dans l'univers magique des Yordles à Bandle.",
+        "price": 400,
+        "duration": 4,
+        "start_date": "2026-02-01",
+        "stages": [
+          {
+            "id": 1,
+            "title": "Visite de Bandle",
+            "start_date": "2026-02-01",
+            "duration": 2,
+            "position": "Ville de Bandle",
+            "image": "images/bandle-stage1.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Maison Yordle", "price": 50, "default": true},
+                  {"value": "Auberge enchantée", "price": 100}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Festival Yordle", "price": 60, "default": true},
+                  {"value": "Atelier de magie", "price": 90}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Exploration des portails",
+            "start_date": "2026-02-03",
+            "duration": 2,
+            "position": "Portails de Bandle",
+            "image": "images/bandle-stage2.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Campement", "price": 40, "default": true},
+                  {"value": "Chambre magique", "price": 80}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Voyage interdimensionnel", "price": 70, "default": true},
+                  {"value": "Rencontre avec un sorcier", "price": 100}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "title": "Voyage à Zaun",
+        "region": "Zaun",
+        "description": "Découvrez l'énergie brute et l'innovation de Zaun.",
+        "price": 500,
+        "duration": 5,
+        "start_date": "2026-03-01",
+        "stages": [
+          {
+            "id": 1,
+            "title": "Visite des laboratoires",
+            "start_date": "2026-03-01",
+            "duration": 2,
+            "position": "Laboratoires de Zaun",
+            "image": "images/zaun-stage1.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Appartement", "price": 80, "default": true},
+                  {"value": "Penthouse", "price": 150}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Expérimentation Chemtech", "price": 90, "default": true},
+                  {"value": "Visite d'une usine", "price": 110}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Exploration des bas-fonds",
+            "start_date": "2026-03-03",
+            "duration": 3,
+            "position": "Bas-fonds de Zaun",
+            "image": "images/zaun-stage2.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Auberge", "price": 50, "default": true},
+                  {"value": "Loft", "price": 100}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Marché noir", "price": 80, "default": true},
+                  {"value": "Course urbaine", "price": 100}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "title": "Expédition à Ixtal",
+        "region": "Ixtal",
+        "description": "Explorez les jungles mystérieuses d'Ixtal.",
+        "price": 750,
+        "duration": 7,
+        "start_date": "2026-04-01",
+        "stages": [
+          {
+            "id": 1,
+            "title": "Découverte des ruines",
+            "start_date": "2026-04-01",
+            "duration": 3,
+            "position": "Ruines d'Ixtal",
+            "image": "images/ixtal-stage1.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Campement", "price": 70, "default": true},
+                  {"value": "Temple", "price": 140}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Exploration archéologique", "price": 90, "default": true},
+                  {"value": "Rituel élémentaire", "price": 120}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Trek dans la jungle",
+            "start_date": "2026-04-04",
+            "duration": 4,
+            "position": "Jungle d'Ixtal",
+            "image": "images/ixtal-stage2.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Tente", "price": 50, "default": true},
+                  {"value": "Cabane", "price": 100}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Randonnée", "price": 80, "default": true},
+                  {"value": "Observation de la faune", "price": 110}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "title": "Aventure à Runeterra",
+        "region": "Runeterra",
+        "description": "Un tour complet des régions emblématiques de Runeterra.",
+        "price": 1200,
+        "duration": 10,
+        "start_date": "2026-05-01",
+        "stages": [
+          {
+            "id": 1,
+            "title": "Visite de Piltover",
+            "start_date": "2026-05-01",
+            "duration": 3,
+            "position": "Piltover",
+            "image": "images/runeterra-stage1.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Standard", "price": 100, "default": true},
+                  {"value": "Luxe", "price": 200}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Visite technologique", "price": 90, "default": true},
+                  {"value": "Dîner d'élite", "price": 150}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Découverte de Demacia",
+            "start_date": "2026-05-04",
+            "duration": 3,
+            "position": "Demacia",
+            "image": "images/runeterra-stage2.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Auberge", "price": 80, "default": true},
+                  {"value": "Palais", "price": 150}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Tournoi", "price": 70, "default": true},
+                  {"value": "Visite royale", "price": 120}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          },
+          {
+            "id": 3,
+            "title": "Exploration de Noxus",
+            "start_date": "2026-05-07",
+            "duration": 4,
+            "position": "Noxus",
+            "image": "images/runeterra-stage3.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Forteresse", "price": 90, "default": true},
+                  {"value": "Manoir", "price": 160}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Arène", "price": 100, "default": true},
+                  {"value": "Stratégie militaire", "price": 130}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "title": "Découverte des Void",
+        "region": "Void",
+        "description": "Osez explorer les mystères du Void.",
+        "price": 1000,
+        "duration": 8,
+        "start_date": "2026-06-01",
+        "stages": [
+          {
+            "id": 1,
+            "title": "Entrée dans le Void",
+            "start_date": "2026-06-01",
+            "duration": 4,
+            "position": "Portail du Void",
+            "image": "images/void-stage1.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Camp protégé", "price": 80, "default": true},
+                  {"value": "Base fortifiée", "price": 150}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Exploration surveillée", "price": 100, "default": true},
+                  {"value": "Étude des créatures", "price": 130}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Immersion dans le Void",
+            "start_date": "2026-06-05",
+            "duration": 4,
+            "position": "Cœur du Void",
+            "image": "images/void-stage2.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Abri sécurisé", "price": 70, "default": true},
+                  {"value": "Sanctuaire", "price": 140}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Survie", "price": 90, "default": true},
+                  {"value": "Rituel du Void", "price": 120}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "title": "Voyage à Akali",
+        "region": "Ionia",
+        "description": "Maîtrisez l'art ninja dans les terres d'Akali.",
+        "price": 700,
+        "duration": 6,
+        "start_date": "2026-07-01",
+        "stages": [
+          {
+            "id": 1,
+            "title": "Entraînement ninja",
+            "start_date": "2026-07-01",
+            "duration": 3,
+            "position": "Dojo d'Akali",
+            "image": "images/akali-stage1.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Dojo", "price": 80, "default": true},
+                  {"value": "Temple", "price": 140}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Entraînement au shuriken", "price": 90, "default": true},
+                  {"value": "Méditation ninja", "price": 110}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Mission secrète",
+            "start_date": "2026-07-04",
+            "duration": 3,
+            "position": "Forêts d'Ionia",
+            "image": "images/akali-stage2.jpg",
+            "options": [
+              {
+                "name": "Hébergement",
+                "type": "select",
+                "values": [
+                  {"value": "Campement", "price": 60, "default": true},
+                  {"value": "Cachette", "price": 100}
+                ],
+                "nb_persons": 1
+              },
+              {
+                "name": "Activité",
+                "type": "select",
+                "values": [
+                  {"value": "Infiltration", "price": 80, "default": true},
+                  {"value": "Espionnage", "price": 120}
+                ],
+                "nb_persons": 1
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

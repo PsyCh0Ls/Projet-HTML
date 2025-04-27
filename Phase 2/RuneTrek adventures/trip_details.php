@@ -2,37 +2,59 @@
 session_start();
 require_once 'includes/functions.php';
 
-$data = read_json('data/trips.json');
-$trips = isset($data['trips']) && is_array($data['trips']) ? $data['trips'] : [];
-
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     header('Location: search.php');
     exit;
 }
 
 $trip_id = (int)$_GET['id'];
-$trip = null;
-
-// Recherche du voyage correspondant à l'ID
-foreach ($trips as $t) {
-    if ($t['id'] == $trip_id) {
-        $trip = $t;
-        break;
-    }
-}
+$trip = get_trip_by_id($trip_id);
 
 if (!$trip) {
     header('Location: search.php');
     exit;
 }
 
-// Préparer les variables pour la closure
-$region = isset($_GET['region']) ? $_GET['region'] : $trip['region']; // Utiliser la région du voyage si $_GET['region'] n'est pas défini
-$trip_id_for_filter = $trip_id;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $selected_options = $_POST['options'] ?? [];
+    $total_price = $trip['price'];
+    $selected_stages = [];
 
-// Filtrer les voyages liés (même région, ID différent)
-$related_trips = array_filter($trips, function($t) use ($region, $trip_id_for_filter) {
-    return strtolower($t['region']) == strtolower($region) && $t['id'] != $trip_id_for_filter;
+    if (isset($trip['stages']) && is_array($trip['stages'])) {
+        foreach ($trip['stages'] as $stage) {
+            $stage_options = [];
+            if (isset($stage['options']) && is_array($stage['options'])) {
+                foreach ($stage['options'] as $option) {
+                    $selected_value = $selected_options[$stage['id']][$option['name']] ?? ($option['values'][0]['value'] ?? '');
+                    $option_price = 0;
+                    foreach ($option['values'] as $value) {
+                        if ($value['value'] === $selected_value) {
+                            $option_price = $value['price'];
+                            break;
+                        }
+                    }
+                    $stage_options[$option['name']] = [
+                        'value' => $selected_value,
+                        'price' => $option_price
+                    ];
+                    $total_price += $option_price;
+                }
+            }
+            $selected_stages[$stage['id']] = $stage_options;
+        }
+    }
+
+    $_SESSION['selected_trip'] = [
+        'id' => $trip_id,
+        'stages' => $selected_stages,
+        'total_price' => $total_price
+    ];
+    header('Location: trip_summary.php');
+    exit;
+}
+
+$related_trips = array_filter(read_json('data/trips.json')['trips'], function($t) use ($trip) {
+    return strtolower($t['region']) == strtolower($trip['region']) && $t['id'] != $trip['id'];
 });
 ?>
 <?php include 'includes/header.php'; ?>
@@ -47,9 +69,45 @@ $related_trips = array_filter($trips, function($t) use ($region, $trip_id_for_fi
                     <p><strong>Région:</strong> <?php echo htmlspecialchars($trip['region']); ?></p>
                     <p><strong>Date de départ:</strong> <?php echo htmlspecialchars($trip['start_date']); ?></p>
                     <p><strong>Durée:</strong> <?php echo htmlspecialchars($trip['duration']); ?> jours</p>
-                    <p><strong>Prix:</strong> <?php echo htmlspecialchars($trip['price']); ?> PO</p>
+                    <p><strong>Prix de base:</strong> <?php echo htmlspecialchars($trip['price']); ?> PO</p>
                 </div>
-                <a href="booking.php?id=<?php echo $trip['id']; ?>" class="book-now">Réserver</a>
+                <?php if (isset($trip['stages']) && is_array($trip['stages']) && !empty($trip['stages'])): ?>
+                    <h2>Personnaliser votre voyage</h2>
+                    <form method="POST">
+                        <?php foreach ($trip['stages'] as $stage): ?>
+                            <div class="stage">
+                                <h3><?php echo htmlspecialchars($stage['title']); ?></h3>
+                                <p><strong>Dates:</strong> <?php echo htmlspecialchars($stage['start_date']); ?> (<?php echo $stage['duration']; ?> jours)</p>
+                                <p><strong>Lieu:</strong> <?php echo htmlspecialchars($stage['position']); ?></p>
+                                <?php if (isset($stage['options']) && is_array($stage['options']) && !empty($stage['options'])): ?>
+                                    <?php foreach ($stage['options'] as $option): ?>
+                                        <div class="form-group">
+                                            <label for="option-<?php echo $stage['id'] . '-' . htmlspecialchars(str_replace(' ', '-', $option['name'])); ?>">
+                                                <?php echo htmlspecialchars($option['name']); ?>
+                                            </label>
+                                            <select name="options[<?php echo $stage['id']; ?>][<?php echo htmlspecialchars($option['name']); ?>]"
+                                                    id="option-<?php echo $stage['id'] . '-' . htmlspecialchars(str_replace(' ', '-', $option['name'])); ?>">
+                                                <?php foreach ($option['values'] as $value): ?>
+                                                    <option value="<?php echo htmlspecialchars($value['value']); ?>"
+                                                            <?php echo isset($value['default']) && $value['default'] ? 'selected' : ''; ?>>
+                                                        <?php echo htmlspecialchars($value['value']); ?> (<?php echo $value['price']; ?> PO)
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <p>Aucune option disponible pour cette étape.</p>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                        <button type="submit" class="book-now">Voir le récapitulatif</button>
+                    </form>
+                <?php else: ?>
+                    <h2>Réservation directe</h2>
+                    <p>Aucune personnalisation disponible pour ce voyage.</p>
+                    <a href="booking.php?id=<?php echo $trip['id']; ?>" class="book-now">Réserver maintenant</a>
+                <?php endif; ?>
             </div>
         </section>
         <section class="related-trips">
@@ -66,7 +124,7 @@ $related_trips = array_filter($trips, function($t) use ($region, $trip_id_for_fi
                                 <p><?php echo htmlspecialchars($related_trip['description']); ?></p>
                                 <div class="trip-footer">
                                     <span class="price"><?php echo htmlspecialchars($related_trip['price']); ?> PO</span>
-                                    <a href="trip_details.php?id=<?php echo $related_trip['id']; ?>®ion=<?php echo urlencode($related_trip['region']); ?>" class="view-details">Détails</a>
+                                    <a href="trip_details.php?id=<?php echo $related_trip['id']; ?>" class="view-details">Détails</a>
                                 </div>
                             </div>
                         </div>

@@ -1,352 +1,143 @@
-/* Styles spécifiques à la page de recherche */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Spiegel', sans-serif;
-    line-height: 1.6;
-    color: #2F3136;
-    background-color: #F8F9FA;
-}
-
-/* Header */
-.main-header {
-    background-color: #1E88E5;
-    color: white;
-    padding: 1rem 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.header-content {
+.search-page main {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
-.logo a {
-    text-decoration: none;
-    color: white;
+.search-page .filters {
+    width: 300px;
+    position: sticky;
+    top: 2rem;
 }
 
-.logo h1 {
-    font-family: 'Beaufort for LOL', sans-serif;
-    font-size: 2rem;
+.search-page .filters h2 {
+    font-family: 'Beaufort for LOL', serif;
+    color: #1E88E5;
+    margin-bottom: 1rem;
 }
 
-
-.search-page {
-    max-width: 1400px;
-    margin: 2rem auto;
-    padding: 0 2rem;
-}
-
-.search-container {
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 2rem;
-}
-
-/* Styles des filtres */
-.search-filters {
-    background-color: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    height: fit-content;
-}
-
-.search-filters h2 {
-    font-family: 'Beaufort for LOL', sans-serif;
-    color: #2F3136;
+.search-page .filter-group {
     margin-bottom: 1.5rem;
 }
 
-.filter-group {
-    margin-bottom: 2rem;
+.search-page .filter-group h3 {
+    font-family: 'Beaufort for LOL', serif;
+    color: #2F3136;
+    margin-bottom: 0.5rem;
 }
 
-.filter-group h3 {
-    font-family: 'Beaufort for LOL', sans-serif;
-    color: #1E88E5;
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
+.search-page .filter-group label {
+    display: block;
+    margin-bottom: 0.5rem;
 }
 
-.checkbox-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.checkbox-group label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-}
-
-.date-inputs {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.date-inputs input {
+.search-page .filter-group input[type="text"],
+.search-page .filter-group input[type="date"] {
+    width: 100%;
     padding: 0.5rem;
     border: 1px solid #ddd;
     border-radius: 4px;
+    font-size: 1rem;
 }
 
-.range-slider {
+.search-page .date-inputs {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
-.slider {
-    width: 100%;
-    cursor: pointer;
-}
-
-.apply-filters {
+.search-page .apply-filters {
     width: 100%;
     background-color: #1E88E5;
     color: white;
+    padding: 0.8rem;
     border: none;
-    padding: 1rem;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.3s ease;
 }
 
-.apply-filters:hover {
-    background-color: #1976D2;
+.search-page .apply-filters:hover {
+    background-color: #1565C0;
 }
 
-/* Styles des résultats */
-.results-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.search-page .results {
+    flex: 1;
+}
+
+.search-page .results h2 {
+    font-family: 'Beaufort for LOL', serif;
+    color: #1E88E5;
     margin-bottom: 2rem;
 }
 
-.results-header h2 {
-    font-family: 'Beaufort for LOL', sans-serif;
-    color: #2F3136;
-}
-
-.sort-options select {
-    padding: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: white;
-}
-
-/* Cartes de voyage */
-.trip-cards {
+.search-page .trip-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
 }
 
-.trip-card {
-    background-color: white;
+.search-page .trip-card {
+    background-color: #fff;
     border-radius: 8px;
-    overflow: hidden;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+    overflow: hidden;
 }
 
-.trip-card:hover {
-    transform: translateY(-5px);
-}
-
-.trip-image {
+.search-page .trip-image {
     height: 200px;
     background-size: cover;
     background-position: center;
 }
 
-.piltover-bg {
-    background-image: url('../images/piltover-detail.jpg');
+.search-page .trip-content {
+    padding: 1rem;
 }
 
-.demacia-bg {
-    background-image: url('../images/demacia-detail.jpg');
-}
-
-.trip-content {
-    padding: 1.5rem;
-}
-
-.trip-content h3 {
-    font-family: 'Beaufort for LOL', sans-serif;
+.search-page .trip-content h3 {
+    font-family: 'Beaufort for LOL', serif;
     color: #2F3136;
     margin-bottom: 0.5rem;
 }
 
-.trip-description {
-    color: #666;
-    margin-bottom: 1rem;
-    line-height: 1.4;
-}
-
-.trip-details {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-    color: #666;
-}
-
-.trip-footer {
+.search-page .trip-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 1rem;
+    padding: 0.5rem 1rem;
     border-top: 1px solid #eee;
 }
 
-.price {
+.search-page .price {
     font-weight: bold;
     color: #1E88E5;
 }
 
-.view-details {
-    color: #1E88E5;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.view-details:hover {
-    text-decoration: underline;
-}
-
-/* Responsive Design */
-@media (max-width: 992px) {
-    .search-container {
-        grid-template-columns: 1fr;
-    }
-
-    .search-filters {
-        position: sticky;
-        top: 1rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .trip-cards {
-        grid-template-columns: 1fr;
-    }
-
-    .results-header {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
-    }
-}
-
-
-/* Navigation */
-.main-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 2rem;
-}
-
-.main-nav a {
-    text-decoration: none;
+.search-page .view-details {
+    background-color: #1E88E5;
     color: white;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.main-nav a:hover {
-    color: #FFD700;
-}
-
-.cta-button {
-    background-color: #FFD700;
-    color: #2F3136 !important;
     padding: 0.5rem 1rem;
     border-radius: 4px;
-    transition: background-color 0.3s ease;
-}
-
-.cta-button:hover {
-    background-color: #FFC107;
-    color: #2F3136 !important;
-}
-
-/* Main content */
-main {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 2rem;
-    min-height: calc(100vh - 300px);
-}
-
-/* Footer */
-.main-footer {
-    background-color: #2F3136;
-    color: white;
-    padding: 3rem 0;
-    margin-top: 4rem;
-}
-
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-}
-
-.footer-section h3 {
-    color: #FFD700;
-    margin-bottom: 1rem;
-    font-family: 'Beaufort for LOL', sans-serif;
-}
-
-.footer-section ul {
-    list-style: none;
-}
-
-.footer-section a {
-    color: white;
     text-decoration: none;
-    transition: color 0.3s ease;
 }
 
-.footer-section a:hover {
-    color: #FFD700;
+.search-page .view-details:hover {
+    background-color: #1565C0;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
-    .header-content {
+    .search-page main {
         flex-direction: column;
-        text-align: center;
     }
 
-    .main-nav ul {
-        flex-direction: column;
-        gap: 1rem;
-        margin-top: 1rem;
+    .search-page .filters {
+        width: 100%;
+        position: static;
     }
 
-    .footer-content {
+    .search-page .trip-cards {
         grid-template-columns: 1fr;
-        text-align: center;
     }
 }
