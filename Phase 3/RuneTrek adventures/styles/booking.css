@@ -1,0 +1,27 @@
+.booking-summary {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.booking-summary h2 {
+    color: #1E88E5;
+}
+
+.summary-item {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+}
+
+.summary-item p {
+    margin: 0.5rem 0;
+}
+
+@media (max-width: 768px) {
+    .booking-summary {
+        padding: 0 0.5rem;
+    }
+}

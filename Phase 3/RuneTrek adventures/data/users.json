@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "login": "testuser",
+      "password": "$2y$10$abcdefghijklmnopqrstuvwx", 
+      "name": "Test User",
+      "email": "test@example.com",
+      "role": "normal",
+      "last_login": "2025-05-09 10:00:00",
+      "trips_purchased": []
+    },
+    {
+      "id": 2,
+      "login": "admin",
+      "password": "$2y$10$abcdefghijklmnopqrstuvwx", 
+      "name": "Admin User",
+      "email": "admin@example.com",
+      "role": "admin",
+      "last_login": "2025-05-09 10:05:00",
+      "trips_purchased": []
+    }
+  ]
+}

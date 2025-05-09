@@ -1,0 +1,32 @@
+.profile {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.profile h2 {
+    color: #1E88E5;
+}
+
+.user-info, .purchased-trips {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.user-info p, .purchased-trips p {
+    margin: 0.5rem 0;
+}
+
+a.edit-link {
+    color: #FFD700;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .profile {
+        padding: 0 0.5rem;
+    }
+}
