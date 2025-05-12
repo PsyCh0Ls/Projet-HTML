@@ -1,32 +1,56 @@
 <?php
-session_start();
-require_once 'includes/functions.php';
-
-$trips = read_json('data/trips.json')['trips'];
-$featured_trips = array_slice($trips, 0, 3); // 3 voyages phares
+include 'includes/header.php';
 ?>
-<?php include 'includes/header.php'; ?>
+
 <main>
     <section class="hero">
         <div class="hero-content">
-            <h1>Explorez Runeterra avec RuneTrek</h1>
-            <p>Découvrez des aventures épiques dans les contrées de League of Legends.</p>
-            <a href="presentation.php" class="cta-button-large">Commencer l'aventure</a>
+            <h1>Explorez Runeterra</h1>
+            <p>Découvrez des aventures épiques à travers les régions de Runeterra avec RuneTrek Adventures.</p>
+            <a href="search.php" class="cta-button">Commencer l'aventure</a>
         </div>
     </section>
+
     <section class="featured-destinations">
-        <h2>Destinations Phares</h2>
-        <div class="destination-grid">
-            <?php foreach ($featured_trips as $trip): ?>
-                <div class="destination-card <?php echo strtolower($trip['region']); ?>">
-                    <div class="card-content">
-                        <h3><?php echo htmlspecialchars($trip['title']); ?></h3>
-                        <p><?php echo htmlspecialchars($trip['description']); ?></p>
-                        <a href="trip_details.php?id=<?php echo $trip['id']; ?>" class="destination-link">Découvrir</a>
-                    </div>
-                </div>
-            <?php endforeach; ?>
+        <h2>Destinations Populaires</h2>
+        <div class="trip-card">
+            <div class="piltover-bg"></div>
+            <div class="trip-content">
+                <h3>Piltover</h3>
+                <p>La cité du progrès et de l'innovation.</p>
+            </div>
+            <div class="trip-footer">
+                <span class="price">500 PO</span>
+                <a href="booking.php?trip=piltover" class="view-details">Voir les détails</a>
+            </div>
+        </div>
+
+        <div class="trip-card">
+            <div class="demacia-bg"></div>
+            <div class="trip-content">
+                <h3>Demacia</h3>
+                <p>Le royaume de la justice et de l'honneur.</p>
+            </div>
+            <div class="trip-footer">
+                <span class="price">600 PO</span>
+                <a href="booking.php?trip=demacia" class="view-details">Voir les détails</a>
+            </div>
+        </div>
+
+        <div class="trip-card">
+            <div class="freljord-bg"></div>
+            <div class="trip-content">
+                <h3>Freljord</h3>
+                <p>Les terres gelées du nord.</p>
+            </div>
+            <div class="trip-footer">
+                <span class="price">700 PO</span>
+                <a href="booking.php?trip=freljord" class="view-details">Voir les détails</a>
+            </div>
         </div>
     </section>
 </main>
-<?php include 'includes/footer.php'; ?>
+
+<?php
+include 'includes/footer.php';
+?>

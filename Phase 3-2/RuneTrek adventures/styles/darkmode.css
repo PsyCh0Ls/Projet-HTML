@@ -118,20 +118,24 @@ main {
     overflow: hidden;
 }
 
-.piltover-bg {
-    background-image: url('../images/piltover.jpg');
+.piltover-bg, .demacia-bg, .freljord-bg {
+    height: 200px;
     background-size: cover;
     background-position: center;
-    height: 200px;
     border-radius: 4px 4px 0 0;
+    display: block; /* Assurer la visibilité */
+}
+
+.piltover-bg {
+    background-image: url('../images/piltover.jpg');
 }
 
 .demacia-bg {
     background-image: url('../images/demacia.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 200px;
-    border-radius: 4px 4px 0 0;
+}
+
+.freljord-bg {
+    background-image: url('../images/freljord.jpg');
 }
 
 .trip-content {
@@ -165,6 +169,49 @@ main {
 
 .view-details:hover {
     background-color: #0D47A1;
+}
+
+/* About section (pour presentation.php) */
+.about-section {
+    margin: 2rem 0;
+}
+
+.about-grid, .commitment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.history-image, .philosophy-image {
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    border-radius: 4px;
+    display: block; /* Assurer la visibilité */
+}
+
+.history-image {
+    background-image: url('../images/history.jpg');
+}
+
+.philosophy-image {
+    background-image: url('../images/philosophy.jpg');
+}
+
+/* Team section */
+.team-members {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.team-member img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block; /* Assurer la visibilité */
 }
 
 /* Footer */
@@ -233,7 +280,7 @@ main {
         margin-top: 1rem;
     }
 
-    .featured-destinations {
+    .featured-destinations, .about-grid, .commitment-grid, .team-members {
         grid-template-columns: 1fr;
     }
 
