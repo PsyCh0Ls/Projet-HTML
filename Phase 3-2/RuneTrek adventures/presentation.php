@@ -23,6 +23,16 @@ include 'includes/header.php';
         </div>
     </section>
 
+    <section class="about-section">
+        <h2>Nos Valeurs</h2>
+        <div class="about-grid">
+            <div class="values-image"></div>
+            <div>
+                <p>Passion, aventure, et respect des cultures de Runeterra.</p>
+            </div>
+        </div>
+    </section>
+
     <section class="team-members">
         <h2>Notre Équipe</h2>
         <div class="team-member">

@@ -84,6 +84,26 @@ main {
     padding: 4rem 2rem;
     text-align: center;
     border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-bg {
+    background-image: url('images/runeterra-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
 }
 
 .hero-content h1 {
@@ -118,24 +138,32 @@ main {
     overflow: hidden;
 }
 
-.piltover-bg, .demacia-bg, .freljord-bg {
+.piltover-bg, .demacia-bg, .freljord-bg, .ionia-bg, .noxus-bg {
     height: 200px;
     background-size: cover;
     background-position: center;
     border-radius: 4px 4px 0 0;
-    display: block; /* Assurer la visibilité */
+    display: block;
 }
 
 .piltover-bg {
-    background-image: url('../images/piltover.jpg');
+    background-image: url('images/piltover.jpg');
 }
 
 .demacia-bg {
-    background-image: url('../images/demacia.jpg');
+    background-image: url('images/demacia.jpg');
 }
 
 .freljord-bg {
-    background-image: url('../images/freljord.jpg');
+    background-image: url('images/freljord.jpg');
+}
+
+.ionia-bg {
+    background-image: url('images/ionia.jpg');
+}
+
+.noxus-bg {
+    background-image: url('images/noxus.jpg');
 }
 
 .trip-content {
@@ -183,20 +211,24 @@ main {
     margin: 2rem 0;
 }
 
-.history-image, .philosophy-image {
+.history-image, .philosophy-image, .values-image {
     background-size: cover;
     background-position: center;
     height: 300px;
     border-radius: 4px;
-    display: block; /* Assurer la visibilité */
+    display: block;
 }
 
 .history-image {
-    background-image: url('../images/history.jpg');
+    background-image: url('images/history.jpg');
 }
 
 .philosophy-image {
-    background-image: url('../images/philosophy.jpg');
+    background-image: url('images/philosophy.jpg');
+}
+
+.values-image {
+    background-image: url('images/values.jpg');
 }
 
 /* Team section */
@@ -211,7 +243,7 @@ main {
     height: 200px;
     object-fit: cover;
     border-radius: 4px;
-    display: block; /* Assurer la visibilité */
+    display: block;
 }
 
 /* Footer */
