@@ -1,0 +1,54 @@
+:root {
+    --background: #F8F9FA;
+    --text: #2F3136;
+    --primary: #1E88E5;
+    --accent: #FFD700;
+    --secondary-bg: #FFFFFF;
+}
+
+body.dark-mode {
+    --background: #2F3136;
+    --text: #F8F9FA;
+    --primary: #1976D2;
+    --accent: #FFC107;
+    --secondary-bg: #3A3C42;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.main-header {
+    background-color: var(--secondary-bg);
+}
+
+.main-nav a, .main-nav .cta-button {
+    color: var(--text);
+}
+
+.main-nav .cta-button {
+    background-color: var(--primary);
+}
+
+.main-nav .cta-button:hover {
+    background-color: var(--accent);
+}
+
+.hero-content, .about-section, .commitment-grid, .trip-card, .profile-container, .summary-container, .search-page, .admin-page {
+    background-color: var(--secondary-bg);
+    color: var(--text);
+}
+
+#theme-toggle .theme-icon {
+    font-size: 1.2rem;
+}
+
+body.dark-mode #theme-toggle .theme-icon::before {
+    content: "🌙";
+}
+
+body:not(.dark-mode) #theme-toggle .theme-icon::before {
+    content: "☀️";
+}

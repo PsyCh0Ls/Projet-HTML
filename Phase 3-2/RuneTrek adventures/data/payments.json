@@ -1,0 +1,15 @@
+{
+  "payments": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "trip_id": 1,
+      "card_number": "1234-5678-9012-3456",
+      "card_holder": "Jean Dupont",
+      "expiry_date": "12/26",
+      "cvv": "123",
+      "transaction_date": "2025-04-20",
+      "status": "completed"
+    }
+  ]
+}
