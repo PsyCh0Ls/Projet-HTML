@@ -52,3 +52,61 @@ body.dark-mode #theme-toggle .theme-icon::before {
 body:not(.dark-mode) #theme-toggle .theme-icon::before {
     content: "☀️";
 }
+/* Style pour le mode sombre */
+body {
+    background-color: #2F3136;
+    color: #F8F9FA;
+}
+
+.main-header {
+    background-color: #1565C0;
+}
+
+.main-nav a {
+    color: #F8F9FA;
+}
+
+.main-nav a:hover {
+    color: #FFD700;
+}
+
+.cta-button {
+    background-color: #FFC107;
+    color: #2F3136 !important;
+}
+
+.cta-button:hover {
+    background-color: #FFB300;
+}
+
+main {
+    background-color: #2F3136;
+}
+
+.main-footer {
+    background-color: #1C2526;
+}
+
+.footer-section a {
+    color: #F8F9FA;
+}
+
+.footer-section a:hover {
+    color: #FFD700;
+}
+
+/* Style pour le bouton de thème */
+.theme-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #FFD700;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: color 0.3s ease;
+}
+
+.theme-button:hover {
+    color: #FFFFFF;
+}
