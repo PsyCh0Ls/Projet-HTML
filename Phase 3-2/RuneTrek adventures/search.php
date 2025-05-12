@@ -1,92 +1,92 @@
 <?php
-session_start();
-require_once 'includes/functions.php';
+include 'includes/header.php';
 
-$trips_data = read_json('data/trips.json');
-$trips = $trips_data['trips'] ?? [];
-$filtered_trips = $trips;
-$regions = array_unique(array_column($trips, 'region'));
+// Liste des destinations (simulée, pourrait venir d'une base de données)
+$destinations = [
+    ['name' => 'Exploration de Piltover', 'price' => 500, 'region' => 'Piltover', 'bg_class' => 'piltover-bg'],
+    ['name' => 'Découverte de Demacia', 'price' => 600, 'region' => 'Demacia', 'bg_class' => 'demacia-bg'],
+    ['name' => 'Aventure dans le Freljord', 'price' => 700, 'region' => 'Freljord', 'bg_class' => 'freljord-bg'],
+    ['name' => 'Voyage à Ionia', 'price' => 550, 'region' => 'Ionia', 'bg_class' => 'ionia-bg'],
+    ['name' => 'Expédition à Noxus', 'price' => 650, 'region' => 'Noxus', 'bg_class' => 'noxus-bg'],
+];
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    // Filtre par mots-clés
-    if (!empty($_GET['keywords'])) {
-        $keywords = strtolower(trim($_GET['keywords']));
-        $filtered_trips = array_filter($filtered_trips, function($trip) use ($keywords) {
-            return strpos(strtolower($trip['title']), $keywords) !== false ||
-                   strpos(strtolower($trip['description']), $keywords) !== false;
-        });
-    }
+// Récupérer les paramètres de tri et de filtrage
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'price-asc';
+$region = isset($_GET['region']) ? $_GET['region'] : 'all';
 
-    // Filtre par région
-    if (!empty($_GET['region']) && is_array($_GET['region'])) {
-        $selected_regions = array_map('strtolower', $_GET['region']);
-        $filtered_trips = array_filter($filtered_trips, function($trip) use ($selected_regions) {
-            return in_array(strtolower($trip['region']), $selected_regions);
-        });
-    }
-
-    // Filtre par date
-    if (!empty($_GET['start_date'])) {
-        $start_date = $_GET['start_date'];
-        if (DateTime::createFromFormat('Y-m-d', $start_date) !== false) {
-            $filtered_trips = array_filter($filtered_trips, function($trip) use ($start_date) {
-                return $trip['start_date'] >= $start_date;
-            });
-        }
-    }
+// Filtrer par région
+$filtered_destinations = $destinations;
+if ($region !== 'all') {
+    $filtered_destinations = array_filter($destinations, function($dest) use ($region) {
+        return $dest['region'] === $region;
+    });
 }
+
+// Trier les destinations
+usort($filtered_destinations, function($a, $b) use ($sort) {
+    if ($sort === 'price-asc') {
+        return $a['price'] <=> $b['price'];
+    } elseif ($sort === 'price-desc') {
+        return $b['price'] <=> $a['price'];
+    } elseif ($sort === 'name-asc') {
+        return strcmp($a['name'], $b['name']);
+    } elseif ($sort === 'name-desc') {
+        return strcmp($b['name'], $a['name']);
+    }
+    return 0;
+});
 ?>
-<?php include 'includes/header.php'; ?>
-<div class="search-page">
-    <main>
-        <div class="filters">
-            <h2>Filtres</h2>
-            <form method="GET" class="search-form">
-                <div class="filter-group">
-                    <h3>Mots-clés</h3>
-                    <input type="text" name="keywords" value="<?php echo isset($_GET['keywords']) ? htmlspecialchars($_GET['keywords']) : ''; ?>" placeholder="Rechercher un voyage...">
-                </div>
-                <div class="filter-group">
-                    <h3>Régions</h3>
-                    <?php foreach ($regions as $region): ?>
-                        <label>
-                            <input type="checkbox" name="region[]" value="<?php echo htmlspecialchars($region); ?>"
-                                   <?php echo isset($_GET['region']) && in_array($region, $_GET['region']) ? 'checked' : ''; ?>>
-                            <?php echo htmlspecialchars($region); ?>
-                        </label>
-                    <?php endforeach; ?>
-                </div>
-                <div class="filter-group">
-                    <h3>Date de départ</h3>
-                    <div class="date-inputs">
-                        <input type="date" name="start_date" value="<?php echo isset($_GET['start_date']) ? htmlspecialchars($_GET['start_date']) : ''; ?>">
-                    </div>
-                </div>
-                <button type="submit" class="apply-filters">Appliquer les filtres</button>
-            </form>
-        </div>
-        <div class="results">
-            <h2>Résultats</h2>
-            <?php if (empty($filtered_trips)): ?>
-                <p>Aucun voyage trouvé correspondant à vos critères.</p>
+
+<main>
+    <section class="search-section">
+        <h2>Rechercher une Destination</h2>
+
+        <form method="GET" class="search-filters">
+            <div class="filter-group">
+                <label for="sort">Trier par :</label>
+                <select name="sort" id="sort">
+                    <option value="price-asc" <?php echo $sort === 'price-asc' ? 'selected' : ''; ?>>Prix (croissant)</option>
+                    <option value="price-desc" <?php echo $sort === 'price-desc' ? 'selected' : ''; ?>>Prix (décroissant)</option>
+                    <option value="name-asc" <?php echo $sort === 'name-asc' ? 'selected' : ''; ?>>Nom (A-Z)</option>
+                    <option value="name-desc" <?php echo $sort === 'name-desc' ? 'selected' : ''; ?>>Nom (Z-A)</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="region">Région :</label>
+                <select name="region" id="region">
+                    <option value="all" <?php echo $region === 'all' ? 'selected' : ''; ?>>Toutes</option>
+                    <option value="Piltover" <?php echo $region === 'Piltover' ? 'selected' : ''; ?>>Piltover</option>
+                    <option value="Demacia" <?php echo $region === 'Demacia' ? 'selected' : ''; ?>>Demacia</option>
+                    <option value="Freljord" <?php echo $region === 'Freljord' ? 'selected' : ''; ?>>Freljord</option>
+                    <option value="Ionia" <?php echo $region === 'Ionia' ? 'selected' : ''; ?>>Ionia</option>
+                    <option value="Noxus" <?php echo $region === 'Noxus' ? 'selected' : ''; ?>>Noxus</option>
+                </select>
+            </div>
+            <button type="submit" class="cta-button">Appliquer</button>
+        </form>
+
+        <div class="featured-destinations">
+            <?php if (empty($filtered_destinations)): ?>
+                <p>Aucune destination trouvée pour cette région.</p>
             <?php else: ?>
-                <div class="trip-cards">
-                    <?php foreach ($filtered_trips as $trip): ?>
-                        <div class="trip-card">
-                            <div class="trip-image <?php echo strtolower($trip['region']); ?>-bg"></div>
-                            <div class="trip-content">
-                                <h3><?php echo htmlspecialchars($trip['title']); ?></h3>
-                                <p><?php echo htmlspecialchars($trip['description']); ?></p>
-                                <div class="trip-footer">
-                                    <span class="price"><?php echo htmlspecialchars($trip['price']); ?> PO</span>
-                                    <a href="trip_details.php?id=<?php echo $trip['id']; ?>" class="view-details">Détails</a>
-                                </div>
-                            </div>
+                <?php foreach ($filtered_destinations as $dest): ?>
+                    <div class="trip-card">
+                        <div class="<?php echo htmlspecialchars($dest['bg_class']); ?>"></div>
+                        <div class="trip-content">
+                            <h3><?php echo htmlspecialchars($dest['name']); ?></h3>
+                            <p>Région : <?php echo htmlspecialchars($dest['region']); ?></p>
                         </div>
-                    <?php endforeach; ?>
-                </div>
+                        <div class="trip-footer">
+                            <span class="price"><?php echo htmlspecialchars($dest['price']); ?> PO</span>
+                            <a href="booking.php?trip=<?php echo strtolower(str_replace(' ', '', $dest['region'])); ?>" class="view-details">Découvrir</a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
             <?php endif; ?>
         </div>
-    </main>
-</div>
-<?php include 'includes/footer.php'; ?>
+    </section>
+</main>
+
+<?php
+include 'includes/footer.php';
+?>

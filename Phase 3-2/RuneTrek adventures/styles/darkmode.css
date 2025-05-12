@@ -379,3 +379,25 @@ main {
 .booking-section form {
     margin-top: 1rem;
 }
+/* ... (styles précédents) ... */
+
+/* Styles pour la page de confirmation */
+.checkout-section {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #1C2526;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.checkout-section h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.success {
+    color: #66BB6A;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
