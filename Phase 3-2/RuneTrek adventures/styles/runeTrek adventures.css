@@ -77,46 +77,132 @@ main {
     min-height: calc(100vh - 300px);
 }
 
-/* Images de fond pour régions */
-.piltover-bg {
-    background-image: url('../images/piltover.jpg');
+/* Hero section */
+.hero {
+    background-color: #E3F2FD;
+    padding: 4rem 2rem;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.hero-content h1 {
+    font-family: 'Beaufort for LOL', sans-serif;
+    font-size: 2.5rem;
+    color: #1E88E5;
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    margin: 1rem 0;
+}
+
+/* Quick search */
+.quick-search {
+    background-color: #FFFFFF;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 2rem 0;
+}
+
+.quick-search h2 {
+    font-family: 'Beaufort for LOL', sans-serif;
+    color: #1E88E5;
+    margin-bottom: 1rem;
+}
+
+/* Featured destinations */
+.featured-destinations {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.trip-card {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.piltover-bg, .demacia-bg, .freljord-bg {
+    height: 200px;
     background-size: cover;
     background-position: center;
-    height: 200px;
     border-radius: 4px 4px 0 0;
+}
+
+.piltover-bg {
+    background-image: url('../images/piltover.jpg');
 }
 
 .demacia-bg {
     background-image: url('../images/demacia.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 200px;
-    border-radius: 4px 4px 0 0;
 }
 
 .freljord-bg {
     background-image: url('../images/freljord.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 200px;
-    border-radius: 4px 4px 0 0;
 }
 
-/* Images pour presentation.php */
-.history-image {
-    background-image: url('../images/history.jpg');
+.trip-content {
+    padding: 1rem;
+}
+
+.trip-content h3 {
+    font-family: 'Beaufort for LOL', sans-serif;
+    color: #2F3136;
+}
+
+.trip-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem 1rem;
+}
+
+.trip-footer .price {
+    color: #FFD700;
+    font-weight: bold;
+}
+
+.view-details {
+    background-color: #1E88E5;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.view-details:hover {
+    background-color: #1976D2;
+}
+
+/* About section (pour presentation.php) */
+.about-section {
+    margin: 2rem 0;
+}
+
+.about-grid, .commitment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.history-image, .philosophy-image {
     background-size: cover;
     background-position: center;
     height: 300px;
     border-radius: 4px;
+}
+
+.history-image {
+    background-image: url('../images/history.jpg');
 }
 
 .philosophy-image {
     background-image: url('../images/philosophy.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 300px;
-    border-radius: 4px;
 }
 
 /* Team section */
@@ -199,12 +285,12 @@ main {
         margin-top: 1rem;
     }
 
+    .featured-destinations, .about-grid, .commitment-grid, .team-members {
+        grid-template-columns: 1fr;
+    }
+
     .footer-content {
         grid-template-columns: 1fr;
         text-align: center;
-    }
-
-    .team-members {
-        grid-template-columns: 1fr;
     }
 }

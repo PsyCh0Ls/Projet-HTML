@@ -1,8 +1,12 @@
 // Fonction pour appliquer un thème
 function setTheme(theme) {
     const themeLink = document.getElementById('theme-style');
-    themeLink.href = theme === 'dark' ? 'styles/darkmode.css' : 'styles/runeTrek adventures.css';
-    document.cookie = `theme=${theme};path=/;max-age=31536000`; // Cookie valide 1 an
+    if (themeLink) {
+        themeLink.href = theme === 'dark' ? 'styles/darkmode.css' : 'styles/runeTrek adventures.css';
+        document.cookie = `theme=${theme};path=/;max-age=31536000`; // Cookie valide 1 an
+    } else {
+        console.error('Balise theme-style introuvable');
+    }
 }
 
 // Fonction pour récupérer le thème depuis les cookies
@@ -27,5 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentTheme = getTheme();
             setTheme(currentTheme === 'light' ? 'dark' : 'light');
         });
+    } else {
+        console.error('Bouton theme-toggle introuvable');
     }
 });
