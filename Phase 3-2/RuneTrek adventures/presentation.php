@@ -3,52 +3,30 @@ include 'includes/header.php';
 ?>
 
 <main>
-    <section class="about-section">
-        <h2>Notre Histoire</h2>
-        <div class="about-grid">
-            <div class="history-image"></div>
-            <div>
-                <p>RuneTrek Adventures a été fondé pour offrir des voyages uniques à travers Runeterra.</p>
+    <section class="presentation-section">
+        <h2>À Propos de RuneTrek Adventures</h2>
+        <p>Nous vous emmenons explorer les terres magiques de Runeterra, des cités futuristes de Piltover aux terres gelées du Freljord.</p>
+        <div class="destination-gallery">
+            <div class="gallery-item">
+                <img src="images/piltover.jpg" alt="Piltover">
+                <p>Piltover</p>
             </div>
-        </div>
-    </section>
-
-    <section class="about-section">
-        <h2>Notre Philosophie</h2>
-        <div class="about-grid">
-            <div>
-                <p>Nous croyons en l'aventure et la découverte immersive.</p>
+            <div class="gallery-item">
+                <img src="images/demacia.jpg" alt="Demacia">
+                <p>Demacia</p>
             </div>
-            <div class="philosophy-image"></div>
-        </div>
-    </section>
-
-    <section class="about-section">
-        <h2>Nos Valeurs</h2>
-        <div class="about-grid">
-            <div class="values-image"></div>
-            <div>
-                <p>Passion, aventure, et respect des cultures de Runeterra.</p>
+            <div class="gallery-item">
+                <img src="images/freljord.jpg" alt="Freljord">
+                <p>Freljord</p>
             </div>
-        </div>
-    </section>
-
-    <section class="team-members">
-        <h2>Notre Équipe</h2>
-        <div class="team-member">
-            <img src="/images/guide1.jpg" alt="Guide 1">
-            <h3>Guide 1</h3>
-            <p>Expert de Piltover</p>
-        </div>
-        <div class="team-member">
-            <img src="/images/guide2.jpg" alt="Guide 2">
-            <h3>Guide 2</h3>
-            <p>Spécialiste de Demacia</p>
-        </div>
-        <div class="team-member">
-            <img src="/images/guide3.jpg" alt="Guide 3">
-            <h3>Guide 3</h3>
-            <p>Explorateur du Freljord</p>
+            <div class="gallery-item">
+                <img src="images/ionia.jpg" alt="Ionia">
+                <p>Ionia</p>
+            </div>
+            <div class="gallery-item">
+                <img src="images/noxus.jpg" alt="Noxus">
+                <p>Noxus</p>
+            </div>
         </div>
     </section>
 </main>

@@ -401,3 +401,82 @@ main {
     font-weight: bold;
     margin-bottom: 1rem;
 }
+/* ... (styles précédents) ... */
+
+/* Styles pour la page de contact */
+.contact-section {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #1C2526;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.contact-section textarea {
+    width: 100%;
+    height: 150px;
+    padding: 0.5rem;
+    border: 1px solid #3A3F44;
+    border-radius: 4px;
+    resize: vertical;
+    background-color: #2F3136;
+    color: #F8F9FA;
+}
+/* ... (styles précédents) ... */
+
+/* Styles pour les cartes de destinations */
+.piltover-bg {
+    background-image: url('../images/piltover.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+    border-radius: 8px 8px 0 0;
+}
+
+.demacia-bg {
+    background-image: url('../images/demacia.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+    border-radius: 8px 8px 0 0;
+}
+
+.freljord-bg {
+    background-image: url('../images/freljord.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+    border-radius: 8px 8px 0 0;
+}
+
+.ionia-bg {
+    background-image: url('../images/ionia.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+    border-radius: 8px 8px 0 0;
+}
+
+.noxus-bg {
+    background-image: url('../images/noxus.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Styles pour la galerie */
+.destination-gallery {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.gallery-item img {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}

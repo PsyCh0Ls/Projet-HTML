@@ -28,6 +28,7 @@ require_once 'includes/functions.php';
                     <li><a href="index.php">Accueil</a></li>
                     <li><a href="presentation.php">Destinations</a></li>
                     <li><a href="search.php">Recherche</a></li>
+                    <li><a href="contact.php">Contact</a></li>
                     <?php if (is_authenticated()): ?>
                         <li><a href="profile.php">Profil</a></li>
                         <li><a href="cart.php">Panier</a></li>
