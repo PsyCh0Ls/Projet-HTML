@@ -36,17 +36,17 @@ include 'includes/header.php';
     <section class="team-members">
         <h2>Notre Équipe</h2>
         <div class="team-member">
-            <img src="images/guide1.jpg" alt="Guide 1">
+            <img src="/images/guide1.jpg" alt="Guide 1">
             <h3>Guide 1</h3>
             <p>Expert de Piltover</p>
         </div>
         <div class="team-member">
-            <img src="images/guide2.jpg" alt="Guide 2">
+            <img src="/images/guide2.jpg" alt="Guide 2">
             <h3>Guide 2</h3>
             <p>Spécialiste de Demacia</p>
         </div>
         <div class="team-member">
-            <img src="images/guide3.jpg" alt="Guide 3">
+            <img src="/images/guide3.jpg" alt="Guide 3">
             <h3>Guide 3</h3>
             <p>Explorateur du Freljord</p>
         </div>

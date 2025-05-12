@@ -1,69 +1,72 @@
 <?php
-session_start();
-require_once 'includes/functions.php';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = read_json('data/users.json');
-    $login = $_POST['login'] ?? '';
-    $password = password_hash($_POST['password'] ?? '', PASSWORD_DEFAULT);
-    $name = $_POST['name'] ?? '';
-    $nickname = $_POST['nickname'] ?? '';
-    $birth_date = $_POST['birth_date'] ?? '';
-    $address = $_POST['address'] ?? '';
-    $new_user = [
-        'id' => count($data['users']) + 1,
-        'login' => $login,
-        'password' => $password,
-        'role' => 'normal',
-        'name' => $name,
-        'nickname' => $nickname,
-        'birth_date' => $birth_date,
-        'address' => $address,
-        'registration_date' => date('Y-m-d'),
-        'last_login' => null,
-        'trips_viewed' => [],
-        'trips_purchased' => []
-    ];
-    $data['users'][] = $new_user;
-    write_json('data/users.json', $data);
-    $_SESSION['user_id'] = $new_user['id'];
-    $_SESSION['user_role'] = $new_user['role'];
-    header("Location: index.php");
-    exit;
-}
+include 'includes/header.php';
 ?>
-<?php include 'includes/header.php'; ?>
+
 <main>
-    <div class="register-container">
+    <section class="register-section">
         <h2>Inscription</h2>
-        <form method="POST">
+        <form id="registerForm" action="register_process.php" method="POST" novalidate>
             <div class="form-group">
-                <label for="login">Identifiant</label>
-                <input type="text" id="login" name="login" required>
+                <label for="regEmail">Email :</label>
+                <input type="email" id="regEmail" name="email" required placeholder="votre@email.com">
+                <span id="regEmailError" class="error"></span>
             </div>
             <div class="form-group">
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" required>
+                <label for="regPassword">Mot de passe :</label>
+                <input type="password" id="regPassword" name="password" required minlength="6">
+                <span id="regPasswordError" class="error"></span>
             </div>
             <div class="form-group">
-                <label for="name">Nom complet</label>
-                <input type="text" id="name" name="name" required>
+                <label for="confirmPassword">Confirmer le mot de passe :</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                <span id="confirmPasswordError" class="error"></span>
             </div>
-            <div class="form-group">
-                <label for="nickname">Surnom</label>
-                <input type="text" id="nickname" name="nickname">
-            </div>
-            <div class="form-group">
-                <label for="birth_date">Date de naissance</label>
-                <input type="date" id="birth_date" name="birth_date" required>
-            </div>
-            <div class="form-group">
-                <label for="address">Adresse</label>
-                <input type="text" id="address" name="address" required>
-            </div>
-            <button type="submit" class="register-button">S'inscrire</button>
+            <button type="submit" class="cta-button">S'inscrire</button>
         </form>
-        <p>Déjà inscrit ? <a href="login.php">Se connecter</a></p>
-    </div>
+    </section>
 </main>
-<?php include 'includes/footer.php'; ?>
+
+<script>
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+    let isValid = true;
+
+    // Validation email
+    const regEmail = document.getElementById('regEmail');
+    const regEmailError = document.getElementById('regEmailError');
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(regEmail.value)) {
+        regEmailError.textContent = 'Veuillez entrer un email valide.';
+        isValid = false;
+    } else {
+        regEmailError.textContent = '';
+    }
+
+    // Validation mot de passe
+    const regPassword = document.getElementById('regPassword');
+    const regPasswordError = document.getElementById('regPasswordError');
+    if (regPassword.value.length < 6) {
+        regPasswordError.textContent = 'Le mot de passe doit contenir au moins 6 caractères.';
+        isValid = false;
+    } else {
+        regPasswordError.textContent = '';
+    }
+
+    // Validation confirmation mot de passe
+    const confirmPassword = document.getElementById('confirmPassword');
+    const confirmPasswordError = document.getElementById('confirmPasswordError');
+    if (confirmPassword.value !== regPassword.value) {
+        confirmPasswordError.textContent = 'Les mots de passe ne correspondent pas.';
+        isValid = false;
+    } else {
+        confirmPasswordError.textContent = '';
+    }
+
+    if (!isValid) {
+        event.preventDefault();
+    }
+});
+</script>
+
+<?php
+include 'includes/footer.php';
+?>

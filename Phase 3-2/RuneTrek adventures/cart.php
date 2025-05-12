@@ -1,64 +1,57 @@
 <?php
 session_start();
-require_once 'functions.php';
-require_once 'header.php';
+include 'includes/header.php';
 
-require_auth();
+// Initialiser le panier s'il n'existe pas
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'remove') {
-    remove_from_cart((int)$_POST['index']);
+// Supprimer un article du panier
+if (isset($_GET['remove'])) {
+    $index = $_GET['remove'];
+    if (isset($_SESSION['cart'][$index])) {
+        unset($_SESSION['cart'][$index]);
+        $_SESSION['cart'] = array_values($_SESSION['cart']); // Réindexer le tableau
+    }
     header('Location: cart.php');
     exit;
 }
-
-$cart = get_cart();
 ?>
 
-<main class="cart">
-    <h2>Votre Panier</h2>
-    <?php if (empty($cart)): ?>
-        <p>Votre panier est vide.</p>
-    <?php else: ?>
-        <table class="cart-table">
-            <thead>
-                <tr>
-                    <th>Voyage</th>
-                    <th>Région</th>
-                    <th>Options</th>
-                    <th>Prix</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($cart as $index => $item): ?>
+<main>
+    <section class="cart-section">
+        <h2>Votre Panier</h2>
+        <?php if (empty($_SESSION['cart'])): ?>
+            <p>Votre panier est vide.</p>
+        <?php else: ?>
+            <table class="cart-table">
+                <thead>
                     <tr>
-                        <td><?php echo htmlspecialchars($item['title']); ?></td>
-                        <td><?php echo htmlspecialchars($item['region']); ?></td>
-                        <td>
-                            <?php
-                            $options_display = [];
-                            foreach ($item['options'] as $stage_id => $options) {
-                                foreach ($options as $name => $value) {
-                                    $options_display[] = "$name (Étape $stage_id) : $value";
-                                }
-                            }
-                            echo htmlspecialchars(implode(', ', $options_display) ?: 'Aucune');
-                            ?>
-                        </td>
-                       坻<td><?php echo htmlspecialchars($item['total_price']); ?> PO</td>
-                        <td>
-                            <form method="POST">
-                                <input type="hidden" name="index" value="<?php echo $index; ?>">
-                                <input type="hidden" name="action" value="remove">
-                                <button type="submit">Supprimer</button>
-                            </form>
-                        </td>
+                        <th>Destination</th>
+                        <th>Prix</th>
+                        <th>Action</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        <a href="payment.php" class="checkout-button">Procéder au paiement</a>
-    <?php endif; ?>
+                </thead>
+                <tbody>
+                    <?php foreach ($_SESSION['cart'] as $index => $item): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($item['destination']); ?></td>
+                            <td><?php echo htmlspecialchars($item['price']); ?> PO</td>
+                            <td>
+                                <a href="cart.php?remove=<?php echo $index; ?>" class="remove-button">Supprimer</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <div class="cart-actions">
+                <a href="checkout.php" class="cta-button">Passer à la caisse</a>
+            </div>
+        <?php endif; ?>
+    </section>
 </main>
 
-<?php require_once 'footer.php'; ?>
+<?php
+include 'includes/footer.php';
+?>
