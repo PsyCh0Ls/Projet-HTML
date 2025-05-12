@@ -1,5 +1,8 @@
 <?php
-session_start();
+// Vérifier si la session n'est pas déjà démarrée
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once 'includes/functions.php';
 ?>
 <!DOCTYPE html>
@@ -8,6 +11,7 @@ require_once 'includes/functions.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RuneTrek Adventures</title>
+    <!-- Balise dynamique pour le thème -->
     <link id="theme-style" rel="stylesheet" href="styles/runeTrek adventures.css">
     <script src="scripts/theme.js" defer></script>
 </head>
