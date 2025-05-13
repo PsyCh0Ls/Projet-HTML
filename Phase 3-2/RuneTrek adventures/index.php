@@ -32,14 +32,14 @@ include 'includes/header.php';
             </div>
         </div>
         <div class="trip-card">
-            <div class="freljord-bg"></div>
+            <div class="frejlord-bg"></div>
             <div class="trip-content">
                 <h3>Aventure dans le Freljord</h3>
                 <p>Découvrez les terres gelées et les tribus sauvages.</p>
             </div>
             <div class="trip-footer">
                 <span class="price">700 PO</span>
-                <a href="booking.php?trip=freljord" class="view-details">Découvrir</a>
+                <a href="booking.php?trip=frejlord" class="view-details">Découvrir</a>
             </div>
         </div>
         <div class="trip-card">
