@@ -32,6 +32,14 @@ include 'includes/header.php';
             <p class="lead-text">Votre portail vers les merveilles mystiques de Runeterra</p>
             
             <div class="about-grid">
+                <div class="about-content">   
+                <h2>Notre Histoire</h2>
+                    <p>Fondée par d'anciens explorateurs de Piltover, RuneTrek Adventures s'est donné pour mission de faire découvrir les merveilles de Runeterra aux aventuriers du monde entier. Notre expertise unique et nos connections locales vous garantissent une expérience authentique et sécurisée.</p>
+                </div>
+                <div class="about-image history-image"></div>
+            </div>
+        
+            <div class="about-grid reverse">
                 <div class="about-content">
                     <h2>Notre Philosophie</h2>
                     <p>Nous croyons que chaque région de Runeterra recèle des trésors uniques qui méritent d’être découverts. De la technologie hextech de Piltover aux jardins spirituels d’Ionia, nous créons des itinéraires qui respectent les cultures locales tout en offrant des aventures inoubliables.</p>
