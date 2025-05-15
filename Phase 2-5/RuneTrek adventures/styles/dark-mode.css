@@ -1,0 +1,203 @@
+/* Mode sombre optimisé pour RuneTrek Adventures */
+html.dark-mode,
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Nettoyer la classe de préchargement */
+html.dark-mode-preload:not(.dark-mode),
+body.dark-mode-preload:not(.dark-mode) {
+    background-color: initial;
+    color: initial;
+}
+
+/* Header */
+.dark-mode .main-header {
+    background-color: #0d47a1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .logo a {
+    color: #FFD700;
+}
+
+/* Footer */
+.dark-mode .main-footer {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+.dark-mode .footer-section h3 {
+    color: #FFD700;
+}
+
+.dark-mode .footer-section a {
+    color: #e0e0e0;
+}
+
+.dark-mode .footer-section a:hover {
+    color: #FFD700;
+}
+
+/* Conteneurs et cartes */
+.dark-mode .trip-card, 
+.dark-mode .destination-card, 
+.dark-mode .summary-container,
+.dark-mode .register-container,
+.dark-mode .login-container,
+.dark-mode .profile-container,
+.dark-mode .profile-field,
+.dark-mode .booking-details,
+.dark-mode .payment-page main,
+.dark-mode .search-page .filters,
+.dark-mode .trip-details-page .trip-content,
+.dark-mode .stage {
+    background-color: #1e1e1e;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    border-color: #333;
+}
+
+.dark-mode .profile-field:hover {
+    background-color: #2a2a2a;
+}
+
+.dark-mode .profile-field.editing {
+    background-color: rgba(30, 136, 229, 0.2);
+}
+
+/* Formulaires */
+.dark-mode .form-group input, 
+.dark-mode .form-group select, 
+.dark-mode .form-group textarea,
+.dark-mode .search-page .filter-group input,
+.dark-mode .search-page #sort-by {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border: 1px solid #444;
+}
+
+.dark-mode .form-group label {
+    color: #e0e0e0;
+}
+
+.dark-mode .error-message {
+    color: #ff6b6b;
+}
+
+/* Boutons */
+.dark-mode .cta-button, 
+.dark-mode .book-now, 
+.dark-mode .payment-button, 
+.dark-mode .login-button, 
+.dark-mode .register-button,
+.dark-mode .view-details,
+.dark-mode .search-button,
+.dark-mode .apply-filters,
+.dark-mode .save-button,
+.dark-mode .submit-changes,
+.dark-mode a.cta-button,
+.dark-mode a[href="register.php"].cta-button {
+    background-color: #1976D2 !important;
+    color: white !important;
+}
+
+.dark-mode .cta-button:hover, 
+.dark-mode .book-now:hover, 
+.dark-mode .payment-button:hover, 
+.dark-mode .login-button:hover, 
+.dark-mode .register-button:hover,
+.dark-mode .view-details:hover,
+.dark-mode .search-button:hover,
+.dark-mode .apply-filters:hover,
+.dark-mode .save-button:hover,
+.dark-mode .submit-changes:hover,
+.dark-mode a.cta-button:hover,
+.dark-mode a[href="register.php"].cta-button:hover {
+    background-color: #1565C0 !important;
+}
+
+.dark-mode .cancel-button {
+    background-color: #424242;
+    color: white;
+}
+
+.dark-mode .cancel-button:hover {
+    background-color: #616161;
+}
+
+/* Images et fonds */
+.dark-mode .hero {
+    filter: brightness(0.85);
+}
+
+.dark-mode .destination-card.piltover,
+.dark-mode .destination-card.demacia,
+.dark-mode .destination-card.ionia,
+.dark-mode .trip-image {
+    filter: brightness(0.85);
+}
+
+/* Tableau de prix dynamique */
+.dark-mode .dynamic-price {
+    background-color: #0d47a1;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .dynamic-price h3 {
+    color: #FFD700;
+}
+
+/* Liens */
+.dark-mode a {
+    color: #64B5F6;
+}
+
+.dark-mode a:hover {
+    color: #90CAF9;
+}
+
+.dark-mode .main-nav a {
+    color: #fff;
+}
+
+.dark-mode .main-nav a:hover {
+    color: #FFD700;
+}
+
+/* Responsive - écrans sombres */
+@media (prefers-color-scheme: dark) {
+    .theme-button {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+}
+
+/* Prix et éléments de mise en évidence */
+.dark-mode .price, 
+.dark-mode .trip-details h1,
+.dark-mode .trip-content h2,
+.dark-mode .trip-content h3,
+.dark-mode .sorting-options label {
+    color: #64B5F6;
+}
+
+/* Assurer que les transitions sont fluides */
+a.cta-button,
+a[href="register.php"].cta-button,
+.main-nav a {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Personnalisation de l'édition des champs */
+.dark-mode input.edit-input {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border: 1px solid #1976D2;
+}
+
+/* Éléments spécifiques */
+.dark-mode .option-selected {
+    background-color: rgba(30, 136, 229, 0.2);
+}

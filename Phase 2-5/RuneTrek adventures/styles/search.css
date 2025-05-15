@@ -1,0 +1,143 @@
+.search-page main {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.search-page .filters {
+    width: 300px;
+    position: sticky;
+    top: 2rem;
+}
+
+.search-page .filters h2 {
+    font-family: 'Beaufort for LOL', serif;
+    color: #1E88E5;
+    margin-bottom: 1rem;
+}
+
+.search-page .filter-group {
+    margin-bottom: 1.5rem;
+}
+
+.search-page .filter-group h3 {
+    font-family: 'Beaufort for LOL', serif;
+    color: #2F3136;
+    margin-bottom: 0.5rem;
+}
+
+.search-page .filter-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.search-page .filter-group input[type="text"],
+.search-page .filter-group input[type="date"] {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.search-page .date-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.search-page .apply-filters {
+    width: 100%;
+    background-color: #1E88E5;
+    color: white;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.search-page .apply-filters:hover {
+    background-color: #1565C0;
+}
+
+.search-page .results {
+    flex: 1;
+}
+
+.search-page .results h2 {
+    font-family: 'Beaufort for LOL', serif;
+    color: #1E88E5;
+    margin-bottom: 2rem;
+}
+
+.search-page .trip-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.search-page .trip-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.search-page .trip-image {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+.search-page .trip-content {
+    padding: 1rem;
+}
+
+.search-page .trip-content h3 {
+    font-family: 'Beaufort for LOL', serif;
+    color: #2F3136;
+    margin-bottom: 0.5rem;
+}
+
+.search-page .trip-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-top: 1px solid #eee;
+}
+
+.search-page .price {
+    font-weight: bold;
+    color: #1E88E5;
+}
+
+.search-page .view-details {
+    background-color: #1E88E5;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.search-page .view-details:hover {
+    background-color: #1565C0;
+}
+
+@media (max-width: 768px) {
+    .search-page main {
+        flex-direction: column;
+    }
+
+    .search-page .filters {
+        width: 100%;
+        position: static;
+    }
+
+    .search-page .trip-cards {
+        grid-template-columns: 1fr;
+    }
+}
