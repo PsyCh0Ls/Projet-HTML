@@ -83,6 +83,20 @@
             "last_login": null,
             "trips_viewed": [],
             "trips_purchased": []
+        },
+        {
+            "id": 7,
+            "login": "s",
+            "password": "$2y$10$KpGD5.ZbMMpaRXaR8T4RFukE8rlFDC3Wtclv.28rMfdTlKGLT5UaW",
+            "role": "normal",
+            "name": "s",
+            "nickname": "s",
+            "birth_date": "1999-02-01",
+            "address": "Q",
+            "registration_date": "2025-05-16",
+            "last_login": null,
+            "trips_viewed": [],
+            "trips_purchased": []
         }
     ]
 }

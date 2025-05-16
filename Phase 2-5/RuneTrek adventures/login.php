@@ -32,10 +32,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="form-group">
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" required>
+                <!-- Bouton afficher/cacher le mot de passe -->
+                <!-- Le bouton est ajouté dynamiquement par JS -->
             </div>
             <button type="submit" class="login-button">Se connecter</button>
         </form>
         <p>Pas de compte ? <a href="register.php">S'inscrire</a></p>
     </div>
 </main>
+<script src="js/password-toggle.js"></script>
 <?php include 'includes/footer.php'; ?>
