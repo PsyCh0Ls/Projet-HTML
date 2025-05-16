@@ -56,6 +56,314 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
     }
     
+    // Ajouter des styles spécifiques pour le panier, y compris en mode sombre
+    const cartStyle = document.createElement('style');
+    cartStyle.textContent = `
+        /* Styles pour l'indicateur du panier */
+        #cart-indicator {
+            position: relative;
+        }
+        
+        #cart-link {
+            display: flex;
+            align-items: center;
+            padding: 6px 10px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            background-color: rgba(255, 215, 0, 0.2);
+        }
+        
+        #cart-link:hover {
+            background-color: rgba(255, 215, 0, 0.4);
+        }
+        
+        #cart-count {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #FFD700;
+            color: #333;
+            font-size: 0.8rem;
+            margin-left: 8px;
+            padding: 0 4px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        /* Animation pour l'ajout au panier */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 0.5s ease;
+        }
+        
+        /* Styles pour la modal du panier */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .cart-modal-content {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            width: 600px;
+            max-width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: #333;
+        }
+        
+        .cart-modal h2 {
+            font-family: 'Beaufort for LOL', sans-serif;
+            color: #1E88E5;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .cart-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .cart-items li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-info {
+            flex-grow: 1;
+        }
+        
+        .cart-item-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .cart-item-price {
+            color: #1E88E5;
+            font-weight: bold;
+        }
+        
+        .remove-item {
+            background-color: #F44336;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+        
+        .remove-item:hover {
+            background-color: #D32F2F;
+        }
+        
+        .cart-total {
+            margin: 20px 0;
+            text-align: right;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            font-size: 1.2rem;
+        }
+        
+        .cart-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        #clear-cart {
+            background-color: #9E9E9E;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        #clear-cart:hover {
+            background-color: #757575;
+        }
+        
+        #checkout-cart {
+            background-color: #1E88E5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        #checkout-cart:hover {
+            background-color: #1565C0;
+        }
+        
+        .cart-empty {
+            text-align: center;
+            padding: 30px 0;
+            color: #757575;
+        }
+        
+        .cart-empty-icon {
+            font-size: 3rem;
+            color: #9E9E9E;
+            margin-bottom: 15px;
+        }
+        
+        /* Mode sombre pour le panier */
+        .dark-mode #cart-link {
+            background-color: rgba(255, 215, 0, 0.3);
+            color: #FFD700;
+        }
+        
+        .dark-mode #cart-link:hover {
+            background-color: rgba(255, 215, 0, 0.5);
+        }
+        
+        .dark-mode #cart-count {
+            background-color: #FFD700;
+            color: #121212;
+        }
+        
+        .dark-mode .cart-modal-content {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .dark-mode .cart-modal h2 {
+            color: #64B5F6;
+            border-bottom-color: #333;
+        }
+        
+        .dark-mode .close-modal {
+            color: #aaa;
+        }
+        
+        .dark-mode .close-modal:hover {
+            color: #fff;
+        }
+        
+        .dark-mode .cart-items li {
+            border-bottom-color: #333;
+        }
+        
+        .dark-mode .cart-item-title {
+            color: #e0e0e0;
+        }
+        
+        .dark-mode .cart-item-price {
+            color: #64B5F6;
+        }
+        
+        .dark-mode .cart-total {
+            background-color: #2a2a2a;
+            color: #e0e0e0;
+        }
+        
+        .dark-mode #clear-cart {
+            background-color: #424242;
+        }
+        
+        .dark-mode #clear-cart:hover {
+            background-color: #616161;
+        }
+        
+        .dark-mode #checkout-cart {
+            background-color: #1976D2;
+        }
+        
+        .dark-mode #checkout-cart:hover {
+            background-color: #1565C0;
+        }
+        
+        .dark-mode .cart-empty {
+            color: #aaa;
+        }
+        
+        .dark-mode .cart-empty-icon {
+            color: #666;
+        }
+        
+        /* Styles pour le bouton d'ajout au panier */
+        .add-to-cart, 
+        .add-to-cart-button {
+            background-color: #FFD700;
+            color: #2F3136;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .add-to-cart:hover, 
+        .add-to-cart-button:hover {
+            background-color: #FFC107;
+            transform: translateY(-2px);
+        }
+        
+        .dark-mode .add-to-cart, 
+        .dark-mode .add-to-cart-button {
+            background-color: #FFD700;
+            color: #121212;
+        }
+        
+        .dark-mode .add-to-cart:hover, 
+        .dark-mode .add-to-cart-button:hover {
+            background-color: #FFC107;
+        }
+    `;
+    document.head.appendChild(cartStyle);
+    
     // Initialisation du panier côté client (pour compléter avec le serveur)
     class Cart {
         constructor() {
@@ -95,6 +403,16 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Sauvegarder le panier
             this.saveCart();
+            
+            // Animer l'indicateur du panier
+            const countElement = document.getElementById('cart-count');
+            if (countElement) {
+                countElement.classList.add('pulse');
+                setTimeout(() => {
+                    countElement.classList.remove('pulse');
+                }, 500);
+            }
+            
             showNotification('Voyage ajouté au panier', 'success');
         }
         
@@ -134,7 +452,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 cartIndicator = document.createElement('li');
                 cartIndicator.innerHTML = `
                     <a href="#" id="cart-link">
-                        Panier <span id="cart-count">0</span>
+                        🛒 Panier <span id="cart-count">0</span>
                     </a>
                 `;
                 cartIndicator.id = 'cart-indicator';
@@ -154,6 +472,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const countElement = document.getElementById('cart-count');
             if (countElement) {
                 countElement.textContent = this.items.length;
+                
+                // Ajouter une animation si le nombre a changé
+                countElement.classList.add('pulse');
+                setTimeout(() => {
+                    countElement.classList.remove('pulse');
+                }, 500);
             }
         }
         
@@ -172,15 +496,23 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Ajouter les voyages
             if (this.items.length === 0) {
-                modalContent += `<p>Votre panier est vide.</p>`;
+                modalContent += `
+                    <div class="cart-empty">
+                        <div class="cart-empty-icon">🛒</div>
+                        <p>Votre panier est vide.</p>
+                        <p>Explorez nos voyages pour vivre des aventures inoubliables !</p>
+                    </div>
+                `;
             } else {
                 modalContent += `<ul class="cart-items">`;
                 
                 this.items.forEach(item => {
                     modalContent += `
                         <li>
-                            <span>${item.name}</span>
-                            <span>${item.price} PO</span>
+                            <div class="cart-item-info">
+                                <div class="cart-item-title">${item.name}</div>
+                                <div class="cart-item-price">${item.price} PO</div>
+                            </div>
                             <button class="remove-item" data-id="${item.id}">Supprimer</button>
                         </li>
                     `;
@@ -189,7 +521,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 modalContent += `</ul>`;
                 
                 // Calculer le total
-                const total = this.items.reduce((sum, item) => sum + item.price, 0);
+                const total = this.items.reduce((sum, item) => sum + parseInt(item.price), 0);
                 
                 modalContent += `
                     <div class="cart-total">
@@ -205,84 +537,6 @@ document.addEventListener('DOMContentLoaded', function() {
             modalContent += `</div>`;
             modal.innerHTML = modalContent;
             
-            // Ajouter du style pour la modal
-            const style = document.createElement('style');
-            style.textContent = `
-                .cart-modal {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(0,0,0,0.5);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    z-index: 1000;
-                }
-                .cart-modal-content {
-                    background-color: white;
-                    padding: 20px;
-                    border-radius: 8px;
-                    width: 500px;
-                    max-width: 90%;
-                    max-height: 80vh;
-                    overflow-y: auto;
-                    position: relative;
-                }
-                .close-modal {
-                    position: absolute;
-                    top: 10px;
-                    right: 15px;
-                    font-size: 24px;
-                    cursor: pointer;
-                }
-                .cart-items {
-                    list-style: none;
-                    padding: 0;
-                }
-                .cart-items li {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 10px 0;
-                    border-bottom: 1px solid #eee;
-                }
-                .remove-item {
-                    background-color: #F44336;
-                    color: white;
-                    border: none;
-                    padding: 5px 10px;
-                    border-radius: 4px;
-                    cursor: pointer;
-                }
-                .cart-total {
-                    margin: 20px 0;
-                    text-align: right;
-                    font-size: 1.2rem;
-                }
-                .cart-actions {
-                    display: flex;
-                    justify-content: space-between;
-                }
-                .cart-actions button {
-                    padding: 10px 15px;
-                    border: none;
-                    border-radius: 4px;
-                    cursor: pointer;
-                }
-                #clear-cart {
-                    background-color: #9E9E9E;
-                    color: white;
-                }
-                #checkout-cart {
-                    background-color: #1E88E5;
-                    color: white;
-                }
-            `;
-            document.head.appendChild(style);
-            
-            // Ajouter la modal au corps de la page
             document.body.appendChild(modal);
             
             // Gestionnaires d'événements
@@ -306,14 +560,27 @@ document.addEventListener('DOMContentLoaded', function() {
                         button.closest('li').remove();
                         
                         // Mettre à jour le total
-                        const total = this.items.reduce((sum, item) => sum + item.price, 0);
+                        const total = this.items.reduce((sum, item) => sum + parseInt(item.price), 0);
                         modal.querySelector('.cart-total').innerHTML = `<strong>Total:</strong> ${total} PO`;
                         
                         // Afficher un message si le panier est vide
                         if (this.items.length === 0) {
-                            modal.querySelector('.cart-items').innerHTML = `<p>Votre panier est vide.</p>`;
-                            modal.querySelector('.cart-total').style.display = 'none';
-                            modal.querySelector('.cart-actions').style.display = 'none';
+                            const cartItems = modal.querySelector('.cart-items');
+                            const cartTotal = modal.querySelector('.cart-total');
+                            const cartActions = modal.querySelector('.cart-actions');
+                            
+                            // Remplacer par le message de panier vide
+                            cartItems.innerHTML = `
+                                <div class="cart-empty">
+                                    <div class="cart-empty-icon">🛒</div>
+                                    <p>Votre panier est vide.</p>
+                                    <p>Explorez nos voyages pour vivre des aventures inoubliables !</p>
+                                </div>
+                            `;
+                            
+                            // Masquer les éléments non nécessaires
+                            cartTotal.style.display = 'none';
+                            cartActions.style.display = 'none';
                         }
                     }
                 });
@@ -357,29 +624,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 const addToCartButton = document.createElement('button');
                 addToCartButton.className = 'add-to-cart';
-                addToCartButton.textContent = 'Ajouter au panier';
+                addToCartButton.innerHTML = '🛒 Ajouter';
                 addToCartButton.addEventListener('click', (e) => {
                     e.preventDefault();
                     cart.addTrip(tripId, tripName, tripPrice);
+                    
+                    // Ajouter une animation au bouton
+                    addToCartButton.classList.add('pulse');
+                    setTimeout(() => {
+                        addToCartButton.classList.remove('pulse');
+                    }, 500);
                 });
-                
-                // Ajouter du style pour le bouton
-                const style = document.createElement('style');
-                style.textContent = `
-                    .add-to-cart {
-                        background-color: #FFD700;
-                        color: #2F3136;
-                        border: none;
-                        padding: 5px 10px;
-                        border-radius: 4px;
-                        cursor: pointer;
-                        margin-left: 10px;
-                    }
-                    .add-to-cart:hover {
-                        background-color: #FFC107;
-                    }
-                `;
-                document.head.appendChild(style);
                 
                 tripFooter.appendChild(addToCartButton);
             }
@@ -402,32 +657,17 @@ document.addEventListener('DOMContentLoaded', function() {
             const addToCartButton = document.createElement('a');
             addToCartButton.className = 'add-to-cart-button';
             addToCartButton.href = '#';
-            addToCartButton.textContent = 'Ajouter au panier';
+            addToCartButton.innerHTML = '🛒 Ajouter au panier';
             addToCartButton.addEventListener('click', (e) => {
                 e.preventDefault();
                 cart.addTrip(tripId, tripTitle, tripPrice);
+                
+                // Ajouter une animation au bouton
+                addToCartButton.classList.add('pulse');
+                setTimeout(() => {
+                    addToCartButton.classList.remove('pulse');
+                }, 500);
             });
-            
-            // Ajouter du style pour le bouton
-            const style = document.createElement('style');
-            style.textContent = `
-                .add-to-cart-button {
-                    display: inline-block;
-                    background-color: #FFD700;
-                    color: #2F3136;
-                    padding: 0.8rem 2rem;
-                    border-radius: 4px;
-                    text-decoration: none;
-                    font-weight: bold;
-                    margin-right: 10px;
-                    margin-top: 1rem;
-                }
-                .add-to-cart-button:hover {
-                    background-color: #FFC107;
-                    text-decoration: none;
-                }
-            `;
-            document.head.appendChild(style);
             
             // Insérer avant le bouton "Voir le récapitulatif"
             bookNowButton.parentNode.insertBefore(addToCartButton, bookNowButton);

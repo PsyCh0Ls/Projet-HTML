@@ -139,6 +139,20 @@
             "last_login": "2025-05-16 16:03:20",
             "trips_viewed": [],
             "trips_purchased": []
+        },
+        {
+            "id": 11,
+            "login": "Hadilegoat",
+            "password": "$2y$10$a1L8OkDn25noAnQz0lSYju.nTS1Ijg2JxhPtNtJQ4dxx.tPHZ7NOu",
+            "role": "normal",
+            "name": "sami",
+            "nickname": "sdd",
+            "birth_date": "1999-01-01",
+            "address": "10 Rue de Lak",
+            "registration_date": "2025-05-16",
+            "last_login": "2025-05-16 16:35:10",
+            "trips_viewed": [],
+            "trips_purchased": []
         }
     ]
 }

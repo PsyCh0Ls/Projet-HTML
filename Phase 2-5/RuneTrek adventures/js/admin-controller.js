@@ -86,18 +86,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     const userId = formData.get('user_id');
                     const newRole = formData.get('role');
                     const userItem = form.closest('li');
+                    const roleSelect = form.querySelector('select[name="role"]');
                     
                     // Mettre à jour le texte affiché
                     const userText = userItem.textContent;
                     const rolePattern = /Rôle:\s*(admin|user|normal)/i;
                     const updatedText = userText.replace(rolePattern, `Rôle: ${newRole}`);
                     
-                    // Créer un élément temporaire pour extraire le texte
-                    const tempElement = document.createElement('div');
-                    tempElement.innerHTML = updatedText;
-                    
                     // Afficher une notification
-                    showNotification(`Rôle mis à jour avec succès pour l'utilisateur #${userId}`, 'success');
+                    showNotification(`Rôle mis à jour avec succès pour l'utilisateur #${userId}`);
                     
                     // Soumettre réellement le formulaire après le délai
                     form.submit();
@@ -114,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     userItem.style.overflow = 'hidden';
                     
                     // Afficher une notification
-                    showNotification(`Utilisateur #${userId} supprimé avec succès`, 'success');
+                    showNotification(`Utilisateur #${userId} supprimé avec succès`);
                     
                     // Soumettre réellement le formulaire après un autre délai
                     setTimeout(() => {
@@ -126,6 +123,139 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Soumettre réellement le formulaire après le délai
                     form.submit();
                 }
+            }, 2000);
+        });
+    });
+    
+    // Amélioration pour les rôles (transformer en toggles)
+    const roleForms = document.querySelectorAll('.manage-users form select[name="role"]');
+    roleForms.forEach(select => {
+        // Créer un container pour le toggle
+        const toggleContainer = document.createElement('div');
+        toggleContainer.className = 'role-toggle-container';
+        toggleContainer.style.display = 'inline-block';
+        
+        // Récupérer la valeur actuelle
+        const isAdmin = select.value === 'admin';
+        
+        // Créer le toggle
+        toggleContainer.innerHTML = `
+            <label class="switch">
+                <input type="checkbox" class="role-toggle" ${isAdmin ? 'checked' : ''}>
+                <span class="slider round"></span>
+            </label>
+            <span class="role-label">${isAdmin ? 'Admin' : 'Normal'}</span>
+        `;
+        
+        // Ajouter du style pour le toggle
+        const toggleStyle = document.createElement('style');
+        toggleStyle.textContent = `
+            .switch {
+                position: relative;
+                display: inline-block;
+                width: 60px;
+                height: 30px;
+                margin-right: 10px;
+            }
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+            .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ccc;
+                transition: .4s;
+            }
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 22px;
+                width: 22px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                transition: .4s;
+            }
+            input:checked + .slider {
+                background-color: #1E88E5;
+            }
+            input:checked + .slider:before {
+                transform: translateX(30px);
+            }
+            .slider.round {
+                border-radius: 34px;
+            }
+            .slider.round:before {
+                border-radius: 50%;
+            }
+            .role-label {
+                font-size: 14px;
+                vertical-align: middle;
+                display: inline-block;
+                margin-left: 5px;
+            }
+            
+            /* Mode sombre */
+            .dark-mode .slider {
+                background-color: #555;
+            }
+            .dark-mode input:checked + .slider {
+                background-color: #1976D2;
+            }
+        `;
+        document.head.appendChild(toggleStyle);
+        
+        // Masquer le select original
+        select.style.display = 'none';
+        
+        // Insérer le toggle après le select
+        select.parentNode.insertBefore(toggleContainer, select.nextSibling);
+        
+        // Récupérer le formulaire parent
+        const form = select.closest('form');
+        const submitButton = form.querySelector('button[type="submit"]');
+        
+        // Masquer le bouton de soumission
+        if (submitButton) {
+            submitButton.style.display = 'none';
+        }
+        
+        // Écouter les changements sur le toggle
+        const toggle = toggleContainer.querySelector('.role-toggle');
+        const roleLabel = toggleContainer.querySelector('.role-label');
+        
+        toggle.addEventListener('change', function() {
+            // Récupérer la nouvelle valeur
+            const isChecked = this.checked;
+            
+            // Mettre à jour le select
+            select.value = isChecked ? 'admin' : 'normal';
+            
+            // Désactiver le toggle pendant le traitement
+            this.disabled = true;
+            toggleContainer.classList.add('processing');
+            
+            // Simuler un délai de traitement
+            setTimeout(() => {
+                // Réactiver le toggle
+                this.disabled = false;
+                toggleContainer.classList.remove('processing');
+                
+                // Mettre à jour le label
+                roleLabel.textContent = isChecked ? 'Admin' : 'Normal';
+                
+                // Afficher une notification
+                const userId = form.querySelector('input[name="user_id"]').value;
+                showNotification(`Rôle mis à jour avec succès pour l'utilisateur #${userId}`);
+                
+                // Soumettre le formulaire
+                form.submit();
             }, 2000);
         });
     });
@@ -143,90 +273,4 @@ document.addEventListener('DOMContentLoaded', function() {
             notification.remove();
         }, 3000);
     }
-    
-    // Amélioration pour les formulaires de gestion des voyages
-    const tripForms = document.querySelectorAll('.manage-trips form');
-    
-    tripForms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            // Ne pas intercepter s'il s'agit d'un formulaire d'édition (affichage de l'interface d'édition)
-            if (form.querySelector('input[name="action"][value="edit_trip"]') && 
-                !form.classList.contains('editing')) {
-                return;
-            }
-            
-            e.preventDefault();
-            
-            // Récupérer les données du formulaire
-            const formData = new FormData(form);
-            const action = formData.get('action');
-            
-            // Validation côté client
-            let isValid = true;
-            const requiredInputs = form.querySelectorAll('input[required], textarea[required]');
-            requiredInputs.forEach(input => {
-                if (!input.value.trim()) {
-                    isValid = false;
-                    input.classList.add('input-error');
-                    
-                    // Créer un message d'erreur s'il n'existe pas déjà
-                    if (!input.parentNode.querySelector('.error-message')) {
-                        const errorMessage = document.createElement('div');
-                        errorMessage.className = 'error-message';
-                        errorMessage.textContent = 'Ce champ est requis';
-                        input.parentNode.appendChild(errorMessage);
-                    }
-                } else {
-                    input.classList.remove('input-error');
-                    const errorMessage = input.parentNode.querySelector('.error-message');
-                    if (errorMessage) {
-                        errorMessage.remove();
-                    }
-                }
-            });
-            
-            if (!isValid) {
-                showNotification('Veuillez corriger les erreurs dans le formulaire', 'error');
-                return;
-            }
-            
-            // Ajouter un effet de chargement
-            form.classList.add('processing');
-            form.classList.add('processing-overlay');
-            
-            // Simuler un délai de traitement (1.5 secondes)
-            setTimeout(() => {
-                // Retirer l'effet de chargement
-                form.classList.remove('processing');
-                form.classList.remove('processing-overlay');
-                
-                if (action === 'add_trip') {
-                    showNotification('Voyage ajouté avec succès', 'success');
-                } else if (action === 'edit_trip') {
-                    showNotification('Voyage modifié avec succès', 'success');
-                } else if (action === 'delete_trip') {
-                    const tripId = formData.get('trip_id');
-                    const tripItem = form.closest('li');
-                    
-                    // Animer la suppression
-                    if (tripItem) {
-                        tripItem.style.transition = 'all 0.5s ease-out';
-                        tripItem.style.opacity = '0';
-                        tripItem.style.height = '0';
-                        tripItem.style.overflow = 'hidden';
-                        
-                        setTimeout(() => {
-                            tripItem.remove();
-                        }, 500);
-                    }
-                    
-                    showNotification(`Voyage #${tripId} supprimé avec succès`, 'success');
-                    return; // Ne pas soumettre le formulaire, la suppression est simulée
-                }
-                
-                // Soumettre réellement le formulaire après le délai
-                form.submit();
-            }, 1500);
-        });
-    });
 });
