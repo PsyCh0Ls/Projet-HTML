@@ -97,6 +97,48 @@
             "last_login": null,
             "trips_viewed": [],
             "trips_purchased": []
+        },
+        {
+            "id": 8,
+            "login": "rororo",
+            "password": "$2y$10$RD27GSdD0gcA3Nr2a8U0I.L6Ty3.dCGHpEp1VkTsTtRHr4EQu1gPK",
+            "role": "normal",
+            "name": "d",
+            "nickname": "d",
+            "birth_date": "1999-09-01",
+            "address": "1",
+            "registration_date": "2025-05-16",
+            "last_login": "2025-05-16 15:51:43",
+            "trips_viewed": [],
+            "trips_purchased": []
+        },
+        {
+            "id": 9,
+            "login": "eri",
+            "password": "$2y$10$ngGlxUxbyT3mBSxXRfVzL.N4ctkI59bBddihVDXWDoOazz3imkoVS",
+            "role": "normal",
+            "name": "a",
+            "nickname": "a",
+            "birth_date": "1324-12-01",
+            "address": "1",
+            "registration_date": "2025-05-16",
+            "last_login": "2025-05-16 15:57:44",
+            "trips_viewed": [],
+            "trips_purchased": []
+        },
+        {
+            "id": 10,
+            "login": "aze",
+            "password": "$2y$10$ZF84fLJxHCJCc8xys0EPKO60jGy6rNmD\/GaeA6G1o\/xD4slcNMu0u",
+            "role": "normal",
+            "name": "sami",
+            "nickname": "sdd",
+            "birth_date": "2001-12-01",
+            "address": "1",
+            "registration_date": "2025-05-16",
+            "last_login": "2025-05-16 16:03:20",
+            "trips_viewed": [],
+            "trips_purchased": []
         }
     ]
 }

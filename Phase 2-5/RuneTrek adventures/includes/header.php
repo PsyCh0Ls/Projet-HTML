@@ -1,20 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <!DOCTYPE html>
-<html lang="fr">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RuneTrek Adventures</title>
     <!-- Préchargeur de thème pour éviter le clignotement -->
     <script src="js/theme-loader.js"></script>
     <link rel="stylesheet" href="styles/runeTrek adventures.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RuneTrek Adventures</title>
-    <script src="js/theme-loader.js"></script>
-    <link rel="stylesheet" href="styles/runeTrek adventures.css">
+    <link rel="stylesheet" href="styles/form-styles.css">
     <?php
     // Inclure le CSS spécifique en fonction de la page
     $current_page = basename($_SERVER['PHP_SELF']);
