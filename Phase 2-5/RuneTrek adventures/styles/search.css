@@ -127,6 +127,105 @@
     background-color: #1565C0;
 }
 
+/* Piltover */
+.trip-image.piltover-bg {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
+    url('../images/piltover-stage1.jpg');
+}
+
+/* Zaun */
+.trip-image.zaun-bg {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
+    url('../images/zaun-stage1.jpg.jpg');
+}
+
+/* Demacia */
+.trip-image.demacia-bg {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
+    url('../images/demacia-stage1.jpg');
+}
+
+/* Noxus */
+.trip-image.noxus-bg {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
+    url('../images/noxus-stage1.jpg');
+}
+
+/* Ionia */
+.trip-image.ionia-bg {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
+    url('../images/ionia-stage1.jpg');
+}
+
+/* Targon */
+.trip-image.targon-bg {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
+    url('../images/targon-stage1.jpg');
+}
+
+/* Bilgewater */
+.trip-image.bilgewater-bg {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
+    url('../images/bilgewater-stage1.jpg');
+}
+
+/* Shurima */
+.trip-image.shurima-bg {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
+    url('../images/shurima-stage1.jpg');
+}
+
+/* Îles Obscures */
+.trip-image.Îles.obscures-bg {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
+    url('../images/shadow-isles-stage1.jpg');
+}
+
+/* Bandle */
+.trip-image.bandle-bg {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
+    url('../images/bandle-stage1.jpg');
+}
+
+/* Freljord */
+.trip-image.freljord-bg {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
+    url('../images/freljord-stage1.jpg');
+}
+
+/* Void */
+.trip-image.void-bg {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
+    url('../images/void-stage1.jpg');
+}
+
+/* Ixtal */
+.trip-image.ixtal-bg {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
+    url('../images/ixtal-stage1.jpg');
+}
+
+/* Runeterra */
+.trip-image.runeterra-bg {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
+    url('../images/runeterra-stage1.jpg');
+}
+
+
 @media (max-width: 768px) {
     .search-page main {
         flex-direction: column;
