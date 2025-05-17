@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once 'includes/functions.php';
-
 $trips_data = read_json('data/trips.json');
 $trips = $trips_data['trips'] ?? [];
 $filtered_trips = $trips;
