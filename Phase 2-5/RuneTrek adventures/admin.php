@@ -21,12 +21,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($_POST['action'] === 'add_trip') {
             $new_trip = [
                 'id' => count($trips) + 1,
-                'title' => $_POST['title'] ?? '',
-                'region' => $_POST['region'] ?? '',
-                'description' => $_POST['description'] ?? '',
-                'start_date' => $_POST['start_date'] ?? '',
-                'duration' => (int)($_POST['duration'] ?? 0),
-                'price' => (int)($_POST['price'] ?? 0)
+                'title' => isset($_POST['title']) ? $_POST['title'] : '',
+                'region' => isset($_POST['region']) ? $_POST['region'] : '',
+                'description' => isset($_POST['description']) ? $_POST['description'] : '',
+                'start_date' => isset($_POST['start_date']) ? $_POST['start_date'] : '',
+                'duration' => (int)(isset($_POST['duration']) ? $_POST['duration'] : 0),
+                'price' => (int)(isset($_POST['price']) ? $_POST['price'] : 0)
             ];
             $trips[] = $new_trip;
             $data['trips'] = $trips;
@@ -43,12 +43,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $trip_id = (int)$_POST['trip_id'];
             foreach ($trips as &$trip) {
                 if ($trip['id'] == $trip_id) {
-                    $trip['title'] = $_POST['title'] ?? $trip['title'];
-                    $trip['region'] = $_POST['region'] ?? $trip['region'];
-                    $trip['description'] = $_POST['description'] ?? $trip['description'];
-                    $trip['start_date'] = $_POST['start_date'] ?? $trip['start_date'];
-                    $trip['duration'] = (int)($_POST['duration'] ?? $trip['duration']);
-                    $trip['price'] = (int)($_POST['price'] ?? $trip['price']);
+                    $trip['title'] = isset($_POST['title']) ? $_POST['title'] : $trip['title'];
+                    $trip['region'] = isset($_POST['region']) ? $_POST['region'] : $trip['region'];
+                    $trip['description'] = isset($_POST['description']) ? $_POST['description'] : $trip['description'];
+                    $trip['start_date'] = isset($_POST['start_date']) ? $_POST['start_date'] : $trip['start_date'];
+                    $trip['duration'] = (int)(isset($_POST['duration']) ? $_POST['duration'] : $trip['duration']);
+                    $trip['price'] = (int)(isset($_POST['price']) ? $_POST['price'] : $trip['price']);
                     break;
                 }
             }
@@ -71,14 +71,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         } elseif ($_POST['action'] === 'change_role' && isset($_POST['user_id']) && isset($_POST['role'])) {
             $user_id = (int)$_POST['user_id'];
-            $new_role = $_POST['role'] === 'admin' ? 'admin' : 'user';
+            $new_role = $_POST['role'] === 'admin' ? 'admin' : 'normal';
             // Ne pas permettre à un admin de modifier son propre rôle
             if ($user_id == $_SESSION['user_id']) {
                 $error = "Vous ne pouvez pas modifier votre propre rôle.";
             } else {
-                foreach ($users as &$user) {
-                    if ($user['id'] == $user_id) {
-                        $user['role'] = $new_role;
+                foreach ($users as &$u) {
+                    if ($u['id'] == $user_id) {
+                        $u['role'] = $new_role;
                         break;
                     }
                 }
@@ -139,7 +139,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['id'])) 
                 </div>
                 <div>
                     <label>Prix (PO):</label>
-                    <input type="number" name="price" min="0" value="<?php echo $edit_trip ? htmlspecialchars($trip['price']) : ''; ?>" required>
+                    <input type="number" name="price" min="0" value="<?php echo $edit_trip ? htmlspecialchars($edit_trip['price']) : ''; ?>" required>
                 </div>
                 <button type="submit"><?php echo $edit_trip ? 'Modifier' : 'Ajouter'; ?> le voyage</button>
             </form>
@@ -150,8 +150,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['id'])) 
                 <?php else: ?>
                     <?php foreach ($trips as $trip): ?>
                         <li>
-                            <?php echo htmlspecialchars($trip['title']); ?> - <?php echo htmlspecialchars($trip['region']); ?>
-                            (<?php echo htmlspecialchars($trip['start_date']); ?>, <?php echo htmlspecialchars($trip['duration']); ?> jours, <?php echo htmlspecialchars($trip['price']); ?> PO)
+                            <?php echo htmlspecialchars($trip['title'] ?? ''); ?> - <?php echo htmlspecialchars($trip['region'] ?? ''); ?>
+                            (<?php echo htmlspecialchars($trip['start_date'] ?? ''); ?>, <?php echo htmlspecialchars($trip['duration'] ?? ''); ?> jours, <?php echo htmlspecialchars($trip['price'] ?? ''); ?> PO)
                             <form method="POST" style="display:inline;">
                                 <input type="hidden" name="action" value="delete_trip">
                                 <input type="hidden" name="trip_id" value="<?php echo $trip['id']; ?>">
@@ -172,7 +172,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['id'])) 
                 <?php else: ?>
                     <?php foreach ($users as $user): ?>
                         <li>
-                            <?php echo htmlspecialchars($user['username']); ?> (<?php echo htmlspecialchars($user['email']); ?>) - Rôle: <?php echo htmlspecialchars($user['role']); ?>
+                            <?php echo htmlspecialchars($user['login'] ?? ''); ?> (<?php echo htmlspecialchars($user['email'] ?? ''); ?>) - Rôle: <?php echo htmlspecialchars($user['role'] ?? ''); ?>
                             <form method="POST" style="display:inline;">
                                 <input type="hidden" name="action" value="delete_user">
                                 <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
@@ -182,8 +182,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['id'])) 
                                 <input type="hidden" name="action" value="change_role">
                                 <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
                                 <select name="role">
-                                    <option value="user" <?php echo $user['role'] === 'user' ? 'selected' : ''; ?>>Utilisateur</option>
-                                    <option value="admin" <?php echo $user['role'] === 'admin' ? 'selected' : ''; ?>>Admin</option>
+                                    <option value="normal" <?php echo ($user['role'] ?? '') === 'normal' ? 'selected' : ''; ?>>Utilisateur</option>
+                                    <option value="admin" <?php echo ($user['role'] ?? '') === 'admin' ? 'selected' : ''; ?>>Admin</option>
                                 </select>
                                 <button type="submit">Changer le rôle</button>
                             </form>

@@ -153,6 +153,20 @@
             "last_login": "2025-05-16 16:35:10",
             "trips_viewed": [],
             "trips_purchased": []
+        },
+        {
+            "id": 12,
+            "login": "Viegarde",
+            "password": "$2y$10$GudjuaK8qnE\/XNriRLy5TezUsrEusDJ3t1IuLp\/YjaVn.CHAJa.q6",
+            "role": "admin",
+            "name": "viego",
+            "nickname": "Vnb",
+            "birth_date": "2000-02-01",
+            "address": "10 Rue de Laklo",
+            "registration_date": "2025-05-17",
+            "last_login": "2025-05-17 17:42:53",
+            "trips_viewed": [],
+            "trips_purchased": []
         }
     ]
 }

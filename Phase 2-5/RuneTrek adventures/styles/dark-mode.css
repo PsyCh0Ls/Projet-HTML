@@ -86,6 +86,68 @@ body.dark-mode-preload:not(.dark-mode) {
     color: #ccc !important;
 }
 
+/* *** PAGE ADMINISTRATION - CORRECTION SPÉCIFIQUE *** */
+/* Appliquer le mode sombre à la page d'administration */
+.dark-mode .admin-page main {
+    background-color: #121212 !important;
+    color: #e0e0e0 !important;
+}
+
+.dark-mode .admin-page h1,
+.dark-mode .admin-page h2,
+.dark-mode .admin-page h3 {
+    color: #64B5F6 !important;
+}
+
+.dark-mode .admin-page .manage-trips,
+.dark-mode .admin-page .manage-users {
+    background-color: #1e1e1e !important;
+    border-color: #333 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+.dark-mode .admin-page form label {
+    color: #e0e0e0 !important;
+}
+
+.dark-mode .admin-page form input[type="text"],
+.dark-mode .admin-page form input[type="number"],
+.dark-mode .admin-page form input[type="date"],
+.dark-mode .admin-page form textarea,
+.dark-mode .admin-page form select {
+    background-color: #2a2a2a !important;
+    color: #e0e0e0 !important;
+    border-color: #444 !important;
+}
+
+.dark-mode .admin-page form button {
+    background-color: #1976D2 !important;
+    color: white !important;
+}
+
+.dark-mode .admin-page form button:hover {
+    background-color: #1565C0 !important;
+}
+
+.dark-mode .admin-page ul li {
+    border-bottom-color: #333 !important;
+    color: #e0e0e0 !important;
+}
+
+.dark-mode .admin-page ul li a {
+    color: #64B5F6 !important;
+}
+
+.dark-mode .admin-page ul li a:hover {
+    color: #90CAF9 !important;
+}
+
+.dark-mode .admin-page select {
+    background-color: #2a2a2a !important;
+    color: #e0e0e0 !important;
+    border-color: #444 !important;
+}
+
 /* Quick search section */
 .dark-mode .quick-search,
 .dark-mode .presentation-page .quick-search {
