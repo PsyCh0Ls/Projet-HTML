@@ -58,6 +58,80 @@ body.dark-mode-preload:not(.dark-mode) {
     border-color: #333;
 }
 
+/* *** SECTION DES ENGAGEMENTS - CORRECTION SPÉCIFIQUE *** */
+/* Appliquer le mode sombre à la section des engagements */
+.dark-mode .commitments,
+.dark-mode .presentation-page .commitments {
+    background-color: #1e1e1e !important;
+}
+
+.dark-mode .commitment-card,
+.dark-mode .presentation-page .commitment-card {
+    background-color: #2a2a2a !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+.dark-mode .commitment-card h3,
+.dark-mode .presentation-page .commitment-card h3 {
+    color: #64B5F6 !important;
+}
+
+.dark-mode .commitments h2,
+.dark-mode .presentation-page .commitments h2 {
+    color: #e0e0e0 !important;
+}
+
+.dark-mode .commitments p,
+.dark-mode .presentation-page .commitment-card p {
+    color: #ccc !important;
+}
+
+/* Quick search section */
+.dark-mode .quick-search,
+.dark-mode .presentation-page .quick-search {
+    background-color: #0d47a1 !important;
+}
+
+.dark-mode .search-form,
+.dark-mode .presentation-page .search-form {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.dark-mode .search-input-group select,
+.dark-mode .search-input-group input,
+.dark-mode .presentation-page .search-input-group select,
+.dark-mode .presentation-page .search-input-group input {
+    background-color: #2a2a2a !important;
+    color: #e0e0e0 !important;
+    border: 1px solid #444 !important;
+}
+
+/* About section */
+.dark-mode .about-section,
+.dark-mode .presentation-page .about-section {
+    color: #e0e0e0 !important;
+}
+
+.dark-mode .about-section h1,
+.dark-mode .presentation-page .about-section h1 {
+    color: #e0e0e0 !important;
+}
+
+.dark-mode .about-section .lead-text,
+.dark-mode .presentation-page .about-section .lead-text {
+    color: #ccc !important;
+}
+
+.dark-mode .about-content h2,
+.dark-mode .presentation-page .about-content h2 {
+    color: #64B5F6 !important;
+}
+
+.dark-mode .about-content p,
+.dark-mode .presentation-page .about-content p {
+    color: #ccc !important;
+}
+
 .dark-mode .profile-field:hover {
     background-color: #2a2a2a;
 }
@@ -98,7 +172,8 @@ body.dark-mode-preload:not(.dark-mode) {
 .dark-mode .save-button,
 .dark-mode .submit-changes,
 .dark-mode a.cta-button,
-.dark-mode a[href="register.php"].cta-button {
+.dark-mode a[href="register.php"].cta-button,
+.dark-mode .presentation-page .search-button {
     background-color: #1976D2 !important;
     color: white !important;
 }
@@ -114,7 +189,8 @@ body.dark-mode-preload:not(.dark-mode) {
 .dark-mode .save-button:hover,
 .dark-mode .submit-changes:hover,
 .dark-mode a.cta-button:hover,
-.dark-mode a[href="register.php"].cta-button:hover {
+.dark-mode a[href="register.php"].cta-button:hover,
+.dark-mode .presentation-page .search-button:hover {
     background-color: #1565C0 !important;
 }
 
@@ -136,6 +212,14 @@ body.dark-mode-preload:not(.dark-mode) {
 .dark-mode .destination-card.demacia,
 .dark-mode .destination-card.ionia,
 .dark-mode .trip-image {
+    filter: brightness(0.85);
+}
+
+/* Pour s'assurer que les images de fond de la section des engagements fonctionnent en mode sombre */
+.dark-mode .about-image.history-image,
+.dark-mode .about-image.philosophy-image,
+.dark-mode .commitment-icon,
+.dark-mode .presentation-page .commitment-icon {
     filter: brightness(0.85);
 }
 
