@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Vérifier si nous sommes sur la page admin
+    //check page admin
     const adminPage = document.querySelector('.admin-page');
     if (!adminPage) return;
     
-    // Ajouter du style pour les éléments en cours de traitement
+    // Ajout style pour les éléments en cours de traitement
     const style = document.createElement('style');
     style.textContent = `
         .processing {
@@ -59,19 +59,19 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
     
-    // Intercepter les formulaires pour simuler le délai
+    // check les formulaires pour simuler le délai
     const userManagementForms = document.querySelectorAll('.manage-users form');
     
     userManagementForms.forEach(form => {
-        // Remplacer le comportement par défaut
+        // Remplacef le comportement par défaut
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Récupérer les données du formulaire
+            // prend les données du formulaire
             const formData = new FormData(form);
             const action = formData.get('action');
             
-            // Ajouter un effet de chargement
+            // Ajoute un effet de chargement
             form.classList.add('processing');
             form.classList.add('processing-overlay');
             
@@ -81,14 +81,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 form.classList.remove('processing');
                 form.classList.remove('processing-overlay');
                 
-                // Pour les changements de rôle, mettre à jour l'affichage
+                // maj affichage pour les changements de rôle
                 if (action === 'change_role') {
                     const userId = formData.get('user_id');
                     const newRole = formData.get('role');
                     const userItem = form.closest('li');
                     const roleSelect = form.querySelector('select[name="role"]');
                     
-                    // Mettre à jour le texte affiché
+                    // maj  texte affiché
                     const userText = userItem.textContent;
                     const rolePattern = /Rôle:\s*(admin|user|normal)/i;
                     const updatedText = userText.replace(rolePattern, `Rôle: ${newRole}`);
@@ -99,26 +99,25 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Soumettre réellement le formulaire après le délai
                     form.submit();
                 }
-                // Pour les suppressions, simuler la suppression
+                // simule la suppression
                 else if (action === 'delete_user') {
                     const userId = formData.get('user_id');
                     const userItem = form.closest('li');
                     
-                    // Animer la suppression
+                    // Anime la suppression
                     userItem.style.transition = 'all 0.5s ease-out';
                     userItem.style.opacity = '0';
                     userItem.style.height = '0';
                     userItem.style.overflow = 'hidden';
                     
-                    // Afficher une notification
+                    // Affiche une notification
                     showNotification(`Utilisateur #${userId} supprimé avec succès`);
                     
-                    // Soumettre réellement le formulaire après un autre délai
+                    // Soumett réellement le formulaire après un autre délai
                     setTimeout(() => {
                         form.submit();
                     }, 500);
                 }
-                // Pour tout autre type d'action
                 else {
                     // Soumettre réellement le formulaire après le délai
                     form.submit();
@@ -127,7 +126,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Amélioration pour les rôles (transformer en toggles)
     const roleForms = document.querySelectorAll('.manage-users form select[name="role"]');
     roleForms.forEach(select => {
         // Créer un container pour le toggle
@@ -135,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleContainer.className = 'role-toggle-container';
         toggleContainer.style.display = 'inline-block';
         
-        // Récupérer la valeur actuelle
+        // Récupére la valeur actuelle
         const isAdmin = select.value === 'admin';
         
         // Créer le toggle
@@ -147,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <span class="role-label">${isAdmin ? 'Admin' : 'Normal'}</span>
         `;
         
-        // Ajouter du style pour le toggle
+        // Ajoute style pour le toggle
         const toggleStyle = document.createElement('style');
         toggleStyle.textContent = `
             .switch {
@@ -211,30 +209,30 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         document.head.appendChild(toggleStyle);
         
-        // Masquer le select original
+        // Masque le select original
         select.style.display = 'none';
         
-        // Insérer le toggle après le select
+        // Insére le toggle après le select
         select.parentNode.insertBefore(toggleContainer, select.nextSibling);
         
-        // Récupérer le formulaire parent
+        // Récupére le formulaire parent
         const form = select.closest('form');
         const submitButton = form.querySelector('button[type="submit"]');
         
-        // Masquer le bouton de soumission
+        // Masque le bouton de soumission
         if (submitButton) {
             submitButton.style.display = 'none';
         }
         
-        // Écouter les changements sur le toggle
+        // Écoute les changements sur le toggle
         const toggle = toggleContainer.querySelector('.role-toggle');
         const roleLabel = toggleContainer.querySelector('.role-label');
         
         toggle.addEventListener('change', function() {
-            // Récupérer la nouvelle valeur
+            // Récupére la nouvelle valeur
             const isChecked = this.checked;
             
-            // Mettre à jour le select
+            // maj select
             select.value = isChecked ? 'admin' : 'normal';
             
             // Désactiver le toggle pendant le traitement
@@ -247,10 +245,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.disabled = false;
                 toggleContainer.classList.remove('processing');
                 
-                // Mettre à jour le label
+                // maj label
                 roleLabel.textContent = isChecked ? 'Admin' : 'Normal';
                 
-                // Afficher une notification
+                // Afficher notif
                 const userId = form.querySelector('input[name="user_id"]').value;
                 showNotification(`Rôle mis à jour avec succès pour l'utilisateur #${userId}`);
                 
@@ -268,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         document.body.appendChild(notification);
         
-        // Supprimer après 3 secondes
+        // Supprime après 3 secondes
         setTimeout(() => {
             notification.remove();
         }, 3000);
