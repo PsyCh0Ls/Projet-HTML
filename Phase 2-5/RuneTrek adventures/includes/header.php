@@ -33,9 +33,12 @@
     <script src="js/admin-controller.js"></script>
     <script src="js/search-filter.js"></script>
     <script src="js/price-calculator.js"></script>
-    
-    <!-- Remplacer les multiples scripts de panier par notre script unifié -->
     <script src="js/cart-unified.js"></script>
+    
+    <!-- Nouveau script pour le récapitulatif avec ajout au panier -->
+    <?php if ($current_page === 'trip_summary.php'): ?>
+    <script src="js/summary-cart.js"></script>
+    <?php endif; ?>
 </head>
 <body>
     <header class="main-header">
@@ -52,7 +55,7 @@
                     <li><a href="search.php">Recherche</a></li>
                     <?php if (isset($_SESSION['user_id'])): ?>
                         <li><a href="profile.php">Profil</a></li>
-                        <?php if ($_SESSION['user_role'] === 'admin'): ?>
+                        <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
                             <li><a href="admin.php">Administration</a></li>
                         <?php endif; ?>
                         <!-- Ajouter l'indicateur de panier ici pour les utilisateurs connectés -->
