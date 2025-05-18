@@ -88,11 +88,21 @@ Phase 1: Structure et Design
 Difficulté: Création d'une charte graphique cohérente avec l'univers de League of Legends
 Solution: Recherche approfondie de l'esthétique du jeu et adaptation des éléments visuels
 
+Difiiculté: message d'erreur permanent au dessus du header
+Solution : suppression d'une session-start en trop au début du côte qui se relançait à chaque refresh  
+Mise à part cela pas de difficultés majeures d'en la création des pages HTML et CSS si ce n'est s'assurer de la concordance des codes et de l'utilisation des bons chemins pour l'implémentation des CSS et des images. 
+
 Phase 2: Gestion des Données
 
 Difficulté: Organisation efficace des données utilisateurs et voyages
 Solution: Structure JSON hiérarchique avec relations entre utilisateurs, voyages, et réservations
-Difficulté: On a rencontré un problème avec le retour paiement, c'est-à-dire que l'envoie des données è Cy-Bank
+Difficulté: On a rencontré un problème avec le retour paiement, c'est-à-dire que l'envoie des données à Cy-Bank
+Solution: décomposition des données en paramètres pour simplifier l'envoi ($transaction,$montant, $vendeur) avec la méthode $_GET[]
+            également des difficultés pour le retour sur le retour au site en local dû à un mauvais acheminement
+Solution: ajout du bon chemin
+Difficulté : paramètrage de filtrage des voyage par région dans la rubrique recherche
+Difficulté : association de la barre de recherche de la page "destinations" (presentation.php) avec celle de recherche (search.php)
+Difficulté : Problème de récupération des données utilisateurs dans la page d'administration
 
 Phase 3: Interactions JavaScript
 
@@ -100,7 +110,7 @@ Difficulté: Implémentation du mode sombre/sans clignotement lors du chargement
 Solution: Préchargement des styles avec un script intégré dans le head 
 
 Difficulté: Création du panier 
-Solution: On a du avoir recours à l'IA mais bien qu'on ait réussit à avoir un panier on s'est rendu compte qu'en fait ça avait généré plusieurs paniers ce qui a crée plus de      problèmes dont notamment le suivant  
+Solution: On a du avoir recours à l'IA mais bien qu'on ait réussit à avoir un panier on s'est rendu compte qu'en fait ça avait généré plusieurs paniers ce qui a crée plus de problèmes dont notamment le suivant  
 
 Difficulté: le fait qu'après avoir personnalisé un voyage ce qui met normalement à jour le prix dans panier le prix du voyage dans le panier restait celui de base mais que dans celui-ci ou encore le fait que pour le calcul des prix au début le récapitulatif ne prenait en compte que le premier voyage ajouté par l'utilisateur si y en a plus d'un dans son panier
 Solution: Ces problèmes ont été réglés en réécrivant/ajoutant des fichiers et avec l'aide l'IA pour certains dont la duplication d'éléments présents sur l'interface
@@ -110,11 +120,6 @@ Solution: Modifier le système de panier déjà mis en place
 
 Difficulté: redirection du panier à l'interface Cy-Bank
 Solution: L'url vers Cy-Bank avait été mal intégré dans de nombreux fichiers
-
- 
-
-
-
 
 Difficulté: Calcul dynamique des prix avec multiples options
 Solution: Système d'événements pour surveiller les changements et mettre à jour le prix en temps réel
@@ -126,20 +131,26 @@ Phase 1
 
 Toute le groupe: Conception de la charte graphique et des maquettes
 Romain: Intégration HTML des principales pages
-Groupe: Développement CSS et responsive design
-Sidney: implémentation des images
+Groupe: Développement CSS 
+Sidney: implémentation des images et responsive design
 
 Phase 2
 
 Romain/Sidney: Structure de données et fonctions PHP principales
 Romain: Gestion des utilisateurs et sessions
-Sidney: Système de recherche et affichage des voyages
+Sidney: Système de recherche, tri/filtre et affichage des voyages
 
 Phase 3
 
 Oumar: Validation des formulaires et mode sombre
 Sidney/Oumar: Calcul dynamique des prix et panier
 Oumar: Interface d'édition du profil et animations
+
+Répartition globale
+
+Sidney : 40%
+Oumar : 30%
+Romain 30%
 
 
 
