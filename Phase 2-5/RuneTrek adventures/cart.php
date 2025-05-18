@@ -33,22 +33,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         elseif ($_POST['action'] === 'checkout') {
             // Rediriger vers la page de paiement si le panier n'est pas vide
             if (!empty($_SESSION['cart']['items'])) {
-                // Sélectionner le premier voyage du panier comme voyage actif pour le paiement
-                if (!empty($_SESSION['cart']['items'])) {
-                    $first_item = $_SESSION['cart']['items'][0];
-                    $trip = get_trip_by_id($first_item['id']);
-                    
-                    $_SESSION['selected_trip'] = [
-                        'id' => $first_item['id'],
-                        'title' => $trip['title'],
-                        'stages' => $first_item['options'] ?? [],
-                        'total_price' => $first_item['price']
-                    ];
-                    
-                    // Rediriger vers payment.php qui gère la connexion à CY Bank
-                    header('Location: payment.php');
-                    exit;
+                // Calculer le prix total de tous les voyages dans le panier
+                $total_price = $_SESSION['cart']['total'];
+                
+                // Créer un voyage virtuel qui représente le panier entier
+                $first_trip_id = $_SESSION['cart']['items'][0]['id']; // Pour compatibilité
+                $trip_titles = [];
+                $all_options = [];
+                
+                foreach ($_SESSION['cart']['items'] as $item) {
+                    $trip = get_trip_by_id($item['id']);
+                    if ($trip) {
+                        $trip_titles[] = $trip['title'];
+                        // Conserver les options de chaque voyage
+                        if (!empty($item['options'])) {
+                            $all_options[$item['id']] = $item['options'];
+                        }
+                    }
                 }
+                
+                // Créer un titre combiné pour le panier
+                $combined_title = count($trip_titles) > 1 ? 
+                    implode(", ", array_slice($trip_titles, 0, 2)) . 
+                    (count($trip_titles) > 2 ? " et " . (count($trip_titles) - 2) . " autres" : "") :
+                    $trip_titles[0];
+                
+                // Créer un voyage combiné pour le paiement
+                $_SESSION['selected_trip'] = [
+                    'id' => $first_trip_id, // Utiliser l'ID du premier voyage pour compatibilité
+                    'title' => $combined_title,
+                    'stages' => $all_options,
+                    'total_price' => $total_price
+                ];
+                
+                // Rediriger vers payment.php qui gère la connexion à CY Bank
+                header('Location: payment.php');
+                exit;
             } else {
                 $error = "Votre panier est vide.";
             }
