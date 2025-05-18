@@ -1,13 +1,11 @@
-// Script to toggle password visibility on forms
 function addPasswordToggle(passwordInputId) {
     const passwordInput = document.getElementById(passwordInputId);
     if (!passwordInput) return;
 
-    // Style parent as relative for absolute positioning
     passwordInput.style.paddingRight = '36px';
     passwordInput.parentNode.style.position = 'relative';
 
-    // Create toggle button (eye icon)
+    // emojie oeuil
     const toggleBtn = document.createElement('button');
     toggleBtn.type = 'button';
     toggleBtn.className = 'password-toggle-btn';
@@ -19,7 +17,7 @@ function addPasswordToggle(passwordInputId) {
             <circle cx="12" cy="12" r="2"/>
         </svg>
     `;
-    // Style the button
+    // bouton style
     toggleBtn.style.position = 'absolute';
     toggleBtn.style.top = '75%';
     toggleBtn.style.right = '8px';
@@ -49,7 +47,7 @@ function addPasswordToggle(passwordInputId) {
                 <circle cx="12" cy="12" r="2"/>
             </svg>`;
     };
-    // Insert button absolutely inside parent
+    // inser bouton
     passwordInput.parentNode.appendChild(toggleBtn);
 }
 
