@@ -1,4 +1,4 @@
-// Préchargement du thème pour éviter le clignotement
+// Préchargement du thème pour éviter que ca clignotte de partout
 (function() {
     function isDarkMode() {
         return document.cookie.split(';').some(cookie => {
@@ -8,7 +8,7 @@
     }
     
     if (isDarkMode()) {
-        // Ajouter du style inline pour un chargement instantané
+        // Ajout style inline pour un chargement instantané
         document.write(`
             <style id="preload-dark-style">
                 /* Styles de base */
