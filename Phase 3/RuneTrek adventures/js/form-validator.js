@@ -1,35 +1,35 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Récupérer tous les formulaires de la page
+    // Prend tt les formulaires de la page
     const forms = document.querySelectorAll('form');
     
     forms.forEach(form => {
-        // Ajouter validation lors de la soumission
+        // Ajoute validation lors de la soumission
         form.addEventListener('submit', function(e) {
-            // Empêcher l'envoi par défaut
+            // Empêche l'envoi par défaut
             e.preventDefault();
             
-            // Vérifier tous les champs requis
+            // Vérifie tous les champs requis
             let isValid = true;
             const formInputs = form.querySelectorAll('input, select, textarea');
             
             formInputs.forEach(input => {
-                // Supprimer les messages d'erreur existants
+                // Supprime les messages d'erreur existants
                 const existingError = input.parentNode.querySelector('.error-message');
                 if (existingError) {
                     existingError.remove();
                 }
                 
-                // Supprimer la classe d'erreur
+                // Supprime la classe d'erreur
                 input.classList.remove('input-error');
                 
-                // Vérifier si le champ est requis et vide
+                // Vérifie si le champ est requis et vide
                 if (input.hasAttribute('required') && !input.value.trim()) {
                     isValid = false;
                     showError(input, 'Ce champ est requis');
                     return;
                 }
                 
-                // Validation des emails
+                // Check  emails
                 if (input.type === 'email' && input.value.trim()) {
                     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                     if (!emailRegex.test(input.value.trim())) {
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
                 
-                // Validation des dates
+                // Check dates
                 if (input.type === 'date' && input.value.trim()) {
                     const date = new Date(input.value);
                     const today = new Date();
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         return;
                     }
                     
-                    // Si c'est une date de naissance, vérifier qu'elle n'est pas dans le futur
+                    // Pas de date de naissance dans le future
                     if (input.id === 'birth_date' && date > today) {
                         isValid = false;
                         showError(input, 'La date de naissance ne peut pas être dans le futur');
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
                 
-                // Validation des mots de passe
+                // Validation des MPD
                 if (input.type === 'password' && input.value.trim()) {
                     if (input.value.length < 7) {
                         isValid = false;
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
                 
-                // Vérification de confirmation de mot de passe
+                // Vérif de confirmation de MDP
                 if (input.id === 'confirm_password' && input.value.trim()) {
                     const password = form.querySelector('#password');
                     if (password && password.value !== input.value) {
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
                 
-                // Validation de la longueur minimale pour les identifiants
+                // Validation de la longueur min pour les identifiants
                 if (input.id === 'login' && input.value.trim()) {
                     if (input.value.length < 7) {
                         isValid = false;
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
                 
-                // Validation de la longueur minimale pour les autres champs
+                // Validation de la longueur min pour les autres champs
                 if ((input.id === 'name' || input.id === 'nickname') && input.value.trim()) {
                     if (input.value.length < 3) {
                         isValid = false;
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             
-            // Si tout est valide, soumettre le formulaire
+            // soumettre le formulaire si tt est correct
             if (isValid) {
                 console.log("Formulaire valide, envoi en cours...");
                 form.submit();
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Ajouter des compteurs pour les champs limités
+        // Ajoute des compteurs pour les champs limités
         const limitedInputs = form.querySelectorAll('input[maxlength], textarea[maxlength]');
         limitedInputs.forEach(input => {
             // Créer un compteur
@@ -126,11 +126,11 @@ document.addEventListener('DOMContentLoaded', function() {
             counter.innerHTML = `${input.value.length}/${input.maxLength}`;
             input.parentNode.appendChild(counter);
             
-            // Mettre à jour le compteur lors de la saisie
+            // Maj compteur lors de la saisie
             input.addEventListener('input', function() {
                 counter.innerHTML = `${input.value.length}/${input.maxLength}`;
                 
-                // Changer la couleur si proche de la limite
+                // Change la couleur en focntion
                 if (input.value.length > input.maxLength * 0.8) {
                     counter.style.color = 'orange';
                 } else if (input.value.length === input.maxLength) {
@@ -141,22 +141,22 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        // Montrer/cacher le mot de passe
+        // Montrer/cacher le MDP
         const passwordFields = form.querySelectorAll('input[type="password"]');
         passwordFields.forEach(field => {
-            // Créer le bouton d'affichage
+            //bouton d'affichage
             const toggleButton = document.createElement('button');
             toggleButton.type = 'button';
             toggleButton.className = 'password-toggle';
             toggleButton.innerHTML = '👁️';
             toggleButton.title = 'Afficher/masquer le mot de passe';
             
-            // Insérer le bouton après le champ
+            // Insére le bouton après le champ
             field.parentNode.style.position = 'relative';
             field.style.paddingRight = '40px';
             field.parentNode.appendChild(toggleButton);
             
-            // Gérer le clic sur le bouton
+            // Gére le clic sur le bouton
             toggleButton.addEventListener('click', function() {
                 if (field.type === 'password') {
                     field.type = 'text';
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formInputs = form.querySelectorAll('input, select, textarea');
         formInputs.forEach(input => {
             input.addEventListener('input', function() {
-                // Supprimer l'erreur quand l'utilisateur corrige
+                // Supprime l'erreur quand l'utilisateur corrige
                 const error = input.parentNode.querySelector('.error-message');
                 if (error) {
                     error.remove();
@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Fonction pour afficher une erreur sous un champ
     function showError(input, message, shouldAnimate = true) {
-        // Supprimer tout message d'erreur existant
+        // Supprime tout message d'erreur existant
         const existingError = input.parentNode.querySelector('.error-message');
         if (existingError) {
             existingError.remove();
@@ -219,10 +219,8 @@ document.addEventListener('DOMContentLoaded', function() {
         errorDiv.textContent = message;
         input.parentNode.appendChild(errorDiv);
         
-        // Mettre en surbrillance le champ
         input.classList.add('input-error');
         
-        // Si l'animation est désactivée (validation en temps réel)
         if (!shouldAnimate) {
             errorDiv.style.animation = 'none';
         }
