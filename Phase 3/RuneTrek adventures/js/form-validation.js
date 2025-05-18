@@ -1,31 +1,31 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Récupérer tous les formulaires de la page
+    // Récupére tous les formulaires de la page
     const forms = document.querySelectorAll('form');
     
     forms.forEach(form => {
-        // Ajouter validation lors de la soumission
+        // Ajoute validation lors de la soumission
         form.addEventListener('submit', function(e) {
-            // Empêcher l'envoi par défaut
+            // Empêche l'envoi par défaut
             e.preventDefault();
             
-            // Vérifier tous les champs requis
+            // Vérifie tous les champs requis
             let isValid = true;
             const formInputs = form.querySelectorAll('input, select, textarea');
             
             formInputs.forEach(input => {
-                // Supprimer les messages d'erreur existants
+                // Supprime les messages d'erreur existants
                 const existingError = input.parentNode.querySelector('.error-message');
                 if (existingError) {
                     existingError.remove();
                 }
                 
-                // Vérifier si le champ est requis et vide
+                // Vérifie si le champ est requis et vide
                 if (input.hasAttribute('required') && !input.value.trim()) {
                     isValid = false;
                     showError(input, 'Ce champ est requis');
                 }
                 
-                // Validation des emails
+                // Check des emails
                 if (input.type === 'email' && input.value.trim()) {
                     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                     if (!emailRegex.test(input.value.trim())) {
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
                 
-                // Validation des dates
+                // Check des dates
                 if (input.type === 'date' && input.value.trim()) {
                     const date = new Date(input.value);
                     if (isNaN(date.getTime())) {
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
                 
-                // Vérification de confirmation de mot de passe
+                // Check de confirmation de mot de passe
                 if (input.name === 'password_confirm' && input.value.trim()) {
                     const password = form.querySelector('input[name="password"]');
                     if (password && password.value !== input.value) {
@@ -61,13 +61,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             
-            // Si tout est valide, soumettre le formulaire
+            // soumet le formulaire si tt est bon
             if (isValid) {
                 form.submit();
             }
         });
         
-        // Ajouter des compteurs pour les champs limités
+        // Ajoute des compteurs pour les champs limités
         const limitedInputs = form.querySelectorAll('input[maxlength], textarea[maxlength]');
         limitedInputs.forEach(input => {
             // Créer un compteur
@@ -76,11 +76,11 @@ document.addEventListener('DOMContentLoaded', function() {
             counter.innerHTML = `${input.value.length}/${input.maxLength}`;
             input.parentNode.appendChild(counter);
             
-            // Mettre à jour le compteur lors de la saisie
+            // Maj compteur lors de la saisie
             input.addEventListener('input', function() {
                 counter.innerHTML = `${input.value.length}/${input.maxLength}`;
                 
-                // Changer la couleur si proche de la limite
+                // Change la couleur si proche de la limite
                 if (input.value.length > input.maxLength * 0.8) {
                     counter.style.color = 'orange';
                 } else if (input.value.length === input.maxLength) {
@@ -91,21 +91,20 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        // Montrer/cacher le mot de passe
+        // Montre/cahcher MDP
         const passwordFields = form.querySelectorAll('input[type="password"]');
         passwordFields.forEach(field => {
-            // Créer le bouton d'affichage
+            // bouton d'affichage
             const toggleButton = document.createElement('button');
             toggleButton.type = 'button';
             toggleButton.className = 'password-toggle';
             toggleButton.innerHTML = '👁️';
             toggleButton.title = 'Afficher/masquer le mot de passe';
             
-            // Insérer le bouton après le champ
             field.parentNode.style.position = 'relative';
             field.parentNode.appendChild(toggleButton);
             
-            // Ajouter du style pour le bouton
+            // Ajout du style pour le bouton
             const style = document.createElement('style');
             style.textContent = `
                 .password-toggle {
@@ -131,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             document.head.appendChild(style);
             
-            // Gérer le clic sur le bouton
+            // Gére le clic sur le bouton
             toggleButton.addEventListener('click', function() {
                 if (field.type === 'password') {
                     field.type = 'text';
@@ -144,17 +143,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Fonction pour afficher une erreur sous un champ
+    // afficher une erreur sous un champ au cas ouuu
     function showError(input, message) {
         const errorDiv = document.createElement('div');
         errorDiv.className = 'error-message';
         errorDiv.textContent = message;
         input.parentNode.appendChild(errorDiv);
         
-        // Mettre en surbrillance le champ
+        // Met  le champ en valeur
         input.style.borderColor = 'red';
         
-        // Remettre le style normal après correction
+        // Remet le style normal après correction
         input.addEventListener('input', function() {
             input.style.borderColor = '';
             const error = input.parentNode.querySelector('.error-message');
