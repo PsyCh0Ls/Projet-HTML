@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Vérifier si nous sommes sur la page panier
+    //  Chack la page panier
     const cartPage = document.querySelector('.cart-page');
     if (!cartPage) return;
     
-    // Fonction pour mettre à jour le prix total
+    // Fonction pour maj le prix total
     function updateTotalPrice() {
         const itemPrices = document.querySelectorAll('.cart-item .item-price');
         let total = 0;
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return total;
     }
     
-    // Fonction pour supprimer un article du panier
+    // Fonction pour suppr un article du panier
     function setupRemoveItemHandlers() {
         const removeButtons = document.querySelectorAll('.remove-item');
         
@@ -39,13 +39,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 const form = this.closest('form');
                 const itemElement = this.closest('.cart-item');
                 
-                // Animer la suppression
+                // Anime la suppression
                 itemElement.style.transition = 'all 0.3s ease-out';
                 itemElement.style.opacity = '0';
                 itemElement.style.height = '0';
                 itemElement.style.overflow = 'hidden';
                 
-                // Attendre la fin de l'animation avant de soumettre le formulaire
+                // Attend la fin de l'animation avant de soumettre le formulaire
                 setTimeout(() => {
                     form.submit();
                 }, 300);
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Fonction pour mettre à jour la quantité d'un article
+    // Fonction pour maj la quantité d'un article
     function setupQuantityControls() {
         const quantityInputs = document.querySelectorAll('.item-quantity input');
         
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const minusButton = input.previousElementSibling;
             const plusButton = input.nextElementSibling;
             
-            // Gestionnaire pour le bouton moins
+            // Gère le bouton -
             if (minusButton && minusButton.classList.contains('quantity-minus')) {
                 minusButton.addEventListener('click', function() {
                     if (input.value > 1) {
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
             
-            // Gestionnaire pour le bouton plus
+            // Mm chose pour le +
             if (plusButton && plusButton.classList.contains('quantity-plus')) {
                 plusButton.addEventListener('click', function() {
                     if (input.value < 10) { // Limite maximale
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
             
-            // Mise à jour du prix lors du changement de quantité
+            // Maj du prix lors du changement de quantité
             input.addEventListener('change', function() {
                 const itemElement = this.closest('.cart-item');
                 const priceElement = itemElement.querySelector('.item-price');
@@ -95,11 +95,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     priceElement.classList.remove('price-updated');
                 }, 500);
                 
-                // Mettre à jour le total
+                // Maj le total
                 updateTotalPrice();
                 
-                // Envoyer une requête AJAX pour mettre à jour le panier côté serveur
-                // Dans la phase 3, on simule simplement cette opération
+                // Envoye une requête AJAX pour mettre à jour le panier côté serveur
                 const updateForm = document.createElement('form');
                 updateForm.method = 'POST';
                 updateForm.action = 'update_cart.php';
@@ -118,8 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 updateForm.appendChild(tripIdInput);
                 updateForm.appendChild(quantityInput);
                 
-                // Au lieu d'envoyer réellement le formulaire,
-                // nous simulons la mise à jour pour la phase 3
+                // simu
                 console.log('Simulaton de mise à jour du panier:', {
                     trip_id: tripIdInput.value,
                     quantity: quantityInput.value
@@ -128,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Configuration des boutons d'action du panier
+    // Configuration boutons d'action du panier
     function setupCartActions() {
         const clearButton = document.querySelector('.clear-cart');
         const checkoutButton = document.querySelector('.checkout');
@@ -137,9 +135,9 @@ document.addEventListener('DOMContentLoaded', function() {
             clearButton.addEventListener('click', function(e) {
                 e.preventDefault();
                 
-                // Demander confirmation
+                // Dmd confirmation
                 if (confirm('Êtes-vous sûr de vouloir vider votre panier ?')) {
-                    // Animer tous les éléments du panier
+                    // Anime tous les éléments du panier
                     const cartItems = document.querySelectorAll('.cart-item');
                     
                     cartItems.forEach(item => {
@@ -149,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         item.style.overflow = 'hidden';
                     });
                     
-                    // Attendre la fin de l'animation avant de soumettre le formulaire
+                    // Attend la fin de l'animation avant de soumettre le formulaire
                     setTimeout(() => {
                         this.closest('form').submit();
                     }, 300);
@@ -161,17 +159,17 @@ document.addEventListener('DOMContentLoaded', function() {
             checkoutButton.addEventListener('click', function(e) {
                 e.preventDefault();
                 
-                // Animer le bouton
+                // Anime le bouton
                 this.innerHTML = 'Préparation du paiement...';
                 this.style.backgroundColor = '#90CAF9';
                 
-                // Montrer une animation de chargement
+                // Montre une animation de chargement
                 const loadingOverlay = document.createElement('div');
                 loadingOverlay.className = 'loading-overlay active';
                 loadingOverlay.innerHTML = '<div class="loading-spinner"></div>';
                 document.body.appendChild(loadingOverlay);
                 
-                // Rediriger vers la page de paiement après un court délai
+                // Redirige vers la page de paiement après un court délai
                 setTimeout(() => {
                     this.closest('form').submit();
                 }, 800);
@@ -179,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Ajouter des styles CSS pour les animations
+    // Ajoute des styles CSS pour les animations
     const style = document.createElement('style');
     style.textContent = `
         .price-updated {
@@ -246,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
     
-    // Initialiser les gestionnaires d'événements
+    // Initialise les gestionnaires d'événements
     setupRemoveItemHandlers();
     setupQuantityControls();
     setupCartActions();
