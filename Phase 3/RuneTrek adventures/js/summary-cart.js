@@ -1,15 +1,12 @@
-/**
- * Script pour gérer l'ajout automatique au panier sur la page de récapitulatif
- */
 document.addEventListener('DOMContentLoaded', function() {
-    // Vérifier si nous sommes sur la page de récapitulatif
+    // Vérifier si quon est sur la page de récapitulatif
     const summaryPage = document.querySelector('.summary-page');
     if (!summaryPage) return;
     
-    // Vérifier si la notification d'ajout au panier est présente
+    // Vérifie si la notification d'ajout au panier est présente
     const notification = document.getElementById('cart-notification');
     if (notification) {
-        // Afficher la notification avec une animation
+        // Affiche la notification avec une animation
         notification.style.opacity = '0';
         notification.style.transform = 'translateY(-20px)';
         
@@ -18,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
             notification.style.opacity = '1';
             notification.style.transform = 'translateY(0)';
             
-            // Cacher la notification après 5 secondes
+            // Cache la notification après 5 secondes
             setTimeout(function() {
                 notification.style.opacity = '0';
                 
@@ -29,10 +26,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 300);
     }
     
-    // Mettre à jour visuellement le compteur du panier
+    // Maj visuellement le compteur du panier
     const cartCount = document.getElementById('cart-count');
     if (cartCount) {
-        // Ajouter une animation au compteur
+        // Ajoute une animation au compteur
         cartCount.classList.add('pulse');
         
         setTimeout(function() {
@@ -40,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 500);
     }
     
-    // Ajouter une animation d'entrée pour les éléments du récapitulatif
+    // Ajoute une animation d'entrée pour les éléments du récapitulatif
     const summaryItems = document.querySelectorAll('.summary-container > *');
     summaryItems.forEach((item, index) => {
         item.style.opacity = '0';
@@ -53,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 100 + index * 50);
     });
     
-    // Ajouter une animation au bouton d'ajout au panier
+    // Ajoute une animation au bouton d'ajout au panier
     const addToCartButton = document.querySelector('.add-cart-button');
     if (addToCartButton) {
         addToCartButton.addEventListener('click', function() {
