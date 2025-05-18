@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Gestion des utilisateurs
         elseif ($_POST['action'] === 'delete_user' && isset($_POST['user_id'])) {
             $user_id = (int)$_POST['user_id'];
-            // Ne pas permettre à un admin de se supprimer lui-même
+            // Avec ca l'admin ne peut pas se suppr lui mm
             if ($user_id == $_SESSION['user_id']) {
                 $error = "Vous ne pouvez pas supprimer votre propre compte.";
             } else {
