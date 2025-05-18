@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RuneTrek Adventures - Voyages à travers Runeterra</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/home.css">
+</head>
+<body>
+    <!-- Header du template de base -->
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo">
+                <a href="index.html">
+                    <h1>RuneTrek Adventures</h1>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="presentation.html">Destinations</a></li>
+                    <li><a href="search.html">Recherche</a></li>
+                    <li><a href="login.html">Connexion</a></li>
+                    <li><a href="register.html" class="cta-button">S'inscrire</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Section Hero -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Explorez les Merveilles de Runeterra</h1>
+                <p>Des circuits uniques à travers les terres magiques et mystérieuses de Runeterra</p>
+                <a href="search.html" class="cta-button-large">Découvrir nos voyages</a>
+            </div>
+        </section>
+
+        <!-- Section Destinations Populaires -->
+        <section class="featured-destinations">
+            <h2>Destinations Phares</h2>
+            <div class="destination-grid">
+                <div class="destination-card piltover">
+                    <div class="card-content">
+                        <h3>Piltover & Zaun</h3>
+                        <p>Découvrez la cité du progrès et son innovation hextech</p>
+                        <a href="#" class="destination-link">Explorer</a>
+                    </div>
+                </div>
+                <div class="destination-card demacia">
+                    <div class="card-content">
+                        <h3>Demacia</h3>
+                        <p>Vivez l'esprit chevaleresque de cette noble cité-état</p>
+                        <a href="#" class="destination-link">Explorer</a>
+                    </div>
+                </div>
+                <div class="destination-card ionia">
+                    <div class="card-content">
+                        <h3>Ionia</h3>
+                        <p>Immergez-vous dans la magie et l'harmonie naturelle</p>
+                        <a href="#" class="destination-link">Explorer</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Avantages -->
+        <section class="features">
+            <h2>Pourquoi Choisir RuneTrek ?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon magic"></div>
+                    <h3>Guides Natifs</h3>
+                    <p>Accompagnement par des habitants de chaque région</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon shield"></div>
+                    <h3>Sécurité Garantie</h3>
+                    <p>Protection assurée par les meilleurs gardiens de Runeterra</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon scroll"></div>
+                    <h3>Circuits Exclusifs</h3>
+                    <p>Accès à des lieux secrets et mystiques</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Témoignages -->
+        <section class="testimonials">
+            <h2>Avis des Voyageurs</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p>"Une expérience inoubliable à Piltover. L'architecture hextech est époustouflante!"</p>
+                    <cite>- Caitlyn, Shérif de Piltover</cite>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Les jardins d'Ionia sont encore plus beaux que dans mes souvenirs."</p>
+                    <cite>- Karma, Illuminée</cite>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer du template de base -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>À propos de RuneTrek</h3>
+                <p>Votre portail vers les aventures fantastiques de Runeterra</p>
+            </div>
+            <div class="footer-section">
+                <h3>Destinations</h3>
+                <ul>
+                    <li><a href="#">Piltover & Zaun</a></li>
+                    <li><a href="#">Demacia</a></li>
+                    <li><a href="#">Ionia</a></li>
+                    <li><a href="#">Freljord</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="#">Nous contacter</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Mentions légales</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    
+</body>
+</html>
