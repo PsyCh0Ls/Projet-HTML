@@ -1,250 +1,229 @@
 <?php
 session_start();
 require_once 'includes/functions.php';
-require_once 'includes/cart_functions.php';
+require_once 'includes/getapikey.php';
 
-if (!is_authenticated() || !isset($_SESSION['selected_trip'])) {
-    header('Location: login.php');
-    exit;
-}
-
-$trip = get_trip_by_id($_SESSION['selected_trip']['id']);
-if (!$trip) {
+if (!isset($_SESSION['selected_trip'])) {
     header('Location: search.php');
     exit;
 }
 
-// Calculer le prix total en fonction des options sélectionnées
-$total_price = $_SESSION['selected_trip']['total_price'] ?? $trip['price'];
+$trip = get_trip_by_id($_SESSION['selected_trip']['id']);
 
-// Vérifier si le voyage est déjà dans le panier
-$in_cart = is_in_cart($trip['id']);
+// Préparation des données pour CY Bank
+$vendeur = 'MIM_C';
+$api_key = getAPIKey($vendeur);
+$transaction = uniqid('TX', true);
+$transaction = substr(str_replace('.', '', $transaction), 0, 24);
+$montant = number_format($_SESSION['selected_trip']['total_price'], 2, '.', '');
+$retour_base_url = 'http://localhost'; // À adapter selon votre configuration
+$retour_path = '/retour_paiement.php';
+$retour = $retour_base_url . $retour_path . '?session=' . session_id();
+$control = md5($api_key . '#' . $transaction . '#' . $montant . '#' . $vendeur . '#' . $retour . '#');
 
-// Traitement de l'ajout manuel au panier
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
-    if ($_POST['action'] === 'add_to_cart') {
-        // Ajouter au panier avec les options sélectionnées
-        add_to_cart($trip['id'], $_SESSION['selected_trip']['stages'] ?? []);
-        
-        // Rediriger pour éviter les soumissions multiples
-        header('Location: trip_summary.php?added=1');
-        exit;
-    }
-}
-
-// Ajouter automatiquement au panier si ce n'est pas déjà fait et si ce n'est pas un ajout manuel
-$added_manually = isset($_GET['added']) && $_GET['added'] === '1';
-if (!$in_cart && !isset($_SESSION['added_to_cart']) && !$added_manually) {
-    // Ajouter le voyage au panier avec les options sélectionnées
-    add_to_cart($trip['id'], $_SESSION['selected_trip']['stages'] ?? []);
-    
-    // Marquer comme ajouté pour éviter les ajouts multiples
-    $_SESSION['added_to_cart'] = true;
-}
-
-// Mise à jour de la variable $in_cart après l'ajout
-$in_cart = is_in_cart($trip['id']);
+// Stocker les données pour vérification au retour
+$_SESSION['payment_data'] = [
+    'transaction' => $transaction,
+    'montant' => $montant,
+    'vendeur' => $vendeur,
+    'retour' => $retour,
+    'control' => $control
+];
 ?>
+
 <?php include 'includes/header.php'; ?>
 <div class="summary-page">
-    <main>
-        <div class="summary-container">
-            <h2>Récapitulatif de votre voyage</h2>
-            <p><strong>Voyage :</strong> <?php echo htmlspecialchars($trip['title']); ?></p>
-            <p><strong>Région :</strong> <?php echo htmlspecialchars($trip['region']); ?></p>
-            <p><strong>Date de départ :</strong> <?php echo htmlspecialchars($trip['start_date']); ?></p>
-            <p><strong>Durée :</strong> <?php echo htmlspecialchars($trip['duration']); ?> jours</p>
-            <p><strong>Prix total :</strong> <?php echo htmlspecialchars($total_price); ?> PO</p>
+    <div class="summary-container">
+        <h2>Récapitulatif de votre voyage</h2>
+        
+        <p><strong>Destination:</strong> <?php echo htmlspecialchars($trip['title']); ?></p>
+        <p><strong>Région:</strong> <?php echo htmlspecialchars($trip['region']); ?></p>
+        <p><strong>Date de départ:</strong> <?php echo htmlspecialchars($trip['start_date']); ?></p>
+        
+        <h3>Etapes du voyage</h3>
+        <ul>
+            <?php foreach ($trip['stages'] as $stage): ?>
+                <li>
+                    <strong><?php echo htmlspecialchars($stage['title']); ?></strong>
+                    <ul>
+                        <?php foreach ($stage['options'] as $option): ?>
+                            <li>
+                                <?php echo htmlspecialchars($option['name']); ?>: 
+                                <?php 
+                                    $selected_value = $_SESSION['selected_trip']['stages'][$stage['id']][$option['name']]['value'];
+                                    $option_price = 0;
+                                    foreach ($option['values'] as $value) {
+                                        if ($value['value'] == $selected_value) {
+                                            $option_price = $value['price'];
+                                            break;
+                                        }
+                                    }
+                                    echo htmlspecialchars($selected_value) . ' (' . $option_price . ' PO)';
+                                ?>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+        
+        <p><strong>Prix total:</strong> <?php echo htmlspecialchars($_SESSION['selected_trip']['total_price']); ?> PO</p>
+        
+        <div class="summary-actions">
+            <a href="trip_details.php?id=<?php echo $_SESSION['selected_trip']['id']; ?>" class="back-button">Modifier les options</a>
             
-            <h3>Étapes</h3>
-            <ul>
-                <?php foreach ($trip['stages'] as $stage): ?>
-                    <li>
-                        <strong><?php echo htmlspecialchars($stage['title']); ?></strong> (<?php echo htmlspecialchars($stage['duration']); ?> jours)
-                        <?php if (isset($_SESSION['selected_trip']['stages'][$stage['id']])): ?>
-                            <ul>
-                                <?php foreach ($_SESSION['selected_trip']['stages'][$stage['id']] as $option_name => $option_data): ?>
-                                    <li>
-                                        <?php echo htmlspecialchars($option_name); ?>: 
-                                        <?php 
-                                            if (is_array($option_data)) {
-                                                echo htmlspecialchars($option_data['value']);
-                                                if (isset($option_data['persons']) && $option_data['persons'] > 1) {
-                                                    echo ' (' . htmlspecialchars($option_data['persons']) . ' personnes)';
-                                                }
-                                            } else {
-                                                echo htmlspecialchars($option_data);
-                                            }
-                                        ?>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        <?php endif; ?>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-            
-            <div class="summary-actions">
-                <a href="trip_details.php?id=<?php echo $trip['id']; ?>" class="back-button">Modifier</a>
-                
-                <?php if ($in_cart): ?>
-                    <a href="cart.php" class="cart-button">Voir le panier</a>
-                <?php else: ?>
-                    <form method="POST" style="display: inline;">
-                        <input type="hidden" name="action" value="add_to_cart">
-                        <button type="submit" class="add-cart-button">Ajouter au panier</button>
-                    </form>
-                <?php endif; ?>
-                
-                <a href="payment.php" class="payment-button">Procéder au paiement</a>
-            </div>
-            
-            <!-- Notification d'ajout au panier -->
-            <?php if (($added_manually || (isset($_SESSION['added_to_cart']) && !isset($_SESSION['notification_shown']))) && $in_cart): ?>
-                <?php $_SESSION['notification_shown'] = true; ?>
-                <div id="cart-notification" class="cart-notification success">
-                    <p>Le voyage a été ajouté à votre panier !</p>
-                </div>
-            <?php endif; ?>
+            <!-- Formulaire direct vers CY Bank -->
+            <form action="https://www.plateforme-smc.fr/cybank/index.php" method="POST" id="cybank_form">
+                <input type="hidden" name="transaction" value="<?php echo htmlspecialchars($transaction); ?>">
+                <input type="hidden" name="montant" value="<?php echo htmlspecialchars($montant); ?>">
+                <input type="hidden" name="vendeur" value="<?php echo htmlspecialchars($vendeur); ?>">
+                <input type="hidden" name="retour" value="<?php echo htmlspecialchars($retour); ?>">
+                <input type="hidden" name="control" value="<?php echo htmlspecialchars($control); ?>">
+                <button type="submit" class="payment-button" id="direct-payment-btn">Procéder au paiement</button>
+            </form>
         </div>
-    </main>
+        
+        <!-- Notification d'ajout au panier si nécessaire -->
+        <?php if (isset($_GET['added_to_cart']) && $_GET['added_to_cart'] == '1'): ?>
+            <div id="cart-notification" class="cart-notification success">
+                Ce voyage a été ajouté à votre panier
+            </div>
+        <?php endif; ?>
+    </div>
 </div>
 
 <style>
-    .summary-container {
-        max-width: 600px;
-        margin: 50px auto;
-        padding: 20px;
-        background: #F8F9FA;
-        border: 1px solid #2F3136;
-        border-radius: 4px;
-    }
-    .summary-container h2 {
-        font-family: 'Beaufort for LOL', sans-serif;
-        color: #2F3136;
-        margin-bottom: 20px;
-    }
-    .summary-container p {
-        margin: 10px 0;
-    }
-    .summary-container ul {
-        list-style: none;
-        margin: 10px 0;
-    }
-    .summary-container ul li {
-        margin: 5px 0;
-    }
-    .summary-actions {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 30px;
-    }
-    .back-button {
-        display: inline-block;
-        background-color: #f0f0f0;
-        color: #333;
-        padding: 10px 20px;
-        border-radius: 4px;
-        text-decoration: none;
-        font-weight: bold;
-    }
-    .payment-button, .cart-button, .add-cart-button {
-        display: inline-block;
-        background-color: #1E88E5;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 4px;
-        text-decoration: none;
-        font-weight: bold;
-        border: none;
-        cursor: pointer;
-    }
-    .add-cart-button {
-        background-color: #FFD700;
-        color: #333;
-    }
-    .cart-button {
-        background-color: #4CAF50;
-    }
-    .payment-button:hover, .cart-button:hover {
-        background-color: #1976D2;
-    }
-    .add-cart-button:hover {
-        background-color: #FFC107;
-    }
-    .cart-notification {
-        margin-top: 20px;
-        padding: 10px 15px;
-        border-radius: 4px;
-        text-align: center;
-        font-weight: bold;
-        transition: all 0.3s ease;
-    }
-    .cart-notification.success {
-        background-color: rgba(76, 175, 80, 0.1);
-        color: #4CAF50;
-        border-left: 4px solid #4CAF50;
-    }
-    
-    /* Mode sombre */
-    .dark-mode .summary-container {
-        background-color: #1e1e1e;
-        border-color: #333;
-    }
-    .dark-mode .summary-container h2 {
-        color: #e0e0e0;
-    }
-    .dark-mode .back-button {
-        background-color: #333;
-        color: #e0e0e0;
-    }
-    .dark-mode .add-cart-button {
-        background-color: #FFD700;
-        color: #333;
-    }
-    .dark-mode .add-cart-button:hover {
-        background-color: #FFC107;
-    }
-    .dark-mode .cart-notification.success {
-        background-color: rgba(76, 175, 80, 0.1);
-        color: #81C784;
-    }
+.summary-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #F8F9FA;
+    border: 1px solid #2F3136;
+    border-radius: 4px;
+}
+.summary-container h2 {
+    font-family: 'Beaufort for LOL', sans-serif;
+    color: #2F3136;
+    margin-bottom: 20px;
+}
+.summary-container p {
+    margin: 10px 0;
+}
+.summary-container ul {
+    list-style: none;
+    margin: 10px 0;
+}
+.summary-container ul li {
+    margin: 5px 0;
+}
+.payment-button {
+    display: inline-block;
+    background-color: #1E88E5;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.payment-button:hover {
+    background-color: #1976D2;
+}
+.back-button {
+    display: inline-block;
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-right: 10px;
+}
+.summary-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.cart-notification {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-top: 20px;
+    text-align: center;
+    display: none;
+}
 </style>
 
 <script>
-// Afficher la notification d'ajout au panier avec une animation
 document.addEventListener('DOMContentLoaded', function() {
+    // Animation du bouton de paiement
+    const paymentButton = document.getElementById('direct-payment-btn');
+    if (paymentButton) {
+        paymentButton.addEventListener('click', function() {
+            this.textContent = 'Redirection vers CY Bank...';
+            this.style.backgroundColor = '#90CAF9';
+            
+            // Ajouter un effet de chargement
+            const overlay = document.createElement('div');
+            overlay.style.position = 'fixed';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.backgroundColor = 'rgba(0,0,0,0.5)';
+            overlay.style.display = 'flex';
+            overlay.style.alignItems = 'center';
+            overlay.style.justifyContent = 'center';
+            overlay.style.zIndex = '9999';
+            overlay.style.opacity = '0';
+            overlay.style.transition = 'opacity 0.3s ease';
+            overlay.innerHTML = '<div style="color: white; font-size: 1.5rem; text-align: center; padding: 20px; background-color: rgba(0,0,0,0.7); border-radius: 8px;">Connexion à CY Bank<br><div class="spinner" style="margin-top: 15px;"></div></div>';
+            
+            // Ajouter le style pour le spinner
+            const spinnerStyle = document.createElement('style');
+            spinnerStyle.textContent = `
+                .spinner {
+                    width: 40px;
+                    height: 40px;
+                    margin: 0 auto;
+                    border: 4px solid rgba(255, 255, 255, 0.3);
+                    border-radius: 50%;
+                    border-top-color: white;
+                    animation: spin 1s linear infinite;
+                }
+                @keyframes spin {
+                    to { transform: rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(spinnerStyle);
+            
+            document.body.appendChild(overlay);
+            
+            // Afficher l'overlay avec un délai pour voir l'animation
+            setTimeout(() => {
+                overlay.style.opacity = '1';
+            }, 50);
+        });
+    }
+    
+    // Afficher la notification si nécessaire
     const notification = document.getElementById('cart-notification');
     if (notification) {
-        // Animation d'entrée
-        notification.style.opacity = '0';
-        notification.style.transform = 'translateY(-20px)';
-        
-        setTimeout(function() {
-            notification.style.transition = 'all 0.3s ease';
+        notification.style.display = 'block';
+        setTimeout(() => {
             notification.style.opacity = '1';
-            notification.style.transform = 'translateY(0)';
-            
-            // Animer le compteur du panier
-            const cartCount = document.getElementById('cart-count');
-            if (cartCount) {
-                cartCount.classList.add('pulse');
-                setTimeout(function() {
-                    cartCount.classList.remove('pulse');
-                }, 500);
-            }
-            
-            // Masquer la notification après 5 secondes
-            setTimeout(function() {
-                notification.style.opacity = '0';
-                
-                setTimeout(function() {
-                    notification.style.display = 'none';
-                }, 300);
-            }, 5000);
-        }, 300);
+        }, 100);
+        
+        // Masquer après 5 secondes
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            notification.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 500);
+        }, 5000);
     }
 });
 </script>
