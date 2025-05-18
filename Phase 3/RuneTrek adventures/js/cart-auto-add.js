@@ -1,24 +1,24 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Vérifier si nous sommes sur la page de détails d'un voyage
+    // check page de détails d'un voyage
     const tripDetailsPage = document.querySelector('.trip-details-page');
     if (!tripDetailsPage) return;
 
-    // Récupérer l'ID du voyage
+    // prend l'ID du voyage
     const tripId = window.location.search.match(/id=(\d+)/)?.[1];
     if (!tripId) return;
     
-    // Vérifier si le mode lecture seule est activé (profil utilisateur)
+    // Vérifie si le mode lecture seule est activé (profil utilisateur)
     const isReadOnly = window.location.search.includes('readonly=1');
     if (isReadOnly) return;
     
-    // Récupérer tous les sélecteurs d'options
+    // Récupére tous les sélecteurs d'options
     const optionSelectors = tripDetailsPage.querySelectorAll('select');
     if (optionSelectors.length === 0) return;
     
     // Variable pour suivre si une modification a été faite
     let optionsModified = false;
     
-    // Ajouter un champ caché au formulaire pour indiquer si le panier doit être mis à jour
+    // Ajoute un champ caché au formulaire pour indiquer si le panier doit être mis à jour
     const form = tripDetailsPage.querySelector('form');
     if (form) {
         const hiddenInput = document.createElement('input');
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
         hiddenInput.id = 'add_to_cart_field';
         form.appendChild(hiddenInput);
         
-        // Ajouter un élément pour afficher le statut du panier
+        // Ajoute un élément pour afficher le statut du panier
         const cartStatus = document.createElement('div');
         cartStatus.className = 'cart-status';
         cartStatus.innerHTML = '<p>Modifiez les options pour ajouter ce voyage au panier</p>';
@@ -41,27 +41,27 @@ document.addEventListener('DOMContentLoaded', function() {
         form.prepend(cartStatus);
     }
     
-    // Suivre les valeurs originales des sélecteurs
+    // Suit les valeurs originales des sélecteurs
     const originalValues = {};
     optionSelectors.forEach((selector, index) => {
         originalValues[selector.name] = selector.value;
         
-        // Ajouter un gestionnaire d'événement pour détecter les changements
+        // Ajoute un gestionnaire d'événement pour détecter les changements
         selector.addEventListener('change', function() {
             if (originalValues[selector.name] !== selector.value) {
-                // Marquer que des modifications ont été faites
+                // Marque que des modifications ont été faites
                 optionsModified = true;
                 
-                // Mettre à jour le champ caché
+                // Maj le champ caché
                 const hiddenField = document.getElementById('add_to_cart_field');
                 if (hiddenField) {
                     hiddenField.value = '1';
                 }
                 
-                // Mettre à jour le statut du panier
+                // Maj le statut du panier
                 updateCartStatus(true);
                 
-                // Marquer visuellement que cette option a été modifiée
+                // Marque visuellement que cette option a été modifiée
                 const formGroup = selector.closest('.form-group');
                 if (formGroup) {
                     formGroup.classList.add('option-modified');
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Ajouter des styles pour les options modifiées
+    // Ajoute des styles pour les options modifiées
     const style = document.createElement('style');
     style.textContent = `
         .option-modified {
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
     
-    // Fonction pour mettre à jour le statut du panier
+    // Fonction pour maj le statut du panier
     function updateCartStatus(active) {
         const cartStatus = document.querySelector('.cart-status');
         if (!cartStatus) return;
