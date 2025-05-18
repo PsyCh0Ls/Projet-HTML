@@ -1,10 +1,10 @@
 <?php
 /**
- * Fonctions de gestion du panier
+ * gere le panier
  */
 
 /**
- * Initialise le panier dans la session si nécessaire
+ * Initialise le panier dans la session 
  */
 function initialize_cart() {
     if (!isset($_SESSION['cart'])) {
@@ -18,7 +18,7 @@ function initialize_cart() {
 }
 
 /**
- * Ajoute un voyage au panier
+ * Ajout voyage panier
  * 
  * @param int $trip_id ID du voyage
  * @param array $options Options sélectionnées pour le voyage
@@ -28,13 +28,13 @@ function add_to_cart($trip_id, $options = []) {
     require_once 'functions.php';
     initialize_cart();
     
-    // Récupérer les détails du voyage
+    // prend les détails du voyage
     $trip = get_trip_by_id($trip_id);
     if (!$trip) {
         return false;
     }
     
-    // Vérifier si le voyage est déjà dans le panier
+    // check si le voyage est déjà dans le panier
     $existing_item_index = -1;
     foreach ($_SESSION['cart']['items'] as $index => $item) {
         if ($item['id'] == $trip_id) {
@@ -43,7 +43,7 @@ function add_to_cart($trip_id, $options = []) {
         }
     }
     
-    // Calculer le prix total avec les options
+    // Calculer le prix tt avec les options
     $total_price = calculate_trip_price($trip, $options);
     
     // Si le voyage existe déjà, mettre à jour les options et le prix
@@ -72,7 +72,7 @@ function add_to_cart($trip_id, $options = []) {
 }
 
 /**
- * Supprime un voyage du panier
+ * Suppr un voyage du panier
  * 
  * @param int $trip_id ID du voyage à supprimer
  * @return bool Succès de l'opération
@@ -93,7 +93,7 @@ function remove_from_cart($trip_id) {
         // Réindexer le tableau
         $_SESSION['cart']['items'] = array_values($_SESSION['cart']['items']);
         
-        // Mettre à jour le compteur et le total
+        // maj compteur et le total
         $_SESSION['cart']['count'] = count($_SESSION['cart']['items']);
         update_cart_total();
         
@@ -116,7 +116,7 @@ function clear_cart() {
 }
 
 /**
- * Met à jour le prix total du panier
+ * maj prix total du panier
  */
 function update_cart_total() {
     $total = 0;
@@ -130,7 +130,7 @@ function update_cart_total() {
 }
 
 /**
- * Calcule le prix total d'un voyage avec ses options
+ * Calcule le prix tt d'un voyage avec ses options
  * 
  * @param array $trip Données du voyage
  * @param array $options Options sélectionnées
@@ -159,12 +159,12 @@ function calculate_trip_price($trip, $options) {
                     if (isset($options[$stage_id][$option_name])) {
                         $selected_value = $options[$stage_id][$option_name];
                         
-                        // Si c'est un tableau, prendre la valeur et le prix
+                        // prend la val du prix si cest un tableau
                         if (is_array($selected_value) && isset($selected_value['value'])) {
                             $selected_value_name = $selected_value['value'];
                             if (isset($selected_value['price'])) {
                                 $total_price += $selected_value['price'];
-                                continue; // Passez à l'option suivante car le prix est déjà ajouté
+                                continue; // option suivante car le prix est déjà ajouté
                             }
                         } else {
                             $selected_value_name = $selected_value;
@@ -218,7 +218,7 @@ function is_in_cart($trip_id) {
 }
 
 /**
- * Sauvegarde le panier en cours dans les voyages achetés de l'utilisateur
+ * save le panier en cours dans les voyages achetés de l'utilisateur
  * 
  * @return bool Succès de l'opération
  */
@@ -240,7 +240,7 @@ function save_cart_to_purchases() {
     $payments = isset($payments_data['payments']) ? $payments_data['payments'] : [];
     
     foreach ($_SESSION['cart']['items'] as $item) {
-        // Créer une nouvelle réservation
+        // Créer une nouvelle résa
         $new_booking = [
             'id' => count($bookings) + 1,
             'user_id' => $user_id,
@@ -272,7 +272,7 @@ function save_cart_to_purchases() {
     write_json('data/bookings.json', $bookings_data);
     write_json('data/payments.json', $payments_data);
     
-    // Mettre à jour la liste des voyages achetés de l'utilisateur
+    // maj liste des voyages achetés de l'utilisateur
     $users_data = read_json('data/users.json');
     foreach ($users_data['users'] as &$user) {
         if ($user['id'] == $user_id) {
