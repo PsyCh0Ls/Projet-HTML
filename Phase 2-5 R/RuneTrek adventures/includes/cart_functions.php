@@ -1,10 +1,10 @@
 <?php
 /**
- * Fonctions de gestion du panier
+ * Fonctions qui gere le panier
  */
 
 /**
- * Initialise le panier dans la session si nécessaire
+ * Initialise si ya besoin
  */
 function initialize_cart() {
     if (!isset($_SESSION['cart'])) {
@@ -28,7 +28,7 @@ function add_to_cart($trip_id, $options = []) {
     require_once 'functions.php';
     initialize_cart();
     
-    // Récupérer les détails du voyage
+    // Récupérer détails 
     $trip = get_trip_by_id($trip_id);
     if (!$trip) {
         return false;
@@ -46,12 +46,11 @@ function add_to_cart($trip_id, $options = []) {
     // Calculer le prix total avec les options
     $total_price = calculate_trip_price($trip, $options);
     
-    // Si le voyage existe déjà, mettre à jour les options et le prix
+    // Si le voyage existe déjà ca met à jour les options et le prix
     if ($existing_item_index !== -1) {
         $_SESSION['cart']['items'][$existing_item_index]['options'] = $options;
         $_SESSION['cart']['items'][$existing_item_index]['price'] = $total_price;
     } else {
-        // Sinon, ajouter le nouveau voyage
         $_SESSION['cart']['items'][] = [
             'id' => $trip_id,
             'title' => $trip['title'],
@@ -90,7 +89,6 @@ function remove_from_cart($trip_id) {
     }
     
     if ($found) {
-        // Réindexer le tableau
         $_SESSION['cart']['items'] = array_values($_SESSION['cart']['items']);
         
         // Mettre à jour le compteur et le total
@@ -104,7 +102,7 @@ function remove_from_cart($trip_id) {
 }
 
 /**
- * Vide complètement le panier
+ * Vide du panier
  */
 function clear_cart() {
     $_SESSION['cart'] = [
@@ -116,7 +114,7 @@ function clear_cart() {
 }
 
 /**
- * Met à jour le prix total du panier
+ * Met à jour le prix tt du panier
  */
 function update_cart_total() {
     $total = 0;
@@ -130,7 +128,7 @@ function update_cart_total() {
 }
 
 /**
- * Calcule le prix total d'un voyage avec ses options
+ * Calcule le prix tt d'un voyage avec ses options
  * 
  * @param array $trip Données du voyage
  * @param array $options Options sélectionnées
@@ -140,7 +138,7 @@ function calculate_trip_price($trip, $options) {
     $base_price = isset($trip['price']) ? $trip['price'] : 0;
     $total_price = $base_price;
     
-    // Si aucune option n'est spécifiée, retourner le prix de base
+    //retourner le prix de base
     if (empty($options)) {
         return $total_price;
     }
@@ -159,7 +157,7 @@ function calculate_trip_price($trip, $options) {
                     if (isset($options[$stage_id][$option_name])) {
                         $selected_value = $options[$stage_id][$option_name];
                         
-                        // Si c'est un tableau, prendre la valeur et le prix
+                        // prend la val du tableau
                         if (is_array($selected_value) && isset($selected_value['value'])) {
                             $selected_value_name = $selected_value['value'];
                             if (isset($selected_value['price'])) {
@@ -240,7 +238,7 @@ function save_cart_to_purchases() {
     $payments = isset($payments_data['payments']) ? $payments_data['payments'] : [];
     
     foreach ($_SESSION['cart']['items'] as $item) {
-        // Créer une nouvelle réservation
+        // Créer une nouvelle résa
         $new_booking = [
             'id' => count($bookings) + 1,
             'user_id' => $user_id,
