@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Vérifier si nous sommes sur la page admin
+    // check page admin
     const adminPage = document.querySelector('.admin-page');
     if (!adminPage) return;
     
-    // Ajouter du style pour les éléments en cours de traitement
+    // Ajout du style pour les éléments en cours de traitement
     const style = document.createElement('style');
     style.textContent = `
         .processing {
@@ -29,35 +29,35 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
     
-    // Intercepter les formulaires pour simuler le délai
+    // Intercept les formulaires pour simuler le délai
     const userManagementForms = document.querySelectorAll('.manage-users form');
     
     userManagementForms.forEach(form => {
-        // Remplacer le comportement par défaut
+        // Remplace le comportement par défaut
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Récupérer les données du formulaire
+            // Récupére les données du formulaire
             const formData = new FormData(form);
             const action = formData.get('action');
             
-            // Ajouter un effet de chargement
+            // effet de chargement
             form.classList.add('processing');
             form.classList.add('processing-overlay');
             
-            // Simuler un délai de traitement (2 secondes)
+            //  délai de traitement (2 secondes)
             setTimeout(() => {
-                // Retirer l'effet de chargement
+                // Retire l'effet de chargement
                 form.classList.remove('processing');
                 form.classList.remove('processing-overlay');
                 
-                // Pour les changements de rôle, mettre à jour l'affichage
+                // Pour les changements de rôle, maj affichage
                 if (action === 'change_role') {
                     const userId = formData.get('user_id');
                     const newRole = formData.get('role');
                     const userItem = form.closest('li');
                     
-                    // Mettre à jour le texte affiché
+                    // maj texte affiché
                     const userText = userItem.textContent;
                     const rolePattern = /Rôle:\s*(admin|user)/i;
                     const updatedText = userText.replace(rolePattern, `Rôle: ${newRole}`);
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const tempElement = document.createElement('div');
                     tempElement.innerHTML = updatedText;
                     
-                    // Simuler une mise à jour réussie
+                    // Simuler une maj réussie
                     alert(`Rôle mis à jour avec succès pour l'utilisateur #${userId}`);
                     
                     // Soumettre réellement le formulaire après le délai
