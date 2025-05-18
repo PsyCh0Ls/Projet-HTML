@@ -1,6 +1,5 @@
-// Fichier: js/cart.js (version consolidée)
 document.addEventListener('DOMContentLoaded', function() {
-    // Classe Cart qui gérera toutes les fonctionnalités du panier
+    // gérer tt les fonctionnalités du panier
     class Cart {
         constructor() {
             this.items = this.loadCart();
@@ -8,21 +7,21 @@ document.addEventListener('DOMContentLoaded', function() {
             this.setupEventListeners();
         }
         
-        // Charger le panier depuis le stockage local
+        // Charge le panier depuis le stockage local
         loadCart() {
             const savedCart = localStorage.getItem('runetrek_cart');
             return savedCart ? JSON.parse(savedCart) : [];
         }
         
-        // Sauvegarder le panier dans le stockage local
+        // Sauvegarde le panier dans le stockage local
         saveCart() {
             localStorage.setItem('runetrek_cart', JSON.stringify(this.items));
             this.updateCartIndicator();
         }
         
-        // Ajouter un voyage au panier
+        // Ajoute un voyage au panier
         addTrip(tripId, tripName, tripPrice) {
-            // Vérifier si le voyage est déjà dans le panier
+            // Vérifie si le voyage est déjà dans le panier
             const existingItem = this.items.find(item => item.id === tripId);
             
             if (existingItem) {
@@ -30,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Ajouter le voyage
+            // Ajoute le voyage
             this.items.push({
                 id: tripId,
                 name: tripName,
@@ -38,10 +37,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 timestamp: Date.now()
             });
             
-            // Sauvegarder le panier
+            // Sauvegarde le panier @oumar verif ca 
             this.saveCart();
             
-            // Animer l'indicateur du panier
+            // Anime l'indicateur du panier
             const countElement = document.getElementById('cart-count');
             if (countElement) {
                 countElement.classList.add('pulse');
@@ -53,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.showNotification('Voyage ajouté au panier', 'success');
         }
         
-        // Supprimer un voyage du panier
+        // Suppr un voyage du panier
         removeTrip(tripId) {
             const index = this.items.findIndex(item => item.id === tripId);
             
@@ -74,9 +73,9 @@ document.addEventListener('DOMContentLoaded', function() {
             this.showNotification('Panier vidé', 'info');
         }
         
-        // Mettre à jour l'indicateur de panier dans l'interface
+        // Maj l'indicateur de panier dans l'interface
         updateCartIndicator() {
-            // Vérifier si l'indicateur existe
+            // Vérifie si l'indicateur existe
             let cartIndicator = document.getElementById('cart-indicator');
             
             // Créer l'indicateur s'il n'existe pas
@@ -94,24 +93,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
                 cartIndicator.id = 'cart-indicator';
                 
-                // Insérer avant le lien de déconnexion
+                // Insére avant le lien de déconnexion
                 const navList = logoutLink.parentNode.parentNode;
                 navList.insertBefore(cartIndicator, logoutLink.parentNode);
                 
                 // Gestionnaire d'événements pour afficher le panier
                 document.getElementById('cart-link').addEventListener('click', (e) => {
-                    if (e.ctrlKey || e.metaKey) return; // Permettre l'ouverture dans un nouvel onglet
+                    if (e.ctrlKey || e.metaKey) return; // Permet l'ouverture dans un nouvel onglet  
                     e.preventDefault();
                     this.showCartModal();
                 });
             }
             
-            // Mettre à jour le nombre d'articles
+            // Maj le nombre d'articles
             const countElement = document.getElementById('cart-count');
             if (countElement) {
                 countElement.textContent = this.items.length;
                 
-                // Ajouter une animation si le nombre a changé
+                // Add animation si le nombre a changé
                 countElement.classList.add('pulse');
                 setTimeout(() => {
                     countElement.classList.remove('pulse');
@@ -119,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // Afficher une modal avec le contenu du panier
+        // Affiche une modal avec le contenu du panier
         showCartModal() {
             // Créer la modal
             const modal = document.createElement('div');
@@ -132,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h2>Votre panier</h2>
             `;
             
-            // Ajouter les voyages
+            // Ajout voyages
             if (this.items.length === 0) {
                 modalContent += `
                     <div class="cart-empty">
@@ -158,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 modalContent += `</ul>`;
                 
-                // Calculer le total
+                // Calcule tt
                 const total = this.items.reduce((sum, item) => sum + parseInt(item.price), 0);
                 
                 modalContent += `
@@ -177,19 +176,19 @@ document.addEventListener('DOMContentLoaded', function() {
             
             document.body.appendChild(modal);
             
-            // Gestionnaires d'événements
+            // Gère les event ( verifier cette patie svp )
             modal.querySelector('.close-modal').addEventListener('click', () => {
                 modal.remove();
             });
             
-            // Fermer en cliquant à l'extérieur
+            // Pour fermer en cliquant a l'ext
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
                     modal.remove();
                 }
             });
             
-            // Gérer la suppression d'articles
+            // Gére la suppression d'articles
             const removeButtons = modal.querySelectorAll('.remove-item');
             removeButtons.forEach(button => {
                 button.addEventListener('click', () => {
@@ -197,17 +196,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (this.removeTrip(tripId)) {
                         button.closest('li').remove();
                         
-                        // Mettre à jour le total
+                        // Maj le total
                         const total = this.items.reduce((sum, item) => sum + parseInt(item.price), 0);
                         modal.querySelector('.cart-total').innerHTML = `<strong>Total:</strong> ${total} PO`;
                         
-                        // Afficher un message si le panier est vide
+                        // Affiche un msgh si le panier est vide
                         if (this.items.length === 0) {
                             const cartItems = modal.querySelector('.cart-items');
                             const cartTotal = modal.querySelector('.cart-total');
                             const cartActions = modal.querySelector('.cart-actions');
                             
-                            // Remplacer par le message de panier vide
+                            // Remplace par le msg panier vide
                             cartItems.innerHTML = `
                                 <div class="cart-empty">
                                     <div class="cart-empty-icon">🛒</div>
@@ -216,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </div>
                             `;
                             
-                            // Masquer les éléments non nécessaires
+                            // Masque les éléments non nécessaires
                             cartTotal.style.display = 'none';
                             cartActions.style.display = 'none';
                         }
@@ -224,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
             
-            // Gérer le vidage du panier
+            // Gére le vidage du panier
             const clearButton = modal.querySelector('#clear-cart');
             if (clearButton) {
                 clearButton.addEventListener('click', () => {
@@ -233,29 +232,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
             
-            // Gérer le paiement
+            // Gére le paiement
             const checkoutButton = modal.querySelector('#checkout-cart');
             if (checkoutButton) {
                 checkoutButton.addEventListener('click', () => {
-                    // Rediriger vers la page de récapitulatif
+                    // Redirig vers la page de récapitulatif
                     window.location.href = 'cart.php';
                 });
             }
         }
         
-        // Configurer les gestionnaires d'événements pour les boutons d'ajout au panier
+        // Configure les gestionnaires d'événements pour les boutons d'ajout au panier
         setupEventListeners() {
-            // Vérifier si nous sommes sur la page de détails d'un voyage
+            // Vérifie on est  sur la page de détails d'un voyage
             const tripDetailsPage = document.querySelector('.trip-details-page');
             
             if (tripDetailsPage) {
-                // Récupérer les informations du voyage
+                // Récupére les info du voyage
                 const tripTitle = document.querySelector('.trip-details h1')?.textContent || '';
                 const tripId = window.location.search.match(/id=(\d+)/)?.[1];
                 const priceMatch = document.querySelector('.trip-info')?.textContent.match(/Prix de base:\s*(\d+)/);
                 const tripPrice = priceMatch ? parseInt(priceMatch[1], 10) : 0;
                 
-                // Ajouter un bouton d'ajout au panier
+                // Ajoute un bouton d'ajout au panier
                 if (tripId && !window.location.search.includes('readonly=1')) {
                     const bookNowButton = document.querySelector('.book-now');
                     
@@ -267,23 +266,23 @@ document.addEventListener('DOMContentLoaded', function() {
                         addToCartButton.innerHTML = '🛒 Ajouter au panier';
                         addToCartButton.dataset.tripId = tripId;
                         
-                        // Ajouter le gestionnaire d'événements
+                        // Ajoute le gestionnaire d'événements
                         addToCartButton.addEventListener('click', (e) => {
                             e.preventDefault();
                             this.addTrip(tripId, tripTitle, tripPrice);
                             
-                            // Ajouter une animation au bouton
+                            // Ajoute une animation au bouton
                             addToCartButton.classList.add('pulse');
                             setTimeout(() => {
                                 addToCartButton.classList.remove('pulse');
                             }, 500);
                         });
                         
-                        // Insérer avant le bouton "Voir le récapitulatif"
+                        // Insére avant le bouton "Voir le récapitulatif"
                         bookNowButton.parentNode.insertBefore(addToCartButton, bookNowButton);
                     }
                     
-                    // Ajouter au panier lorsqu'une option est modifiée
+                    // Ajout au panier lorsqu'une option est modifiée
                     const optionSelectors = tripDetailsPage.querySelectorAll('select');
                     let isFirstChange = true;
                     
@@ -293,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 isFirstChange = false;
                                 this.addTrip(tripId, tripTitle, tripPrice);
                                 
-                                // Afficher un message pour indiquer que le voyage a été automatiquement ajouté au panier
+                                // Affiche un message pour indiquer que le voyage a été automatiquement ajouté au panier
                                 const cartStatus = document.createElement('div');
                                 cartStatus.className = 'cart-status';
                                 cartStatus.innerHTML = '<p>✓ Ce voyage a été ajouté à votre panier</p>';
@@ -315,7 +314,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             
-            // Ajouter des boutons "Ajouter au panier" sur la page de recherche
+            // boutons "Ajouter au panier" sur la page de recherche
             const searchPage = document.querySelector('.search-page');
             if (searchPage) {
                 const tripCards = document.querySelectorAll('.trip-card');
@@ -351,13 +350,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // Afficher une notification
+        // Affiche une notification
         showNotification(message, type = 'info') {
             const notification = document.createElement('div');
             notification.className = `notification ${type}`;
             notification.textContent = message;
             
-            // Ajouter le style si nécessaire
             if (!document.querySelector('style#cart-notification-style')) {
                 const style = document.createElement('style');
                 style.id = 'cart-notification-style';
@@ -397,13 +395,13 @@ document.addEventListener('DOMContentLoaded', function() {
             
             document.body.appendChild(notification);
             
-            // Supprimer après 3 secondes
+            // Suppr après 3 secondes
             setTimeout(() => {
                 notification.remove();
             }, 3000);
         }
     }
     
-    // Initialiser le panier
+    // Initialise le panier
     window.cart = new Cart();
 });
