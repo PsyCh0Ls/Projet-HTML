@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Vérifier si nous sommes sur la page admin
+    // vérif pour la page admin
     const adminPage = document.querySelector('.admin-page');
     if (!adminPage) return;
     
-    // Ajouter du style pour les éléments en cours de traitement
+    // Ajout du style pour les éléments en cours de traitement
     const style = document.createElement('style');
     style.textContent = `
         .processing {
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
     
-    // Intercepter les formulaires pour simuler le délai
+    // chop les formulaires pour simuler le délai
     const userManagementForms = document.querySelectorAll('.manage-users form');
     
     userManagementForms.forEach(form => {
@@ -67,53 +67,53 @@ document.addEventListener('DOMContentLoaded', function() {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Récupérer les données du formulaire
+            // chop les données du formulaire
             const formData = new FormData(form);
             const action = formData.get('action');
             
-            // Ajouter un effet de chargement
+            //  effet de chargement
             form.classList.add('processing');
             form.classList.add('processing-overlay');
             
-            // Simuler un délai de traitement (2 secondes)
+            // simu du traitement (2 secondes)
             setTimeout(() => {
                 // Retirer l'effet de chargement
                 form.classList.remove('processing');
                 form.classList.remove('processing-overlay');
                 
-                // Pour les changements de rôle, mettre à jour l'affichage
+                // refresh de l'affichage
                 if (action === 'change_role') {
                     const userId = formData.get('user_id');
                     const newRole = formData.get('role');
                     const userItem = form.closest('li');
                     const roleSelect = form.querySelector('select[name="role"]');
                     
-                    // Mettre à jour le texte affiché
+                    // maj du txt
                     const userText = userItem.textContent;
                     const rolePattern = /Rôle:\s*(admin|user|normal)/i;
                     const updatedText = userText.replace(rolePattern, `Rôle: ${newRole}`);
                     
-                    // Afficher une notification
+                    // notif
                     showNotification(`Rôle mis à jour avec succès pour l'utilisateur #${userId}`);
                     
-                    // Soumettre réellement le formulaire après le délai
+                    // Soumet réellement le formulaire après le délai
                     form.submit();
                 }
-                // Pour les suppressions, simuler la suppression
+                
                 else if (action === 'delete_user') {
                     const userId = formData.get('user_id');
                     const userItem = form.closest('li');
                     
-                    // Animer la suppression
+                    // Animtion la suppression
                     userItem.style.transition = 'all 0.5s ease-out';
                     userItem.style.opacity = '0';
                     userItem.style.height = '0';
                     userItem.style.overflow = 'hidden';
                     
-                    // Afficher une notification
+                    // Afficher une notif
                     showNotification(`Utilisateur #${userId} supprimé avec succès`);
                     
-                    // Soumettre réellement le formulaire après un autre délai
+                    // Soumet réellement le formulaire après un autre délai
                     setTimeout(() => {
                         form.submit();
                     }, 500);
