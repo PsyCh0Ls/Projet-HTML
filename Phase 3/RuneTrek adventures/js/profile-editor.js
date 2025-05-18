@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Vérifier si nous sommes sur la page de profil
+    // Vérif si nous sommes sur la page de profil
     const profileInfo = document.querySelector('.profile-info');
     if (!profileInfo) return;
     
-    // Récupérer tous les champs d'information du profil
+    // Récupér tous les champs d'information du profil
     const profileFields = profileInfo.querySelectorAll('p');
     
-    // Ajouter du style pour l'édition
+    // Ajout du style pour l'édition
     const style = document.createElement('style');
     style.textContent = `
         .profile-field {
@@ -117,12 +117,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const originalValues = {};
     const modifiedValues = {};
     
-    // Transformer chaque paragraphe en champ éditable
+    // Transfor chaque paragraphe en champ éditable
     profileFields.forEach((field, index) => {
-        // Ignorer le bouton "Modifier le profil" existant
+        // Ignore le bouton "Modifier le profil" existant
         if (field.querySelector('a.edit-profile')) return;
         
-        // Récupérer le texte et la clé du champ
+        // Récupére le texte et la clé du champ
         const fieldText = field.textContent;
         const [fieldName, fieldValue] = fieldText.split(':').map(str => str.trim());
         
@@ -142,15 +142,15 @@ document.addEventListener('DOMContentLoaded', function() {
         editButton.title = 'Modifier';
         fieldContainer.appendChild(editButton);
         
-        // Remplacer le paragraphe original par notre conteneur
+        // Remplace le paragraphe original par notre conteneur
         field.parentNode.replaceChild(fieldContainer, field);
         
-        // Gérer le clic sur le bouton d'édition
+        // Gére le clic sur le bouton d'édition
         editButton.addEventListener('click', function() {
-            // Empêcher l'édition multiple
+            // Empêche l'édition multiple
             const alreadyEditing = document.querySelector('.profile-field.editing');
             if (alreadyEditing && alreadyEditing !== fieldContainer) {
-                // Annuler l'édition en cours
+                // Annule l'édition en cours
                 const editInput = alreadyEditing.querySelector('.edit-input');
                 const actionsDiv = alreadyEditing.querySelector('.field-actions');
                 const valueSpan = alreadyEditing.querySelector('.field-value');
@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Ici, on simulerait l'envoi des modifications au serveur
                     showNotification('Les modifications ont été enregistrées avec succès.');
                     
-                    // Réinitialiser l'état
+                    // Réinitialise l'état
                     hasChanges = false;
                     for (const field in modifiedValues) {
                         originalValues[field] = modifiedValues[field];
@@ -337,7 +337,7 @@ document.addEventListener('DOMContentLoaded', function() {
         submitButton.style.display = 'block';
     }
     
-    // Fonction pour afficher une notification
+    //afficher une notification
     function showNotification(message) {
         const notification = document.createElement('div');
         notification.style.position = 'fixed';
