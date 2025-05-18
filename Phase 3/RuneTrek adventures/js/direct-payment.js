@@ -1,29 +1,23 @@
-/**
- * Script pour gérer l'animation du paiement direct et des actions sur le panier
- */
 document.addEventListener('DOMContentLoaded', function() {
-    // Vérifier si nous sommes sur la page panier
+    // Vérif si on est sur la page panier
     const cartPage = document.querySelector('.cart-page');
     if (!cartPage) return;
     
-    // Configurer les animations pour les boutons de paiement direct
+    // animations pour les boutons de paiement direct
     setupDirectPaymentButtons();
     
-    // Configurer les animations pour les suppressions d'articles
+    // animations pour les suppressions d'articles
     setupRemoveItemButtons();
     
-    // Configurer l'animation pour le vidage du panier
+    // animation pour le vidage du panier
     setupClearCartButton();
     
-    /**
-     * Configure les animations pour les boutons de paiement direct
-     */
     function setupDirectPaymentButtons() {
         const directCheckoutButtons = document.querySelectorAll('.direct-checkout');
         
         directCheckoutButtons.forEach(button => {
             button.addEventListener('click', function(e) {
-                // Ne pas empêcher la soumission par défaut ici, mais ajouter une animation
+                // Empêcher pas la soumission par défaut ici !!!
                 this.innerHTML = '<span class="loading-dots">Paiement</span>';
                 this.disabled = true;
                 this.style.backgroundColor = '#FFB700';
@@ -34,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     cartItem.style.transition = 'all 0.3s ease';
                     cartItem.style.boxShadow = '0 0 0 2px #FFD700';
                     
-                    // Ajouter une pulsation douce
+                    // Ajout assets            
                     cartItem.animate([
                         { boxShadow: '0 0 0 2px #FFD700' },
                         { boxShadow: '0 0 0 4px #FFD700' },
@@ -47,10 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-    
-    /**
-     * Configure les animations pour les boutons de suppression d'articles
-     */
+
     function setupRemoveItemButtons() {
         const removeButtons = document.querySelectorAll('.remove-item');
         
@@ -58,12 +49,12 @@ document.addEventListener('DOMContentLoaded', function() {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
                 
-                // Trouver l'élément parent (cart-item)
+                // Trouve l'élément parent (cart-item)
                 const cartItem = this.closest('.cart-item');
                 const form = this.closest('form');
                 
                 if (cartItem) {
-                    // Animer la disparition de l'élément
+                    // Anime la disparition de l'élément
                     cartItem.style.transition = 'all 0.3s ease';
                     cartItem.style.opacity = '0';
                     cartItem.style.height = '0';
@@ -71,12 +62,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     cartItem.style.margin = '0';
                     cartItem.style.padding = '0';
                     
-                    // Soumettre le formulaire après l'animation
+                    // Soumet le formulaire après l'animation
                     setTimeout(() => {
                         form.submit();
                     }, 300);
                 } else {
-                    // Si on ne trouve pas l'élément parent, soumettre directement
+                    // Si on ne trouve pas l'élément parent, soumett directement
                     form.submit();
                 }
             });
@@ -93,13 +84,13 @@ document.addEventListener('DOMContentLoaded', function() {
             clearButton.addEventListener('click', function(e) {
                 e.preventDefault();
                 
-                // Demander confirmation
+                // Demande confirmation
                 if (confirm('Êtes-vous sûr de vouloir vider votre panier ?')) {
-                    // Animer la disparition de tous les articles
+                    // Anime la disparition de tous les articles
                     const cartItems = document.querySelectorAll('.cart-item');
                     
                     cartItems.forEach((item, index) => {
-                        // Ajouter un délai progressif pour un effet cascade
+                        // Ajoute un délai progressif
                         setTimeout(() => {
                             item.style.transition = 'all 0.3s ease';
                             item.style.opacity = '0';
@@ -110,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         }, index * 50);
                     });
                     
-                    // Mettre à jour le total
+                    // Maj total
                     const totalElement = document.querySelector('.cart-total');
                     if (totalElement) {
                         setTimeout(() => {
@@ -130,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         }, cartItems.length * 50 + 100);
                     }
                     
-                    // Soumettre le formulaire après l'animation
+                    // Soumet le formulaire après l'animation
                     setTimeout(() => {
                         this.closest('form').submit();
                     }, cartItems.length * 50 + 300);
@@ -139,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Ajouter des styles pour les animations
+    // Ajout des styles pour les animations
     const style = document.createElement('style');
     style.textContent = `
         @keyframes loading {
@@ -167,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
     
-    // Animer les éléments du panier lors du chargement initial
+    // Anime les éléments du panier lors du chargement initial
     animateCartItems();
     
     /**
@@ -177,11 +168,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const cartItems = document.querySelectorAll('.cart-item');
         
         cartItems.forEach((item, index) => {
-            // Cacher initialement
+            // Cache initialement
             item.style.opacity = '0';
             item.style.transform = 'translateY(20px)';
             
-            // Afficher avec un délai progressif
+            // Affiche délai progressif
             setTimeout(() => {
                 item.style.transition = 'all 0.5s ease';
                 item.style.opacity = '1';
