@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Vérifier si nous sommes sur la page détails d'un voyage
+    // Vérifie  sur la page détails d'un voyage
     const tripDetails = document.querySelector('.trip-details-page');
     if (!tripDetails) return;
     
-    // Récupérer le prix de base
+    // Récupére le prix de base
     const priceElement = tripDetails.querySelector('.trip-info');
     if (!priceElement) return;
     
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <p class="total-price">${basePrice} PO</p>
     `;
     
-    // Ajouter du style pour le prix dynamique
+    // Ajout du style pour le prix dynamique
     const style = document.createElement('style');
     style.textContent = `
         .dynamic-price {
@@ -58,18 +58,18 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
     
-    // Insérer le conteneur de prix
+    // Insére conteneur de prix
     const tripContent = tripDetails.querySelector('.trip-content');
     tripContent.appendChild(dynamicPriceContainer);
     
-    // Récupérer tous les sélecteurs d'options
+    // Récupére tous les sélecteurs d'options
     const optionSelectors = tripDetails.querySelectorAll('.option-select');
     
-    // Récupérer le sélecteur de nombre de personnes global
+    // Récupére le sélecteur de nombre de personnes global
     const globalPersonsSelect = document.getElementById('global_persons');
     let globalPersons = globalPersonsSelect ? parseInt(globalPersonsSelect.value, 10) : 1;
     
-    // Calculer le prix total initial
+    // Calcule le prix total initial
     let totalPrice = basePrice;
     optionSelectors.forEach(selector => {
         const selectedOption = selector.options[selector.selectedIndex];
@@ -77,29 +77,28 @@ document.addEventListener('DOMContentLoaded', function() {
         totalPrice += optionPrice * globalPersons;
     });
     
-    // Mettre à jour l'affichage du prix total
+    // Maj l'affichage du prix total
     updateTotalPrice(totalPrice);
     
-    // Écouter les changements d'options
     optionSelectors.forEach(selector => {
         selector.addEventListener('change', function() {
-            // Recalculer le prix total à chaque changement
+            // Recalcule le prix total à chaque changement
             recalculatePrice();
             
-            // Mettre en évidence l'option sélectionnée
+            // Met en évidence l'option sélectionnée
             const parentGroup = this.closest('.form-group');
             document.querySelectorAll('.option-selected').forEach(el => {
                 el.classList.remove('option-selected');
             });
             parentGroup.classList.add('option-selected');
             
-            // Mettre à jour le champ caché pour ajouter au panier
+            // Maj le champ caché pour ajouter au panier
             const addToCartField = document.getElementById('add_to_cart_field');
             if (addToCartField) {
                 addToCartField.value = '1';
             }
             
-            // Mettre à jour le statut du panier
+            // Maj le statut du panier
             const cartStatus = document.querySelector('.cart-status');
             if (cartStatus) {
                 ccartStatus.classList.add('active');
@@ -108,12 +107,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Écouter les changements du nombre global de personnes
     if (globalPersonsSelect) {
         globalPersonsSelect.addEventListener('change', function() {
             globalPersons = parseInt(this.value, 10);
             
-            // Mettre à jour tous les champs cachés de personnes
+            // Maj tous les champs cachés de personnes
             const personsInputs = document.querySelectorAll('.persons-input');
             personsInputs.forEach(input => {
                 input.value = globalPersons;
@@ -128,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 addToCartField.value = '1';
             }
             
-            // Mettre à jour le statut du panier
+            // Maj le statut du panier
             const cartStatus = document.querySelector('.cart-status');
             if (cartStatus) {
                 cartStatus.classList.add('active');
@@ -137,27 +135,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Fonction pour recalculer le prix total
+    // Fonction pour recalculer le prix tot
     function recalculatePrice() {
         let newTotalPrice = basePrice;
         
-        // Parcourir tous les sélecteurs d'options
+        // Parcour tous les sélecteurs d'options
         optionSelectors.forEach(selector => {
             const selectedOption = selector.options[selector.selectedIndex];
             const optionPrice = parseInt(selectedOption.getAttribute('data-price') || 0, 10);
             
-            // Ajouter le prix de cette option au total, multiplié par le nombre de personnes
+            // Ajoute le prix de cette option au total, multiplié par le nombre de personnes
             newTotalPrice += optionPrice * globalPersons;
         });
         
-        // Mettre à jour l'affichage uniquement si le prix a changé
+        // Maj l'affichage uniquement si le prix a changé
         if (newTotalPrice !== totalPrice) {
             totalPrice = newTotalPrice;
             updateTotalPrice(totalPrice);
         }
     }
     
-    // Fonction pour mettre à jour l'affichage du prix
+    // Fonction pour maj l'affichage du prix
     function updateTotalPrice(price) {
         const priceElement = dynamicPriceContainer.querySelector('.total-price');
         priceElement.textContent = `${price} PO`;
@@ -175,10 +173,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Exposer la fonction recalculatePrice globalement afin qu'elle puisse être appelée depuis d'autres scripts
+    // Amène la fonction recalculatePrice globalement afin qu'elle puisse être appelée depuis d'autres scripts
     window.recalculatePrice = recalculatePrice;
     
-    // Ajouter un gestionnaire pour le bouton "Ajouter au panier"
+    // Ajoute un gestionnaire pour le bouton "Ajouter au panier"
     const addToCartButton = tripDetails.querySelector('.add-to-cart-button');
     if (addToCartButton) {
         addToCartButton.addEventListener('click', function() {
@@ -188,13 +186,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 addToCartField.value = '1';
             }
             
-            // Animer le bouton
+            // Animatiopn le bouton
             this.classList.add('button-pulse');
             setTimeout(() => {
                 this.classList.remove('button-pulse');
             }, 300);
             
-            // Soumettre le formulaire après un court délai pour voir l'animation
+            // Soumet le formulaire après un court délai pour voir l'animation
             const form = tripDetails.querySelector('form');
             if (form) {
                 setTimeout(() => {
