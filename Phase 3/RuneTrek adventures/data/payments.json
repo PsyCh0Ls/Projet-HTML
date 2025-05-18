@@ -1,0 +1,113 @@
+{
+    "payments": [
+        {
+            "id": 1,
+            "user_id": 1,
+            "trip_id": 1,
+            "card_number": "1234-5678-9012-3456",
+            "card_holder": "Jean Dupont",
+            "expiry_date": "12\/26",
+            "cvv": "123",
+            "transaction_date": "2025-04-20",
+            "status": "completed"
+        },
+        {
+            "id": 2,
+            "user_id": 6,
+            "trip_id": 1,
+            "amount": 840,
+            "date": "2025-05-18 16:43:46",
+            "status": "completed",
+            "options": {
+                "1": {
+                    "H\u00e9bergement": {
+                        "value": "Standard",
+                        "persons": 1,
+                        "price": 100
+                    },
+                    "Activit\u00e9": {
+                        "value": "Visite des usines Hextech",
+                        "persons": 1,
+                        "price": 100
+                    }
+                },
+                "2": {
+                    "H\u00e9bergement": {
+                        "value": "Basique",
+                        "persons": 1,
+                        "price": 50
+                    },
+                    "Activit\u00e9": {
+                        "value": "Visite des laboratoires Chemtech",
+                        "persons": 1,
+                        "price": 90
+                    }
+                }
+            },
+            "transaction_id": "TX682a0e3bd9f04139455361"
+        },
+        {
+            "id": 3,
+            "user_id": 6,
+            "trip_id": 1,
+            "amount": 1750,
+            "date": "2025-05-18 16:48:40",
+            "status": "completed",
+            "options": {
+                "1": {
+                    "1": {
+                        "H\u00e9bergement": {
+                            "value": "Standard",
+                            "persons": 1,
+                            "price": 100
+                        },
+                        "Activit\u00e9": {
+                            "value": "Visite des usines Hextech",
+                            "persons": 1,
+                            "price": 100
+                        }
+                    },
+                    "2": {
+                        "H\u00e9bergement": {
+                            "value": "Basique",
+                            "persons": 1,
+                            "price": 50
+                        },
+                        "Activit\u00e9": {
+                            "value": "Visite des laboratoires Chemtech",
+                            "persons": 1,
+                            "price": 90
+                        }
+                    }
+                },
+                "5": {
+                    "1": {
+                        "H\u00e9bergement": {
+                            "value": "Tente",
+                            "persons": 1,
+                            "price": 50
+                        },
+                        "Activit\u00e9": {
+                            "value": "Fouille arch\u00e9ologique",
+                            "persons": 1,
+                            "price": 90
+                        }
+                    },
+                    "2": {
+                        "H\u00e9bergement": {
+                            "value": "Campement",
+                            "persons": 1,
+                            "price": 40
+                        },
+                        "Activit\u00e9": {
+                            "value": "Randonn\u00e9e \u00e0 dos de chameau",
+                            "persons": 1,
+                            "price": 80
+                        }
+                    }
+                }
+            },
+            "transaction_id": "TX682a0f5e67b69173594111"
+        }
+    ]
+}

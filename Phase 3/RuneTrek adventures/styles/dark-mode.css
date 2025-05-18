@@ -1,0 +1,349 @@
+html.dark-mode,
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Nettoyer la classe de préchargement */
+html.dark-mode-preload:not(.dark-mode),
+body.dark-mode-preload:not(.dark-mode) {
+    background-color: initial;
+    color: initial;
+}
+
+/* Header */
+.dark-mode .main-header {
+    background-color: #0d47a1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .logo a {
+    color: #FFD700;
+}
+
+/* Footer */
+.dark-mode .main-footer {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+.dark-mode .footer-section h3 {
+    color: #FFD700;
+}
+
+.dark-mode .footer-section a {
+    color: #e0e0e0;
+}
+
+.dark-mode .footer-section a:hover {
+    color: #FFD700;
+}
+
+/* Conteneurs et cartes */
+.dark-mode .trip-card, 
+.dark-mode .destination-card, 
+.dark-mode .summary-container,
+.dark-mode .register-container,
+.dark-mode .login-container,
+.dark-mode .profile-container,
+.dark-mode .profile-field,
+.dark-mode .booking-details,
+.dark-mode .payment-page main,
+.dark-mode .search-page .filters,
+.dark-mode .trip-details-page .trip-content,
+.dark-mode .stage {
+    background-color: #1e1e1e;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    border-color: #333;
+}
+
+/* *** SECTION DES ENGAGEMENTS - CORRECTION SPÉCIFIQUE *** */
+/* Appliquer le mode sombre à la section des engagements */
+.dark-mode .commitments,
+.dark-mode .presentation-page .commitments {
+    background-color: #1e1e1e !important;
+}
+
+.dark-mode .commitment-card,
+.dark-mode .presentation-page .commitment-card {
+    background-color: #2a2a2a !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+.dark-mode .commitment-card h3,
+.dark-mode .presentation-page .commitment-card h3 {
+    color: #64B5F6 !important;
+}
+
+.dark-mode .commitments h2,
+.dark-mode .presentation-page .commitments h2 {
+    color: #e0e0e0 !important;
+}
+
+.dark-mode .commitments p,
+.dark-mode .presentation-page .commitment-card p {
+    color: #ccc !important;
+}
+
+/* *** PAGE ADMINISTRATION - CORRECTION SPÉCIFIQUE *** */
+/* Appliquer le mode sombre à la page d'administration */
+.dark-mode .admin-page main {
+    background-color: #121212 !important;
+    color: #e0e0e0 !important;
+}
+
+.dark-mode .admin-page h1,
+.dark-mode .admin-page h2,
+.dark-mode .admin-page h3 {
+    color: #64B5F6 !important;
+}
+
+.dark-mode .admin-page .manage-trips,
+.dark-mode .admin-page .manage-users {
+    background-color: #1e1e1e !important;
+    border-color: #333 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+.dark-mode .admin-page form label {
+    color: #e0e0e0 !important;
+}
+
+.dark-mode .admin-page form input[type="text"],
+.dark-mode .admin-page form input[type="number"],
+.dark-mode .admin-page form input[type="date"],
+.dark-mode .admin-page form textarea,
+.dark-mode .admin-page form select {
+    background-color: #2a2a2a !important;
+    color: #e0e0e0 !important;
+    border-color: #444 !important;
+}
+
+.dark-mode .admin-page form button {
+    background-color: #1976D2 !important;
+    color: white !important;
+}
+
+.dark-mode .admin-page form button:hover {
+    background-color: #1565C0 !important;
+}
+
+.dark-mode .admin-page ul li {
+    border-bottom-color: #333 !important;
+    color: #e0e0e0 !important;
+}
+
+.dark-mode .admin-page ul li a {
+    color: #64B5F6 !important;
+}
+
+.dark-mode .admin-page ul li a:hover {
+    color: #90CAF9 !important;
+}
+
+.dark-mode .admin-page select {
+    background-color: #2a2a2a !important;
+    color: #e0e0e0 !important;
+    border-color: #444 !important;
+}
+
+/* Quick search section */
+.dark-mode .quick-search,
+.dark-mode .presentation-page .quick-search {
+    background-color: #0d47a1 !important;
+}
+
+.dark-mode .search-form,
+.dark-mode .presentation-page .search-form {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.dark-mode .search-input-group select,
+.dark-mode .search-input-group input,
+.dark-mode .presentation-page .search-input-group select,
+.dark-mode .presentation-page .search-input-group input {
+    background-color: #2a2a2a !important;
+    color: #e0e0e0 !important;
+    border: 1px solid #444 !important;
+}
+
+/* About section */
+.dark-mode .about-section,
+.dark-mode .presentation-page .about-section {
+    color: #e0e0e0 !important;
+}
+
+.dark-mode .about-section h1,
+.dark-mode .presentation-page .about-section h1 {
+    color: #e0e0e0 !important;
+}
+
+.dark-mode .about-section .lead-text,
+.dark-mode .presentation-page .about-section .lead-text {
+    color: #ccc !important;
+}
+
+.dark-mode .about-content h2,
+.dark-mode .presentation-page .about-content h2 {
+    color: #64B5F6 !important;
+}
+
+.dark-mode .about-content p,
+.dark-mode .presentation-page .about-content p {
+    color: #ccc !important;
+}
+
+.dark-mode .profile-field:hover {
+    background-color: #2a2a2a;
+}
+
+.dark-mode .profile-field.editing {
+    background-color: rgba(30, 136, 229, 0.2);
+    border-color: rgba(30, 136, 229, 0.3);
+}
+
+/* Formulaires */
+.dark-mode .form-group input, 
+.dark-mode .form-group select, 
+.dark-mode .form-group textarea,
+.dark-mode .search-page .filter-group input,
+.dark-mode .search-page #sort-by {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border: 1px solid #444;
+}
+
+.dark-mode .form-group label {
+    color: #e0e0e0;
+}
+
+.dark-mode .error-message {
+    color: #ff6b6b;
+}
+
+/* Boutons */
+.dark-mode .cta-button, 
+.dark-mode .book-now, 
+.dark-mode .payment-button, 
+.dark-mode .login-button, 
+.dark-mode .register-button,
+.dark-mode .view-details,
+.dark-mode .search-button,
+.dark-mode .apply-filters,
+.dark-mode .save-button,
+.dark-mode .submit-changes,
+.dark-mode a.cta-button,
+.dark-mode a[href="register.php"].cta-button,
+.dark-mode .presentation-page .search-button {
+    background-color: #1976D2 !important;
+    color: white !important;
+}
+
+.dark-mode .cta-button:hover, 
+.dark-mode .book-now:hover, 
+.dark-mode .payment-button:hover, 
+.dark-mode .login-button:hover, 
+.dark-mode .register-button:hover,
+.dark-mode .view-details:hover,
+.dark-mode .search-button:hover,
+.dark-mode .apply-filters:hover,
+.dark-mode .save-button:hover,
+.dark-mode .submit-changes:hover,
+.dark-mode a.cta-button:hover,
+.dark-mode a[href="register.php"].cta-button:hover,
+.dark-mode .presentation-page .search-button:hover {
+    background-color: #1565C0 !important;
+}
+
+.dark-mode .cancel-button {
+    background-color: #424242;
+    color: white;
+}
+
+.dark-mode .cancel-button:hover {
+    background-color: #616161;
+}
+
+/* Images et fonds */
+.dark-mode .hero {
+    filter: brightness(0.85);
+}
+
+.dark-mode .destination-card.piltover,
+.dark-mode .destination-card.demacia,
+.dark-mode .destination-card.ionia,
+.dark-mode .trip-image {
+    filter: brightness(0.85);
+}
+
+/* Pour s'assurer que les images de fond de la section des engagements fonctionnent en mode sombre */
+.dark-mode .about-image.history-image,
+.dark-mode .about-image.philosophy-image,
+.dark-mode .commitment-icon,
+.dark-mode .presentation-page .commitment-icon {
+    filter: brightness(0.85);
+}
+
+/* Tableau de prix dynamique */
+.dark-mode .dynamic-price {
+    background-color: #0d47a1;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .dynamic-price h3 {
+    color: #FFD700;
+}
+
+/* Liens */
+.dark-mode a {
+    color: #64B5F6;
+}
+
+.dark-mode a:hover {
+    color: #90CAF9;
+}
+
+.dark-mode .main-nav a {
+    color: #fff;
+}
+
+.dark-mode .main-nav a:hover {
+    color: #FFD700;
+}
+
+/* Responsive - écrans sombres */
+@media (prefers-color-scheme: dark) {
+    .theme-button {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+}
+
+/* Prix et éléments de mise en évidence */
+.dark-mode .price, 
+.dark-mode .trip-details h1,
+.dark-mode .trip-content h2,
+.dark-mode .trip-content h3,
+.dark-mode .sorting-options label {
+    color: #64B5F6;
+}
+
+/* Assurer que les transitions sont fluides */
+a.cta-button,
+a[href="register.php"].cta-button,
+.main-nav a {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Personnalisation de l'édition des champs */
+.dark-mode input.edit-input {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border: 1px solid #1976D2;
+}
+
+/* Éléments spécifiques */
+.dark-mode .option-selected {
+    background-color: rgba(30, 136, 229, 0.2);
+}
