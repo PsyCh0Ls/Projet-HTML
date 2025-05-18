@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Vérifier si nous sommes sur la page de recherche
+    // Vérifi si nous sommes sur la page de recherche
     const searchPage = document.querySelector('.search-page');
     if (!searchPage) return;
     
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Vider et recréer le conteneur des résultats
         resultsContainer.innerHTML = '';
         
-        // Ajouter les cartes triées
+        // Ajouter  cartes triées
         sortedCards.forEach(card => {
             resultsContainer.appendChild(card);
             card.classList.add('highlight');
