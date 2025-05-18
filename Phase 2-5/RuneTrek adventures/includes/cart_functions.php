@@ -147,17 +147,33 @@ function calculate_trip_price($trip, $options) {
     
     // Calculer le prix en fonction des options sélectionnées
     if (isset($trip['stages'])) {
-        foreach ($trip['stages'] as $stage_index => $stage) {
-            if (isset($stage['options'])) {
-                foreach ($stage['options'] as $option_index => $option) {
+        foreach ($trip['stages'] as $stage) {
+            $stage_id = $stage['id'];
+            
+            // Vérifier si des options sont définies pour cette étape
+            if (isset($options[$stage_id]) && isset($stage['options'])) {
+                foreach ($stage['options'] as $option) {
+                    $option_name = $option['name'];
+                    
                     // Vérifier si cette option a été sélectionnée
-                    if (isset($options[$stage_index][$option_index])) {
-                        $selected_value = $options[$stage_index][$option_index];
+                    if (isset($options[$stage_id][$option_name])) {
+                        $selected_value = $options[$stage_id][$option_name];
                         
-                        // Chercher le prix de l'option sélectionnée
+                        // Si c'est un tableau, prendre la valeur et le prix
+                        if (is_array($selected_value) && isset($selected_value['value'])) {
+                            $selected_value_name = $selected_value['value'];
+                            if (isset($selected_value['price'])) {
+                                $total_price += $selected_value['price'];
+                                continue; // Passez à l'option suivante car le prix est déjà ajouté
+                            }
+                        } else {
+                            $selected_value_name = $selected_value;
+                        }
+                        
+                        // Chercher le prix de l'option sélectionnée dans les valeurs possibles
                         if (isset($option['values'])) {
                             foreach ($option['values'] as $value) {
-                                if ($value['value'] == $selected_value) {
+                                if (isset($value['value']) && $value['value'] == $selected_value_name) {
                                     // Ajouter le prix de cette option au total
                                     $total_price += $value['price'];
                                     break;
@@ -220,6 +236,8 @@ function save_cart_to_purchases() {
     $trips = [];
     $bookings_data = read_json('data/bookings.json');
     $bookings = isset($bookings_data['bookings']) ? $bookings_data['bookings'] : [];
+    $payments_data = read_json('data/payments.json');
+    $payments = isset($payments_data['payments']) ? $payments_data['payments'] : [];
     
     foreach ($_SESSION['cart']['items'] as $item) {
         // Créer une nouvelle réservation
@@ -228,17 +246,31 @@ function save_cart_to_purchases() {
             'user_id' => $user_id,
             'trip_id' => $item['id'],
             'booking_date' => date('Y-m-d'),
+            'options' => $item['options']
+        ];
+        
+        // Créer un nouveau paiement
+        $new_payment = [
+            'id' => count($payments) + 1,
+            'user_id' => $user_id,
+            'trip_id' => $item['id'],
+            'amount' => $item['price'],
+            'date' => date('Y-m-d H:i:s'),
+            'status' => 'completed',
             'options' => $item['options'],
-            'price' => $item['price']
+            'transaction_id' => 'CART' . time() . rand(1000, 9999)
         ];
         
         $bookings[] = $new_booking;
+        $payments[] = $new_payment;
         $trips[] = $item['id'];
     }
     
-    // Sauvegarder les nouvelles réservations
+    // Sauvegarder les nouvelles réservations et paiements
     $bookings_data['bookings'] = $bookings;
+    $payments_data['payments'] = $payments;
     write_json('data/bookings.json', $bookings_data);
+    write_json('data/payments.json', $payments_data);
     
     // Mettre à jour la liste des voyages achetés de l'utilisateur
     $users_data = read_json('data/users.json');
@@ -258,4 +290,13 @@ function save_cart_to_purchases() {
     
     return true;
 }
-?>
+
+/**
+ * Renvoie le nombre d'articles dans le panier sous format JSON
+ */
+function get_cart_count_json() {
+    initialize_cart();
+    header('Content-Type: application/json');
+    echo json_encode(['count' => $_SESSION['cart']['count']]);
+    exit;
+}

@@ -32,6 +32,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         elseif ($_POST['action'] === 'checkout') {
             // Rediriger vers la page de paiement si le panier n'est pas vide
             if (!empty($_SESSION['cart']['items'])) {
+                // Sélectionner le premier voyage du panier comme voyage actif pour le paiement
+                if (!empty($_SESSION['cart']['items'])) {
+                    $first_item = $_SESSION['cart']['items'][0];
+                    $_SESSION['selected_trip'] = [
+                        'id' => $first_item['id'],
+                        'stages' => $first_item['options'],
+                        'total_price' => $first_item['price']
+                    ];
+                }
+                
                 header('Location: payment.php');
                 exit;
             }
@@ -55,11 +65,11 @@ $cart = get_cart();
             <div class="cart-content">
                 <div class="cart-items">
                     <?php foreach ($cart['items'] as $index => $item): ?>
-                        <div class="cart-item">
+                        <div class="cart-item" data-id="<?php echo $item['id']; ?>">
                             <div class="item-details">
                                 <h3><?php echo htmlspecialchars($item['title']); ?></h3>
                                 <p class="item-region"><?php echo htmlspecialchars($item['region']); ?></p>
-                                <p class="item-price"><?php echo htmlspecialchars($item['price']); ?> PO</p>
+                                <p class="item-price" data-price="<?php echo htmlspecialchars($item['price']); ?>"><?php echo htmlspecialchars($item['price']); ?> PO</p>
                                 
                                 <?php if (!empty($item['options'])): ?>
                                     <div class="item-options">
@@ -67,25 +77,31 @@ $cart = get_cart();
                                         <ul>
                                             <?php 
                                             $trip = get_trip_by_id($item['id']);
-                                            foreach ($item['options'] as $stage_index => $stage_options): 
-                                                $stage = isset($trip['stages'][$stage_index]) ? $trip['stages'][$stage_index] : null;
-                                                if (!$stage) continue;
+                                            
+                                            if ($trip && isset($trip['stages']) && !empty($item['options'])):
+                                                foreach ($trip['stages'] as $stage): 
+                                                    $stage_id = $stage['id'];
+                                                    if (!isset($item['options'][$stage_id])) continue;
                                             ?>
                                                 <li>
                                                     <strong><?php echo htmlspecialchars($stage['title']); ?>:</strong>
                                                     <ul>
-                                                        <?php foreach ($stage_options as $option_index => $option_value): 
-                                                            $option = isset($stage['options'][$option_index]) ? $stage['options'][$option_index] : null;
-                                                            if (!$option) continue;
-                                                        ?>
+                                                        <?php foreach ($item['options'][$stage_id] as $option_name => $option_data): ?>
                                                             <li>
-                                                                <?php echo htmlspecialchars($option['name']); ?>: 
-                                                                <?php echo htmlspecialchars($option_value); ?>
+                                                                <?php echo htmlspecialchars($option_name); ?>: 
+                                                                <?php 
+                                                                    if (is_array($option_data)) {
+                                                                        echo htmlspecialchars($option_data['value']) . ' (' . $option_data['price'] . ' PO)';
+                                                                    } else {
+                                                                        echo htmlspecialchars($option_data);
+                                                                    }
+                                                                ?>
                                                             </li>
                                                         <?php endforeach; ?>
                                                     </ul>
                                                 </li>
                                             <?php endforeach; ?>
+                                            <?php endif; ?>
                                         </ul>
                                     </div>
                                 <?php endif; ?>
@@ -160,6 +176,7 @@ $cart = get_cart();
     padding: 1.5rem;
     margin-bottom: 1rem;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease-out;
 }
 
 .item-details {
@@ -249,6 +266,41 @@ $cart = get_cart();
 .checkout {
     background-color: #1E88E5;
     color: white;
+}
+
+@keyframes price-highlight {
+    0% { color: #1E88E5; transform: scale(1); }
+    50% { color: #FFD700; transform: scale(1.1); }
+    100% { color: #1E88E5; transform: scale(1); }
+}
+
+.price-updated {
+    animation: price-highlight 0.5s ease-out;
+}
+
+/* Mode sombre */
+.dark-mode .cart-page main {
+    background-color: #121212;
+}
+
+.dark-mode .empty-cart-message {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+.dark-mode .cart-item {
+    background-color: #1e1e1e;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .cart-summary {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+.dark-mode .clear-cart {
+    background-color: #333;
+    color: #e0e0e0;
 }
 
 @media (max-width: 768px) {

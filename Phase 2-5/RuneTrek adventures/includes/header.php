@@ -1,18 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <!DOCTYPE html>
-<html lang="fr">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RuneTrek Adventures</title>
     <!-- Préchargeur de thème pour éviter le clignotement -->
-    <script src="js/theme-loader.js"></script>
-    <link rel="stylesheet" href="styles/runeTrek adventures.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RuneTrek Adventures</title>
     <script src="js/theme-loader.js"></script>
     <link rel="stylesheet" href="styles/runeTrek adventures.css">
     <?php
@@ -41,8 +33,9 @@
     <script src="js/admin-controller.js"></script>
     <script src="js/search-filter.js"></script>
     <script src="js/price-calculator.js"></script>
-    <script src="js/auto-cart.js"></script>
-    <script src="js/main.js"></script>
+    
+    <!-- Remplacer les multiples scripts de panier par notre script unifié -->
+    <script src="js/cart-unified.js"></script>
 </head>
 <body>
     <header class="main-header">
@@ -62,6 +55,12 @@
                         <?php if ($_SESSION['user_role'] === 'admin'): ?>
                             <li><a href="admin.php">Administration</a></li>
                         <?php endif; ?>
+                        <!-- Ajouter l'indicateur de panier ici pour les utilisateurs connectés -->
+                        <li id="cart-indicator">
+                            <a href="cart.php" id="cart-link">
+                                🛒 Panier <span id="cart-count"><?php echo isset($_SESSION['cart']['count']) ? $_SESSION['cart']['count'] : '0'; ?></span>
+                            </a>
+                        </li>
                         <li><a href="logout.php">Déconnexion</a></li>
                     <?php else: ?>
                         <li><a href="login.php">Connexion</a></li>

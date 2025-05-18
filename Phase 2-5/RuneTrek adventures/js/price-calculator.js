@@ -69,12 +69,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let totalPrice = basePrice;
     optionSelectors.forEach(selector => {
         const selectedOption = selector.options[selector.selectedIndex];
-        const optionText = selectedOption.textContent;
-        const optionPriceMatch = optionText.match(/\((\d+) PO\)/);
-        
-        if (optionPriceMatch) {
-            totalPrice += parseInt(optionPriceMatch[1], 10);
-        }
+        const optionPrice = parseInt(selectedOption.getAttribute('data-price') || 0, 10);
+        totalPrice += optionPrice;
     });
     
     // Mettre à jour l'affichage du prix total
@@ -92,6 +88,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 el.classList.remove('option-selected');
             });
             parentGroup.classList.add('option-selected');
+            
+            // Mettre à jour le champ caché pour ajouter au panier
+            const addToCartField = document.getElementById('add_to_cart_field');
+            if (addToCartField) {
+                addToCartField.value = '1';
+            }
+            
+            // Mettre à jour le statut du panier
+            const cartStatus = document.querySelector('.cart-status');
+            if (cartStatus) {
+                cartStatus.classList.add('active');
+                cartStatus.innerHTML = '<p><strong>✓ Ce voyage sera ajouté à votre panier</strong></p>';
+            }
         });
     });
     
@@ -102,12 +111,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Parcourir tous les sélecteurs d'options
         optionSelectors.forEach(selector => {
             const selectedOption = selector.options[selector.selectedIndex];
-            const optionText = selectedOption.textContent;
-            const optionPriceMatch = optionText.match(/\((\d+) PO\)/);
+            const optionPrice = parseInt(selectedOption.getAttribute('data-price') || 0, 10);
             
-            if (optionPriceMatch) {
-                newTotalPrice += parseInt(optionPriceMatch[1], 10);
-            }
+            // Ajouter le prix de cette option au total
+            newTotalPrice += optionPrice;
         });
         
         // Mettre à jour l'affichage uniquement si le prix a changé
@@ -127,5 +134,29 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             priceElement.classList.remove('price-change');
         }, 500);
+        
+        // Mettre à jour également le champ caché pour le prix calculé
+        const calculatedPriceField = document.getElementById('calculated-price');
+        if (calculatedPriceField) {
+            calculatedPriceField.value = price;
+        }
+    }
+    
+    // Ajouter un gestionnaire pour le bouton "Ajouter au panier"
+    const addToCartButton = tripDetails.querySelector('.add-to-cart-button');
+    if (addToCartButton) {
+        addToCartButton.addEventListener('click', function() {
+            // Définir que le voyage doit être ajouté au panier
+            const addToCartField = document.getElementById('add_to_cart_field');
+            if (addToCartField) {
+                addToCartField.value = '1';
+            }
+            
+            // Soumettre le formulaire
+            const form = tripDetails.querySelector('form');
+            if (form) {
+                form.submit();
+            }
+        });
     }
 });
