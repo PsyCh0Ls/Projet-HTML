@@ -1,0 +1,106 @@
+# Document de Conception - RuneTrek Adventures
+
+## Thème du Site
+RuneTrek Adventures est une agence de voyages spécialisée dans les circuits touristiques à travers Runeterra, l'univers de League of Legends. Notre agence propose des voyages organisés à travers les différentes régions et cités-états de ce monde fantastique.
+
+## Public Cible
+- Fans de League of Legends
+- Amateurs de fantasy
+- Voyageurs en quête d'aventures imaginaires
+- Joueurs cherchant à approfondir leur immersion dans l'univers
+
+## Charte Graphique
+
+.Palettes de Couleurs
+
+Mode Clair (Original)
+
+    Couleur principale : #1E88E5 (Bleu RuneTrek)
+    Couleur d'accentuation : #FFD700 (Or/Jaune)
+    Arrière-plan : #F8F9FA (Blanc cassé)
+    Texte principal : #2F3136 (Gris foncé)
+    Texte secondaire : #666666 (Gris moyen)
+    Éléments d'interface : #FFFFFF (Blanc)
+    Bordures : #DDDDDD (Gris clair)
+
+    Mode Sombre (Nouvelle)
+
+    Couleur principale : #0D47A1 (Bleu foncé)
+    Couleur d'accentuation : #FFD700 (Or/Jaune - maintenu pour contraste)
+    Arrière-plan : #121212 (Noir profond)
+    Surface des éléments : #1E1E1E (Gris très foncé)
+    Surface élevée : #2A2A2A (Gris foncé)
+    Texte principal : #E0E0E0 (Gris très clair)
+    Texte secondaire : #AAAAAA (Gris clair)
+    Liens : #64B5F6 (Bleu clair)
+    Bordures : #333333 (Gris foncé)
+
+### Couleurs Secondaires
+- **Vert nature**: #43A047
+  - Pour les éléments liés à Ionia
+- **Rouge noxien**: #D32F2F
+  - Pour les éléments liés à Noxus
+- **Bleu glacial**: #0288D1
+  - Pour les éléments liés à Freljord
+
+### Typographie
+- **Titres**: 'Beaufort for LOL', sans-serif
+  - Taille h1: 2.5rem
+  - Taille h2: 2rem
+  - Taille h3: 1.75rem
+- **Corps du texte**: 'Spiegel', sans-serif
+   Taille de base : 16px
+
+### Éléments d'Interface
+- **Boutons**:
+  - Fond: #1E88E5
+  - Hover: #1976D2
+  - Texte: #FFFFFF
+  - Border-radius: 4px
+  
+- **Liens**:
+  - Non visités: #1E88E5
+  - Visités: #9575CD
+  - Hover: #1976D2
+
+- **Formulaires**:
+    Mode clair : Fond blanc, bordures grises
+    Mode sombre : Fond #2A2A2A, bordures #444444
+  
+    Navigation
+    Mode clair : Fond bleu (#1E88E5), texte blanc
+    Mode sombre : Fond bleu foncé (#0D47A1), texte blanc
+   
+    Cartes et Conteneurs
+    Mode clair : Fond blanc, ombres légères
+    Mode sombre : Fond #1E1E1E, ombres plus marquées
+
+    Boutons
+    Bouton principal (clair) : Fond #1E88E5, texte blanc
+    Bouton principal (sombre) : Fond #1976D2, texte blanc
+    Bouton secondaire (clair) : Fond #F5F5F5, texte #333333
+    Bouton secondaire (sombre) : Fond #424242, texte #E0E0E0
+    Bouton d'accentuation (clair/sombre) : Fond #FFD700, texte #2F3136/texte #121212
+
+ Adaptation des Images
+
+  Les images de fond et illustrations sont légèrement assombries en mode sombre avec un filtre de luminosité : filter: brightness(0.85)
+  Les icônes sont adaptées avec des couleurs plus claires en mode sombre
+
+### Iconographie
+- Style inspiré des icônes de League of Legends
+- Utilisation d'éléments runiques et arcanes
+- Pictogrammes dorés pour les fonctionnalités principales
+
+## Structure des Pages
+Chaque page contiendra :
+- Header avec logo et navigation
+- Footer avec mentions légales et liens utiles
+- Barre de navigation principale
+- Zone de contenu principal
+
+## Responsive Design
+- Breakpoints :
+  - Mobile : < 768px
+  - Tablet : 768px - 1024px
+  - Desktop : > 1024px

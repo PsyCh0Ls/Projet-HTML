@@ -1,0 +1,145 @@
+Rapport de Projet - RuneTrek Adventures
+Présentation du Projet
+RuneTrek Adventures est un site web d'une agence de voyages qui propose des séjours préconfiguré sur le thème de l'univers de League of Legends. Le site permet aux utilisateurs de:
+
+Découvrir des destinations sur le continent imaginaire de Runeterra
+S'inscrire et se connecter à un compte personnel
+Rechercher et personnaliser des voyages selon leurs préférences
+Effectuer des réservations et des paiements en ligne
+Visualiser l'historique de leurs voyages
+
+Structure du Projet
+Le projet est divisé en trois phases principales:
+Phase 1: 
+
+Définition de la charte graphique
+Création des maquettes HTML statiques
+Mise en place du style avec CSS
+
+Phase 2: 
+
+Mise en place du stockage de données (JSON)
+Gestion des utilisateurs (inscription, connexion, session)
+Traitement des formulaires
+Gestion des réservations et paiements
+
+Phase 3: 
+
+Validation des formulaires côté client
+Changement de charte graphique (mode clair/sombre)
+Calcul dynamique des prix
+Interface utilisateur réactive
+Filtrage et tri des résultats de recherche
+Gestion du panier en temps réel
+
+Outils Utilisées
+
+Frontend: HTML5, CSS3, JavaScript
+Backend: PHP
+Stockage: Fichiers JSON
+Paiement: Intégration avec CY Bank (simulateur)
+
+Fonctionnalités Implémentées
+Navigation et Interface Utilisateur
+
+Menu de navigation responsive
+Page d'accueil avec destinations phares
+Page de présentation avec recherche rapide
+Système de recherche avancée avec filtres
+
+Gestion des Utilisateurs
+
+Inscription et connexion
+Profil utilisateur modifiable
+Historique des voyages achetés
+Gestion des paiements
+
+Gestion des Voyages
+
+Affichage des détails des voyages
+Personnalisation des options de voyage
+Calcul dynamique du prix total
+Ajout au panier
+
+Système de Panier
+
+Ajout/suppression de voyages
+Calcul du montant total
+Interface de paiement sécurisée
+
+Administration
+
+Gestion des utilisateurs
+Gestion des voyages
+Modification des droits utilisateurs
+
+Fonctionnalités JavaScript
+
+Validation des formulaires en temps réel
+Mode clair/sombre avec sauvegarde des préférences
+Affichage dynamique du prix lors des modifications d'options
+Tri des résultats de recherche sans rafraîchissement
+Animation des contrôles d'administration
+Édition du profil utilisateur sans rechargement de page
+
+Difficultés Rencontrées et Solutions
+Phase 1: Structure et Design
+
+Difficulté: Création d'une charte graphique cohérente avec l'univers de League of Legends
+Solution: Recherche approfondie de l'esthétique du jeu et adaptation des éléments visuels
+
+Phase 2: Gestion des Données
+
+Difficulté: Organisation efficace des données utilisateurs et voyages
+Solution: Structure JSON hiérarchique avec relations entre utilisateurs, voyages, et réservations
+Difficulté: On a rencontré un problème avec le retour paiement, c'est-à-dire que l'envoie des données è Cy-Bank
+
+Phase 3: Interactions JavaScript
+
+Difficulté: Implémentation du mode sombre/sans clignotement lors du chargement/sans changer la structure du site/sans qu'une partie reste claire en mode sombre
+Solution: Préchargement des styles avec un script intégré dans le head 
+
+Difficulté: Création du panier 
+Solution: On a du avoir recours à l'IA mais bien qu'on ait réussit à avoir un panier on s'est rendu compte qu'en fait ça avait généré plusieurs paniers ce qui a crée plus de      problèmes dont notamment le suivant  
+
+Difficulté: le fait qu'après avoir personnalisé un voyage ce qui met normalement à jour le prix dans panier le prix du voyage dans le panier restait celui de base mais que dans celui-ci ou encore le fait que pour le calcul des prix au début le récapitulatif ne prenait en compte que le premier voyage ajouté par l'utilisateur si y en a plus d'un dans son panier
+Solution: Ces problèmes ont été réglés en réécrivant/ajoutant des fichiers et avec l'aide l'IA pour certains dont la duplication d'éléments présents sur l'interface
+
+Difficulté: Le panier était partagé par tous les utilisateurs mais ceux qui venait de s'inscrire/le panier qui se vidait a chaque déconnexion
+Solution: Modifier le système de panier déjà mis en place
+
+Difficulté: redirection du panier à l'interface Cy-Bank
+Solution: L'url vers Cy-Bank avait été mal intégré dans de nombreux fichiers
+
+ 
+
+
+
+
+Difficulté: Calcul dynamique des prix avec multiples options
+Solution: Système d'événements pour surveiller les changements et mettre à jour le prix en temps réel
+
+
+
+Répartition des Tâches dans l'Équipe
+Phase 1
+
+Toute le groupe: Conception de la charte graphique et des maquettes
+Romain: Intégration HTML des principales pages
+Groupe: Développement CSS et responsive design
+Sidney: implémentation des images
+
+Phase 2
+
+Romain/Sidney: Structure de données et fonctions PHP principales
+Romain: Gestion des utilisateurs et sessions
+Sidney: Système de recherche et affichage des voyages
+
+Phase 3
+
+Oumar: Validation des formulaires et mode sombre
+Sidney/Oumar: Calcul dynamique des prix et panier
+Oumar: Interface d'édition du profil et animations
+
+
+
