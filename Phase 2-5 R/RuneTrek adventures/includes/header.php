@@ -8,7 +8,7 @@
     <script src="js/theme-loader.js"></script>
     <link rel="stylesheet" href="styles/runeTrek adventures.css">
     <?php
-    // Inclure le CSS spécifique en fonction de la page
+    // Inclut CSS spécifique en fonction de la page
     $current_page = basename($_SERVER['PHP_SELF']);
     $css_files = [
         'index.php' => 'home.css',
