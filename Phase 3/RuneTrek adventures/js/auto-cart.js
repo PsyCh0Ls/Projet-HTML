@@ -1,34 +1,34 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Vérifier si nous sommes sur la page de détails d'un voyage
+    // check page de détails d'un voyage
     const tripDetailsPage = document.querySelector('.trip-details-page');
     if (!tripDetailsPage) return;
 
-    // Récupérer les informations du voyage
+    // Récupére les info du voyage
     const tripTitle = document.querySelector('.trip-details h1')?.textContent || '';
     const tripId = window.location.search.match(/id=(\d+)/)?.[1];
     const priceMatch = document.querySelector('.trip-info')?.textContent.match(/Prix de base:\s*(\d+)/);
     const tripPrice = priceMatch ? parseInt(priceMatch[1], 10) : 0;
 
-    // Vérifier si le mode lecture seule est activé (profil utilisateur)
+    // Vérifie si le mode lecture seule est activé (profil utilisateur)
     const isReadOnly = window.location.search.includes('readonly=1');
     if (isReadOnly) return;
 
-    // Récupérer tous les sélecteurs d'options
+    // Récupérer tt les sélecteurs d'options
     const optionSelectors = tripDetailsPage.querySelectorAll('select');
     
     // Fonction pour ajouter au panier
     function addToCart() {
-        // Vérifier si le panier existe dans localStorage
+        // Vérif si le panier existe dans localStorage
         let cart = JSON.parse(localStorage.getItem('runetrek_cart') || '[]');
         
-        // Vérifier si le voyage est déjà dans le panier
+        // Vérif si le voyage est déjà dans le panier
         const existingItemIndex = cart.findIndex(item => item.id === tripId);
         if (existingItemIndex !== -1) {
             console.log('Ce voyage est déjà dans votre panier');
             return;
         }
         
-        // Ajouter le voyage au panier
+        // Ajout voyage au panier
         cart.push({
             id: tripId,
             name: tripTitle,
@@ -36,17 +36,17 @@ document.addEventListener('DOMContentLoaded', function() {
             timestamp: Date.now()
         });
         
-        // Sauvegarder le panier
+        // Save panier
         localStorage.setItem('runetrek_cart', JSON.stringify(cart));
         
-        // Afficher une notification
+        // Affiche notif
         showNotification('Voyage ajouté automatiquement au panier', 'info');
         
-        // Mettre à jour l'indicateur de panier
+        // Maj indicateur de panier
         updateCartIndicator();
     }
     
-    // Fonction pour afficher une notification
+    // Fonction pour afficher notif
     function showNotification(message, type = 'info') {
         const notification = document.createElement('div');
         notification.className = `notification ${type}`;
@@ -63,19 +63,18 @@ document.addEventListener('DOMContentLoaded', function() {
         
         document.body.appendChild(notification);
         
-        // Disparaître après 3 secondes
         setTimeout(() => {
             notification.style.opacity = '0';
             notification.style.transition = 'opacity 0.5s';
             
-            // Supprimer après la transition
+            // Supprime ap transition
             setTimeout(() => {
                 notification.remove();
             }, 500);
         }, 3000);
     }
     
-    // Fonction pour mettre à jour l'indicateur de panier
+    // Fonction maj l'indicateur de panier
     function updateCartIndicator() {
         const cart = JSON.parse(localStorage.getItem('runetrek_cart') || '[]');
         const cartCount = cart.length;
@@ -91,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Ajouter des écouteurs d'événements pour les sélecteurs d'options
+    // Ajoute des écouteurs d'événements pour les sélecteurs d'options
     optionSelectors.forEach(selector => {
         let originalValue = selector.value;
         
@@ -99,10 +98,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // Si c'est la première modification, ajouter au panier
             if (originalValue === selector.value) return;
             
-            // Ajouter le voyage au panier automatiquement
+            // Ajoute le voyage au panier automatiquement
             addToCart();
             
-            // Mettre à jour la valeur originale pour ne pas déclencher à nouveau
+            // Maj la valeur originale pour ne pas déclencher à nouveau
             originalValue = null;
         });
     });
