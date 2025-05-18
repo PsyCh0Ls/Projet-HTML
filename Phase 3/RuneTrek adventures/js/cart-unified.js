@@ -1,45 +1,44 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Vérifier si l'utilisateur est connecté (si le lien de déconnexion existe)
+    // Check si l'utilisateur est connecté (si le lien de déconnexion existe)
     const logoutLink = document.querySelector('a[href="logout.php"]');
     if (!logoutLink) return; // L'utilisateur n'est pas connecté
     
-    // Configurer les boutons d'ajout au panier sur les pages de voyage
+    // boutons d'ajout au panier sur les pages de voyage
     setupAddToCartButtons();
     
-    // Configurer les boutons de suppression dans la page panier
+    // boutons de suppression dans la page panier
     setupRemoveItemButtons();
     
-    // Configurer le bouton de vidage du panier
+    // bouton de vidage du panier
     setupClearCartButton();
     
-    // Ajouter une animation pour les modifications d'options sur la page de détails
+    // Animation pour les modifications d'options sur la page de détails
     setupOptionChanges();
     
     /**
-     * Configure les boutons d'ajout au panier
+     * boutons d'ajout au panier
      */
     function setupAddToCartButtons() {
-        // Trouver tous les boutons d'ajout au panier
+        // Trouve tous les boutons d'ajout au panier
         const addToCartButtons = document.querySelectorAll('.add-to-cart, .add-to-cart-button');
         
         addToCartButtons.forEach(button => {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
                 
-                // Si c'est sur la page de détails, utiliser le formulaire pour capturer les options
                 const tripDetailsPage = document.querySelector('.trip-details-page');
                 if (tripDetailsPage) {
                     const form = tripDetailsPage.querySelector('form');
                     const addToCartField = document.getElementById('add_to_cart_field');
                     
                     if (form && addToCartField) {
-                        // Définir que le voyage doit être ajouté au panier
+                        // Déf voyage doit être ajouté au panier
                         addToCartField.value = '1';
                         
-                        // Ajouter une animation au bouton
+                        // Ajoute une animation au bouton
                         button.classList.add('button-pulse');
                         
-                        // Soumettre le formulaire après un court délai pour l'animation
+                        // Soumet le formulaire après un court délai pour l'animation
                         setTimeout(() => {
                             form.submit();
                         }, 300);
@@ -47,9 +46,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         return;
                     }
                 }
-                
-                // Pour les autres pages, utiliser la méthode standard
-                // Récupérer l'ID du voyage
+                            
+                // Récupére l'ID du voyage
                 const tripId = button.getAttribute('data-id') || window.location.search.match(/id=(\d+)/)?.[1];
                 if (!tripId) return;
                 
@@ -59,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 form.action = 'add_to_cart.php';
                 form.style.display = 'none';
                 
-                // Ajouter l'ID du voyage
+                // Ajoute l'ID du voyage
                 const idInput = document.createElement('input');
                 idInput.type = 'hidden';
                 idInput.name = 'trip_id';
@@ -68,16 +66,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 form.appendChild(idInput);
                 document.body.appendChild(form);
                 
-                // Ajouter une animation au bouton
+                // Ajout une animation au bouton
                 button.classList.add('button-pulse');
                 setTimeout(() => {
                     button.classList.remove('button-pulse');
                 }, 500);
                 
-                // Afficher une notification
+                // Affiche une notif
                 showNotification('Voyage ajouté au panier', 'success');
                 
-                // Soumettre le formulaire après un court délai
+                // Soumet formulaire après un court délai
                 setTimeout(() => {
                     form.submit();
                 }, 300);
@@ -86,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     /**
-     * Configure les boutons de suppression d'articles dans la page panier
+     * boutons de suppression d'articles dans la page panier
      */
     function setupRemoveItemButtons() {
         const removeButtons = document.querySelectorAll('.remove-item');
@@ -98,14 +96,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 const form = this.closest('form');
                 const cartItem = this.closest('.cart-item');
                 
-                // Animer la suppression
                 if (cartItem) {
                     cartItem.style.transition = 'all 0.3s ease-out';
                     cartItem.style.opacity = '0';
                     cartItem.style.height = '0';
                     cartItem.style.overflow = 'hidden';
                     
-                    // Soumettre après l'animation
+                    // Soumet après l'animation
                     setTimeout(() => {
                         form.submit();
                     }, 300);
@@ -126,9 +123,9 @@ document.addEventListener('DOMContentLoaded', function() {
             clearButton.addEventListener('click', function(e) {
                 e.preventDefault();
                 
-                // Demander confirmation
+                // Demande confirmation
                 if (confirm('Êtes-vous sûr de vouloir vider votre panier ?')) {
-                    // Animer les éléments du panier
+                    // Anime les éléments du panier
                     const cartItems = document.querySelectorAll('.cart-item');
                     
                     cartItems.forEach(item => {
@@ -138,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         item.style.overflow = 'hidden';
                     });
                     
-                    // Soumettre le formulaire après animation
+                    // Soumet le formulaire après animation c est ca @Sid ?
                     setTimeout(() => {
                         this.closest('form').submit();
                     }, 300);
@@ -151,35 +148,35 @@ document.addEventListener('DOMContentLoaded', function() {
      * Configure les changements d'options sur la page de détails
      */
     function setupOptionChanges() {
-        // Vérifier si nous sommes sur la page de détails d'un voyage
+        // Check si nous sommes sur la page de détails d'un voyage
         const tripDetailsPage = document.querySelector('.trip-details-page');
         if (!tripDetailsPage) return;
         
-        // Récupérer tous les sélecteurs d'options
+        // Prend tous les sélecteurs d'options
         const optionSelectors = tripDetailsPage.querySelectorAll('select');
         const originalValues = {};
         
-        // Stocker les valeurs originales des sélecteurs
+        // Stocke les valeurs originales des sélecteurs
         optionSelectors.forEach(selector => {
             originalValues[selector.name] = selector.value;
             
-            // Ajouter un gestionnaire pour les changements
+            // Ajoute un gestionnaire pour les changements
             selector.addEventListener('change', function() {
                 if (originalValues[selector.name] !== selector.value) {
-                    // Marquer visuellement que cette option a été modifiée
+                    // Marque visuellement que cette option a été modifiée
                     const formGroup = selector.closest('.form-group');
                     if (formGroup) {
                         formGroup.classList.add('option-modified');
                     }
                     
-                    // Indiquer que le voyage sera ajouté au panier lors de la soumission
+                    // Indique que le voyage sera ajouté au panier lors de la soumission
                     const cartStatus = document.querySelector('.cart-status');
                     if (cartStatus) {
                         cartStatus.classList.add('active');
                         cartStatus.innerHTML = '<p><strong>✓ Ce voyage sera ajouté à votre panier</strong></p>';
                     }
                     
-                    // Ajouter un champ caché pour indiquer l'ajout au panier
+                    // Ajoute un champ caché pour indiquer l'ajout au panier @romain ??
                     let hiddenField = document.getElementById('add_to_cart_field');
                     if (!hiddenField) {
                         hiddenField = document.createElement('input');
@@ -197,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     /**
-     * Affiche une notification à l'utilisateur
+     * Affiche une notif à l'utilisateur
      * @param {string} message Message à afficher
      * @param {string} type Type de notification (success, error, info)
      */
@@ -208,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
             existingNotification.remove();
         }
         
-        // Créer la notification
+        // Créer la notif
         const notification = document.createElement('div');
         notification.className = 'cart-notification ' + type;
         notification.textContent = message;
@@ -223,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
         notification.style.fontWeight = 'bold';
         notification.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
         
-        // Couleur selon le type
+        // Couleur pr les  type
         if (type === 'success') {
             notification.style.backgroundColor = '#4CAF50';
             notification.style.color = 'white';
@@ -240,21 +237,21 @@ document.addEventListener('DOMContentLoaded', function() {
         notification.style.opacity = '0';
         notification.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
         
-        // Ajouter au DOM
+        // Ajout au DOM
         document.body.appendChild(notification);
         
-        // Déclencher l'animation
+        // Déclenche l'animation
         setTimeout(() => {
             notification.style.transform = 'translateX(0)';
             notification.style.opacity = '1';
         }, 10);
         
-        // Supprimer après 3 secondes
+        // Supprime après 3 secondes
         setTimeout(() => {
             notification.style.transform = 'translateX(100%)';
             notification.style.opacity = '0';
             
-            // Retirer du DOM après la transition
+            // Retire du DOM après la transition
             setTimeout(() => {
                 notification.remove();
             }, 300);
