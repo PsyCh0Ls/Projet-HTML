@@ -1,19 +1,19 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Vérifier si l'utilisateur est connecté (rechercher le lien de déconnexion)
+    // Check si l'utilisateur est connecté (rechercher le lien de déconnexion)
     const logoutLink = document.querySelector('a[href="logout.php"]');
     if (!logoutLink) return; // Ne pas afficher l'indicateur de panier pour les utilisateurs non connectés
     
-    // Créer et ajouter un indicateur de panier dans le menu de navigation
+    // Créer et ajoute un indicateur de panier dans le menu de navigation
     createCartIndicator();
     
-    // Intercepter les clics sur les boutons d'ajout au panier
+    // Pour rendre le panier cliquable
     setupCartButtons();
     
     /**
      * Crée et ajoute l'indicateur de panier dans la navigation
      */
     function createCartIndicator() {
-        // Vérifier si l'indicateur existe déjà
+        // Check si l'indicateur existe déjà
         let cartIndicator = document.getElementById('cart-indicator');
         if (cartIndicator) return;
         
@@ -118,11 +118,11 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         document.head.appendChild(style);
         
-        // Insérer l'indicateur avant le lien de déconnexion
+        // Insére l'indicateur avant le lien de déconnexion
         const navList = logoutLink.parentNode.parentNode;
         navList.insertBefore(cartIndicator, logoutLink.parentNode);
         
-        // Tenter de charger le nombre d'éléments dans le panier depuis le serveur
+        // charge le nombre d'éléments dans le panier depuis le serveur
         updateCartCount();
     }
     
@@ -130,22 +130,22 @@ document.addEventListener('DOMContentLoaded', function() {
      * Configure les boutons d'ajout au panier sur la page
      */
     function setupCartButtons() {
-        // Trouver tous les boutons d'ajout au panier
+        // Trouve tous les boutons d'ajout au panier
         const addButtons = document.querySelectorAll('.add-to-cart, .add-to-cart-button');
         
         addButtons.forEach(button => {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
                 
-                // Récupérer l'ID du voyage
+                // Récupére l'ID du voyage
                 const tripId = button.dataset.tripId || getUrlParam('id');
                 if (!tripId) return;
                 
-                // Simuler l'ajout au panier
+                // simi d'ajout au panier
                 showCartNotification('Voyage ajouté au panier');
                 updateCartCount(1);
                 
-                // Rediriger après un délai
+                // Redirection après un délai
                 if (button.href) {
                     setTimeout(() => {
                         window.location.href = button.href;
@@ -166,34 +166,33 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     /**
-     * Met à jour le compteur du panier
+     * Maj compteur du panier
      * @param {number} increment Nombre à ajouter (optionnel)
      */
     function updateCartCount(increment = 0) {
         const countElement = document.getElementById('cart-count');
         if (!countElement) return;
         
-        // Pour cette phase, simulons le comptage
+        // simu comptage
         let count = parseInt(countElement.textContent) || 0;
         
         if (increment > 0) {
             count += increment;
             countElement.textContent = count;
             
-            // Animer le compteur
+            // Anime le compteur
             countElement.classList.add('pulse');
             setTimeout(() => {
                 countElement.classList.remove('pulse');
             }, 500);
         } else {
-            // Essayer de récupérer le nombre d'éléments depuis le panier en session
-            // En phase 4, on ferait une requête AJAX, mais pour le moment on simule
+            // Récupére le nombre d'éléments depuis le panier en session
             try {
-                // Soit on récupère depuis localStorage (si défini par d'autres scripts)
+                // récupère depuis localStorage (si défini par d'autres scripts)
                 const cart = JSON.parse(localStorage.getItem('runetrek_cart') || '[]');
                 count = cart.length;
             } catch (e) {
-                // Fallback à une valeur par défaut
+                // reset à une valeur par défaut
                 count = Math.floor(Math.random() * 3);
             }
             
@@ -202,11 +201,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     /**
-     * Affiche une notification d'ajout au panier
+     * Affiche une notif d'ajout au panier
      * @param {string} message Message à afficher
      */
     function showCartNotification(message) {
-        // Supprimer toute notification existante
+        // Supprime toute notification existante
         const existingNotification = document.querySelector('.cart-notification');
         if (existingNotification) {
             existingNotification.remove();
@@ -217,10 +216,10 @@ document.addEventListener('DOMContentLoaded', function() {
         notification.className = 'cart-notification';
         notification.textContent = message;
         
-        // Ajouter au DOM
+        // Ajoute au DOM
         document.body.appendChild(notification);
         
-        // Supprimer après 3 secondes
+        // Supprime après 3 secondes (Oumar verif vite fait stp....)
         setTimeout(() => {
             notification.remove();
         }, 3000);
