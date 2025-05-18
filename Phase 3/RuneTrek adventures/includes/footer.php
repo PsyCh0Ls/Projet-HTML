@@ -1,5 +1,4 @@
 <?php
-// includes/footer.php
 ?>
 <footer class="main-footer">
     <div class="footer-content">
