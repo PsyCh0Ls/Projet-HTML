@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Créer le bouton de thème sans modifier la mise en page
     function createThemeButton() {
-        // Vérifier si le bouton existe déjà
+        // Vérifie si le bouton existe déjà
         if (document.getElementById('theme-switcher')) return;
         
         // Créer le bouton
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
         themeButton.innerHTML = getCookie('theme') === 'dark' ? '☀️' : '🌙';
         themeButton.title = getCookie('theme') === 'dark' ? 'Mode clair' : 'Mode sombre';
         
-        // Ajouter le style pour le bouton uniquement
+        // Ajoute le style pour le bouton uniquement
         const styleElement = document.createElement('style');
         styleElement.textContent = `
             .theme-button {
@@ -43,22 +43,22 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         document.head.appendChild(styleElement);
         
-        // Ajouter au DOM sans modifier la structure existante
+        // Ajoute au DOM sans modifier la structure existante
         document.body.appendChild(themeButton);
         
-        // Ajouter l'écouteur d'événement
+        // Ajoute l'écouteur d'événement
         themeButton.addEventListener('click', toggleTheme);
         
-        // Appliquer le thème actuel au chargement
+        // Applique le thème actuel au chargement
         if (getCookie('theme') === 'dark') {
             loadDarkStylesheet();
-            // Supprimer la classe de préchargement une fois le CSS chargé
+            // Supprime la classe de préchargement une fois le CSS chargé
             setTimeout(() => {
                 const preloadStyle = document.getElementById('preload-dark-style');
                 if (preloadStyle) preloadStyle.remove();
             }, 100);
         } else {
-            // S'assurer que le mode sombre est complètement désactivé
+            // S'assure que le mode sombre est complètement désactivé
             removeDarkStylesheet();
             document.documentElement.classList.remove('dark-mode-preload');
             const preloadStyle = document.getElementById('preload-dark-style');
@@ -104,20 +104,20 @@ document.addEventListener('DOMContentLoaded', function() {
             // Amélioration du passage au mode clair
             const darkStylesheet = document.getElementById('dark-theme-stylesheet');
             if (darkStylesheet) {
-                // Supprimer avec un petit délai pour éviter le clignotement
+                // Supprime avec un petit délai pour éviter le clignotement
                 darkStylesheet.disabled = true;
                 setTimeout(() => darkStylesheet.remove(), 50);
             }
             
-            // Nettoyer toutes les classes liées au mode sombre
+            // Nettoie toutes les classes liées au mode sombre
             document.documentElement.classList.remove('dark-mode', 'dark-mode-preload');
             document.body.classList.remove('dark-mode', 'dark-mode-preload');
             
-            // Supprimer le style de préchargement
+            // Suppr le style de préchargement
             const preloadStyle = document.getElementById('preload-dark-style');
             if (preloadStyle) preloadStyle.remove();
             
-            // Mettre à jour le bouton
+            // Maj le bouton
             document.getElementById('theme-switcher').innerHTML = '🌙';
             document.getElementById('theme-switcher').title = 'Mode sombre';
         }
@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Fonction pour supprimer la feuille de style du mode sombre
+    // Fonction pour supprla feuille de style du mode sombre
     function removeDarkStylesheet() {
         document.documentElement.classList.remove('dark-mode');
         document.body.classList.remove('dark-mode');
@@ -148,6 +148,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Initialiser le bouton de thème
+    // Initialise le bouton de thème
     createThemeButton();
 });
