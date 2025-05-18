@@ -2,6 +2,7 @@
 session_start();
 require_once 'includes/functions.php';
 require_once 'includes/cart_functions.php';
+require_once 'includes/getapikey.php';
 
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['user_id'])) {
@@ -35,15 +36,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Sélectionner le premier voyage du panier comme voyage actif pour le paiement
                 if (!empty($_SESSION['cart']['items'])) {
                     $first_item = $_SESSION['cart']['items'][0];
+                    $trip = get_trip_by_id($first_item['id']);
+                    
                     $_SESSION['selected_trip'] = [
                         'id' => $first_item['id'],
-                        'stages' => $first_item['options'],
+                        'title' => $trip['title'],
+                        'stages' => $first_item['options'] ?? [],
                         'total_price' => $first_item['price']
                     ];
+                    
+                    // Rediriger vers payment.php qui gère la connexion à CY Bank
+                    header('Location: payment.php');
+                    exit;
                 }
-                
-                header('Location: payment.php');
-                exit;
+            } else {
+                $error = "Votre panier est vide.";
             }
         }
     }
@@ -58,6 +65,10 @@ $cart = get_cart();
 <div class="cart-page">
     <main>
         <h1>Votre panier</h1>
+        
+        <?php if (isset($error)): ?>
+            <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
+        <?php endif; ?>
         
         <?php if (empty($cart['items'])): ?>
             <p class="empty-cart-message">Votre panier est vide. <a href="search.php">Découvrir nos voyages</a></p>
@@ -129,7 +140,7 @@ $cart = get_cart();
                             <button type="submit" class="clear-cart">Vider le panier</button>
                         </form>
                         
-                        <form method="POST" class="cart-action-form">
+                        <form method="POST" class="cart-action-form" id="checkout-form">
                             <input type="hidden" name="action" value="checkout">
                             <button type="submit" class="checkout">Procéder au paiement</button>
                         </form>
@@ -268,6 +279,16 @@ $cart = get_cart();
     color: white;
 }
 
+.error-message {
+    background-color: #FFEBEE;
+    color: #B71C1C;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    text-align: center;
+    border-left: 4px solid #F44336;
+}
+
 @keyframes price-highlight {
     0% { color: #1E88E5; transform: scale(1); }
     50% { color: #FFD700; transform: scale(1.1); }
@@ -303,6 +324,12 @@ $cart = get_cart();
     color: #e0e0e0;
 }
 
+.dark-mode .error-message {
+    background-color: #311B92;
+    color: #E1BEE7;
+    border-left-color: #9C27B0;
+}
+
 @media (max-width: 768px) {
     .cart-content {
         grid-template-columns: 1fr;
@@ -318,5 +345,49 @@ $cart = get_cart();
     }
 }
 </style>
+
+<!-- Script pour animer le bouton checkout -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const checkoutButton = document.querySelector('.checkout');
+    
+    if (checkoutButton) {
+        checkoutButton.addEventListener('click', function() {
+            // Désactiver le bouton pour éviter les clics multiples
+            this.disabled = true;
+            
+            // Animer le bouton
+            this.innerHTML = '<span class="spinner"></span> Redirection vers CY Bank...';
+            this.style.backgroundColor = '#1976D2';
+            
+            // Ajouter une animation de chargement
+            const spinnerStyle = document.createElement('style');
+            spinnerStyle.textContent = `
+                .spinner {
+                    display: inline-block;
+                    width: 18px;
+                    height: 18px;
+                    border: 2px solid rgba(255, 255, 255, 0.3);
+                    border-radius: 50%;
+                    border-top-color: white;
+                    animation: spin 1s ease-in-out infinite;
+                    vertical-align: middle;
+                    margin-right: 8px;
+                }
+                
+                @keyframes spin {
+                    to { transform: rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(spinnerStyle);
+            
+            // Soumettre le formulaire après un court délai pour montrer l'animation
+            setTimeout(() => {
+                this.form.submit();
+            }, 500);
+        });
+    }
+});
+</script>
 
 <?php include 'includes/footer.php'; ?>

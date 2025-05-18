@@ -14,113 +14,165 @@ if (!$trip) {
     exit;
 }
 
-$errors = [];
-$submit_to_cybank = false;
+// Préparer les données pour CY Bank
+$vendeur = 'MIM_C';
+$api_key = getAPIKey($vendeur);
 
-// URL de retour configurable (à ajuster selon ton serveur)
-$return_base_url = 'http://localhost'; // Remplace par ton URL (ex. https://ton-ngrok-id.ngrok.io)
-$return_path = '/retour_paiement.php';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $card_number = trim($_POST['card_number'] ?? '');
-    $card_holder = trim($_POST['card_holder'] ?? '');
-    $expiry_date = trim($_POST['expiry_date'] ?? '');
-    $cvv = trim($_POST['cvv'] ?? '');
-
-    // Validation locale (simulée pour tests)
-    if (!preg_match('/^\d{16}$/', $card_number) || $card_number !== '5555123456789000') {
-        $errors[] = 'Numéro de carte invalide. Utilisez la carte d’essai : 5555123456789000.';
-    }
-    if (empty($card_holder) || strlen($card_holder) > 100) {
-        $errors[] = 'Le nom du titulaire est requis et doit être inférieur à 100 caractères.';
-    }
-    if (!preg_match('/^(0[1-9]|1[0-2])\/[0-9]{2}$/', $expiry_date)) {
-        $errors[] = 'La date d’expiration doit être au format MM/AA.';
-    }
-    if (!preg_match('/^\d{3}$/', $cvv) || $cvv !== '555') {
-        $errors[] = 'CVV invalide. Utilisez le cryptogramme : 555.';
-    }
-
-    if (empty($errors)) {
-        // Préparer les données pour CY Bank
-        $vendeur = 'MIM_C';
-        $api_key = getAPIKey($vendeur);
-        if (!preg_match('/^[0-9a-zA-Z]{15}$/', $api_key)) {
-            $errors[] = 'Clé API invalide pour le vendeur MIM_C.';
-        } else {
-            $transaction = uniqid('TX', true);
-            $transaction = substr(str_replace('.', '', $transaction), 0, 24);
-            $montant = number_format($_SESSION['selected_trip']['total_price'], 2, '.', '');
-            $retour = $return_base_url . $return_path . '?session=' . session_id();
-            $control = md5($api_key . '#' . $transaction . '#' . $montant . '#' . $vendeur . '#' . $retour . '#');
-
-            // Stocker les données pour vérification au retour
-            $_SESSION['payment_data'] = [
-                'transaction' => $transaction,
-                'montant' => $montant,
-                'vendeur' => $vendeur,
-                'retour' => $retour,
-                'control' => $control
-            ];
-
-            $submit_to_cybank = true;
-        }
-    }
+if (!preg_match('/^[0-9a-zA-Z]{15}$/', $api_key)) {
+    $errors[] = 'Clé API invalide pour le vendeur MIM_C.';
+    include 'includes/header.php';
+    // Afficher message d'erreur
+    include 'includes/footer.php';
+    exit;
 }
+
+// Générer un identifiant de transaction unique
+$transaction = uniqid('TX', true);
+$transaction = substr(str_replace('.', '', $transaction), 0, 24);
+$montant = number_format($_SESSION['selected_trip']['total_price'], 2, '.', '');
+
+// URL de retour configurable
+$return_base_url = 'http://' . $_SERVER['HTTP_HOST'];
+$return_path = '/retour_paiement.php';
+$retour = $return_base_url . $return_path . '?session=' . session_id();
+
+$control = md5($api_key . '#' . $transaction . '#' . $montant . '#' . $vendeur . '#' . $retour . '#');
+
+// Stocker les données pour vérification au retour
+$_SESSION['payment_data'] = [
+    'transaction' => $transaction,
+    'montant' => $montant,
+    'vendeur' => $vendeur,
+    'retour' => $retour,
+    'control' => $control
+];
 ?>
-<?php include 'includes/header.php'; ?>
-<div class="payment-page">
-    <main>
-        <h2>Paiement pour <?php echo htmlspecialchars($trip['title']); ?></h2>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirection vers CY Bank - RuneTrek Adventures</title>
+    <link rel="stylesheet" href="styles/runeTrek adventures.css">
+    <style>
+        body {
+            font-family: 'Spiegel', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
+            flex-direction: column;
+        }
+        .loading-container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background-color: white;
+            width: 90%;
+            max-width: 500px;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(30, 136, 229, 0.2);
+            border-radius: 50%;
+            border-top-color: #1E88E5;
+            animation: spin 1s infinite linear;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        h2 {
+            color: #1E88E5;
+            font-family: 'Beaufort for LOL', sans-serif;
+        }
+        .info {
+            margin-top: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .payment-details {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: left;
+        }
+        .payment-details p {
+            margin: 5px 0;
+        }
+        
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        
+        .dark-mode .loading-container {
+            background-color: #1e1e1e;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .dark-mode h2 {
+            color: #64B5F6;
+        }
+        
+        .dark-mode .info {
+            color: #aaa;
+        }
+        
+        .dark-mode .payment-details {
+            background-color: #2a2a2a;
+        }
+    </style>
+    <!-- Script pour détecter le mode sombre -->
+    <script>
+        // Vérifier si le mode sombre est activé
+        function isDarkMode() {
+            return document.cookie.split(';').some(cookie => {
+                const trimmed = cookie.trim();
+                return trimmed.startsWith('theme=dark');
+            });
+        }
+        
+        // Appliquer le mode sombre si nécessaire
+        if (isDarkMode()) {
+            document.documentElement.classList.add('dark-mode');
+            document.body.classList.add('dark-mode');
+        }
+    </script>
+</head>
+<body>
+    <div class="loading-container">
+        <div class="spinner"></div>
+        <h2>Redirection vers CY Bank</h2>
+        <p>Veuillez patienter pendant que nous vous connectons à l'interface de paiement sécurisée...</p>
+        
         <div class="payment-details">
-            <p><strong>Région:</strong> <?php echo htmlspecialchars($trip['region']); ?></p>
-            <p><strong>Date de départ:</strong> <?php echo htmlspecialchars($trip['start_date']); ?></p>
-            <p><strong>Durée:</strong> <?php echo htmlspecialchars($trip['duration']); ?> jours</p>
-            <p><strong>Prix total:</strong> <?php echo htmlspecialchars($_SESSION['selected_trip']['total_price']); ?> PO</p>
+            <p><strong>Voyage:</strong> <?php echo htmlspecialchars($_SESSION['selected_trip']['title'] ?? $trip['title']); ?></p>
+            <p><strong>Montant:</strong> <?php echo htmlspecialchars($montant); ?> PO</p>
         </div>
-        <?php if ($submit_to_cybank): ?>
-            <p>Redirection vers l’interface de paiement CY Bank...</p>
-            <form action="https://www.plateforme-smc.fr/cybank/index.php" method="POST" id="cybank_form">
-                <input type="hidden" name="transaction" value="<?php echo htmlspecialchars($transaction); ?>">
-                <input type="hidden" name="montant" value="<?php echo htmlspecialchars($montant); ?>">
-                <input type="hidden" name="vendeur" value="<?php echo htmlspecialchars($vendeur); ?>">
-                <input type="hidden" name="retour" value="<?php echo htmlspecialchars($retour); ?>">
-                <input type="hidden" name="control" value="<?php echo htmlspecialchars($control); ?>">
-            </form>
-            <script>document.getElementById('cybank_form').submit();</script>
-        <?php else: ?>
-            <?php if (!empty($errors)): ?>
-                <div class="error-message">
-                    <?php foreach ($errors as $error): ?>
-                        <p><?php echo htmlspecialchars($error); ?></p>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
-            <form method="POST" class="payment-form">
-                <div class="form-group">
-                    <label for="card_number">Numéro de carte</label>
-                    <input type="text" id="card_number" name="card_number" maxlength="16" pattern="\d{16}" required
-                           value="<?php echo isset($_POST['card_number']) ? htmlspecialchars($_POST['card_number']) : '5555123456789000'; ?>">
-                </div>
-                <div class="form-group">
-                    <label for="card_holder">Titulaire de la carte</label>
-                    <input type="text" id="card_holder" name="card_holder" maxlength="100" required
-                           value="<?php echo isset($_POST['card_holder']) ? htmlspecialchars($_POST['card_holder']) : 'Test User'; ?>">
-                </div>
-                <div class="form-group">
-                    <label for="expiry_date">Date d’expiration (MM/AA)</label>
-                    <input type="text" id="expiry_date" name="expiry_date" pattern="(0[1-9]|1[0-2])\/[0-9]{2}" placeholder="MM/AA" required
-                           value="<?php echo isset($_POST['expiry_date']) ? htmlspecialchars($_POST['expiry_date']) : '12/25'; ?>">
-                </div>
-                <div class="form-group">
-                    <label for="cvv">CVV</label>
-                    <input type="text" id="cvv" name="cvv" maxlength="3" pattern="\d{3}" required
-                           value="<?php echo isset($_POST['cvv']) ? htmlspecialchars($_POST['cvv']) : '555'; ?>">
-                </div>
-                <button type="submit" class="book-now">Payer maintenant</button>
-            </form>
-            <p><a href="trip_summary.php">Retour au récapitulatif</a></p>
-        <?php endif; ?>
-    </main>
-</div>
-<?php include 'includes/footer.php'; ?>
+        
+        <p class="info">Vous allez être redirigé automatiquement dans quelques instants.</p>
+        
+        <form action="https://www.plateforme-smc.fr/cybank/index.php" method="POST" id="cybank_form">
+            <input type="hidden" name="transaction" value="<?php echo htmlspecialchars($transaction); ?>">
+            <input type="hidden" name="montant" value="<?php echo htmlspecialchars($montant); ?>">
+            <input type="hidden" name="vendeur" value="<?php echo htmlspecialchars($vendeur); ?>">
+            <input type="hidden" name="retour" value="<?php echo htmlspecialchars($retour); ?>">
+            <input type="hidden" name="control" value="<?php echo htmlspecialchars($control); ?>">
+        </form>
+        
+        <script>
+            // Soumettre le formulaire automatiquement après un court délai
+            setTimeout(function() {
+                document.getElementById('cybank_form').submit();
+            }, 1500);
+        </script>
+    </div>
+</body>
+</html>
